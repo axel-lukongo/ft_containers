@@ -1,31 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
+/*   Updated: 2022/12/11 16:33:43 by alukongo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VECTOR_H
 #define VECTOR_H
-
-#include<iostream>
+#include "iterator/iterator.hpp"
 
 template<typename T>
 
 class ft_vector
 {
 private:
-	T *arr;
+	T *_arr;
 	int _size;
 	int _capacity;
 public:
+
+	/************************************************************/
+	/*                        constructor                       */
+	/************************************************************/
 	ft_vector(){_size = _capacity = 0;}
 	ft_vector(int num){
 		_size = _capacity = num;
-		arr = new T[num];
+		_arr = new T[num];
 	}
+
+	ft_vector(ft_vector & copy){
+		_arr = copy._arr;
+		_size = copy._size;
+		_capacity = copy._capacity;
+	}
+
+
+
+	/************************************************************/
+	/*                        operators                         */
+	/************************************************************/
+
+	T & operator[](int index){
+		return _arr[index];
+	}
+
+	ft_vector& operator=(ft_vector & copy){
+		_arr = copy._arr;
+		_size = copy._size;
+		_capacity = copy._capacity;
+		return *this;
+	}
+
+
+
+	/************************************************************/
+	/*                        destructor                        */
+	/************************************************************/
 	~ft_vector(){}
 
+
+
+	/************************************************************/
+	/*                        modifiers                         */
+	/************************************************************/
 	void new_allocation(){
 		T *tmp = new T[_size + 5];
 		_capacity = _size + 5;
 		for (int i = 0; i < _size; i++){
-			tmp[i] = arr[i];
+			tmp[i] = _arr[i];
 		}
-		arr = tmp;
+		_arr = tmp;
 		delete [] tmp;
 	}
 
@@ -33,7 +82,7 @@ public:
 		if (_capacity == _size){
 			new_allocation();
 		}
-		arr[_size] = element;
+		_arr[_size] = element;
 		_size++;
 	}
 
@@ -45,15 +94,40 @@ public:
 		_size--;
 	}
 	
-	// void insert(T element)
+	// void insert(iterator position){}
+	
+	//void erase(iterator position){}
+	//void swap(ft_vector & x){}
+	//void clear(){}
+	//iterator emplace(){}
+	//emplace_back(){}
 
-	T & operator[](int index){
-		return arr[index];
-	}
-
+	
+	/************************************************************/
+	/*                        capacity                          */
+	/************************************************************/
 	// int size(){ return _size; }
-
+	// int size_maxe(){}
+	// void resize(int){}
 	// int capacity(){ return _capacity;}
+	// bool empty(){}
+	// void reserve(int){}
+	// void shrink_to_fit(){}
+
+
+
+
+	/************************************************************/
+	/*                        iterator                          */
+	/************************************************************/
+	// iterator begin(){}
+	// iterator end(){}
+	// reverse_iterator rbegin(){}
+	// reverse_iterator rend(){}
+	// const_iterator cbegin(){}
+	// const_iterator cend(){}
+	//const_reverse_iterator crbegin(){}
+	//const_reverse_iterator crend(){}
 };
 
 
