@@ -6,16 +6,18 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/14 13:40:43 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:50:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 #define VECTOR_H
-#include "iterator/iterator.hpp"
+#include "iterator/random_access_iterator.hpp"
+// #include <cstddef>
+// #include <iostream>
+
 
 template<typename T>
-
 class ft_vector
 {
 private:
@@ -23,8 +25,8 @@ private:
 	int _size;
 	int _capacity;
 public:
-	using Valuetype = T;
-	using iterator = iterator<ft_vector<T>>;
+	typedef T ValueType;
+	typedef Iterator< ft_vector<T> > Iterator;
 public:
 
 /************************************************************/
@@ -113,7 +115,7 @@ public:
 	// int size_maxe(){}
 	// void resize(int){}
 	// int capacity(){ return _capacity;}
-	// bool empty(){}
+	// bool empty(){return (_size == 0)}
 	// void reserve(int){}
 	// void shrink_to_fit(){}
 
@@ -123,8 +125,13 @@ public:
 	/************************************************************/
 	/*                        iterator                          */
 	/************************************************************/
-	iterator begin(){return iterator(_arr);}
-	iterator end(){ return iterator(_arr + _size);}
+	Iterator begin(){
+		Iterator it(_arr);
+		return (it);
+	}
+	Iterator end(){
+		return Iterator(_arr + _size);
+	}
 	// reverse_iterator rbegin(){}
 	// reverse_iterator rend(){}
 	// const_iterator cbegin(){}

@@ -1,74 +1,32 @@
-#ifndef ITERATOR_HPP
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   iterator.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/15 15:18:00 by alukongo          #+#    #+#             */
+/*   Updated: 2022/12/15 15:26:34 by alukongo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
-#include "../vector.hpp"
+# include <memory>
 
-template <typename Vector>
-class iterator
+namespace ft
 {
-public:
-	using ValuType = typename Vector::Valuetype;
-	using PointerType = typename Vector::ValueType*;
-	using ReferenceType = typename Vector::ValueType&;
-public:
-/************************************************************/
-/*                        constructor                       */
-/************************************************************/
-	iterator(PointerType ptr): _ptr(ptr){}
-	iterator(iterator & copy){
-		_ptr = copy._ptr;
-		*this = copy;
-	}
-/************************************************************/
-/*                        operators                         */
-/************************************************************/
-	iterator& operator=(iterator & copy){
-		_ptr = copy._ptr;
-		return *this;
-	}
-
-	iterator& operator++(){
-		_ptr++;
-		return(*this);
-	}
-
-	iterator operator++(int){
-		iterator it = *this;
-		++*this;
-		return(it);
-	}
-
-	iterator& operator--(){
-		_ptr--;
-		return(*this);
-	}
-
-	iterator operator--(int){
-		iterator it = *this;
-		--*this;
-		return(it);
-	}
-	iterator operator[](int i){return *_ptr + i;}
-
-	PointerType operator->(){return _ptr;}
-
-	ReferenceType operator*(){return *_ptr;}
-
-	bool operator==(iterator & other) const{
-		return(other._ptr == _ptr);
-	}
-
-	bool operator!=(iterator & other) const{
-		return(other._ptr != _ptr);
-	}
-
-
-/************************************************************/
-/*                        destructor                        */
-/************************************************************/
-	~iterator(){}
-
-private:
-	PointerType _ptr;
-};
-
-#endif // !ITERATOR_HPP
+	template< typename Category,
+			typename T,
+			typename Distance = ptrdiff_t,
+			typename Pointer = T*,
+			typename Reference = T& >
+	class iterator
+	{
+		protected:
+		typedef T         value_type;
+		typedef Distance  difference_type;
+		typedef Pointer   pointer;
+		typedef Reference reference;
+		typedef Category  iterator_category;
+	};
+}

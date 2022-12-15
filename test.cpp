@@ -6,6 +6,7 @@ int main()
 	std::vector<int> test;
 	std::vector<int>::iterator it;
 	std::vector<int>::iterator itb;
+	test.begin();
 	test.push_back(3);
 	test.push_back(4);
 	test.push_back(1);
