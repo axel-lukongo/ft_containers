@@ -1,5 +1,5 @@
 NAME = exec
-CXX = clang++
+CXX = c++
 RM = rm -f
 CXXFLAGS = -Wall -Werror -Wextra -g -std=c++98
 CPPFLAGS = -MMD

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/15 22:48:25 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/16 21:36:20 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <cstddef>
 #include <iostream>
 # include <memory>
+#include"iterator/reverse_iterator.hpp"
 
 namespace ft{
 template<typename T, class Alloc = std::allocator<T> >
@@ -31,6 +32,8 @@ public:
 	typedef typename allocator_type::const_reference const_reference;
 	typedef typename allocator_type::const_pointer const_pointer;
 	typedef typename allocator_type::size_type size_type;
+	typedef typename  ft::reverse_iterator<iterator> reverse_iterator;
+	typedef typename  ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 private:
 	pointer _start;
@@ -40,9 +43,9 @@ private:
 
 public:
 
-/************************************************************/
-/*                        constructor                       */
-/************************************************************/
+	/************************************************************/
+	/*                        constructor                       */
+	/************************************************************/
 
 
 	explicit vector(const allocator_type& alloc = allocator_type()):
@@ -64,9 +67,6 @@ public:
 			_alloc.allocate(_start + n--, val);
 	}
 
-
-
-
 	// template <class InputIterator>
 	// vector (InputIterator first, InputIterator last,
 	// const allocator_type& alloc = allocator_type()):_alloc(alloc){
@@ -83,9 +83,9 @@ public:
 
 
 
-/************************************************************/
-/*                        operators                         */
-/************************************************************/
+	/************************************************************/
+	/*                        operators                         */
+	/************************************************************/
 
 	// T & operator[](int index){
 	// }
@@ -96,17 +96,18 @@ public:
 
 
 
-/************************************************************/
-/*                        destructor                        */
-/************************************************************/
+	/************************************************************/
+	/*                        destructor                        */
+	/************************************************************/
 	~vector(){}
 
 
 
 
-/************************************************************/
-/*                        iterator                          */
-/************************************************************/
+	/************************************************************/
+	/*                        iterator                          */
+	/************************************************************/
+
 	iterator begin(){
 		return _start;
 	}
@@ -115,7 +116,7 @@ public:
 		return _end;
 	}
 
-//************* const iterator *******************/
+	//************* const iterator *******************/
 
 	const_iterator cbegin()const{
 		return _start;
@@ -124,23 +125,23 @@ public:
 		return _end; 
 	}
 
-//************* reverse iterator *******************/
+	//************* reverse iterator *******************/
 
-	// reverse_iterator rbegin(){
-	// 	return _end;
-	// }
-	// reverse_iterator rend(){
-	// 	return _start;
-	// }
+	reverse_iterator rbegin(){
+		return _end;
+	}
+	reverse_iterator rend(){
+		return _start;
+	}
 
-//*********** const reverse iterator ***************/
+	//*********** const reverse iterator ***************/
 
-	// const_reverse_iterator crbegin()const{
-	// 	return _end;
-	// }
-	// const_reverse_iterator crend(){
-	// 	return _start;
-	// }
+	const_reverse_iterator crbegin()const{
+		return _end;
+	}
+	const_reverse_iterator crend(){
+		return _start;
+	}
 
 
 
@@ -149,7 +150,7 @@ public:
 /*                        capacity                          */
 /************************************************************/
 	int size(){ return (_end - _start); }
-	// int size_maxe(){return (allocator_type().max_size());}
+	int size_maxe(){return (allocator_type().max_size());}
 	
 	// void resize (size_type n, value_type val = value_type()){
 	// 	if (n == _size)
@@ -158,9 +159,9 @@ public:
 			
 	// 	}
 	// }
-	// int capacity(){ return _capacity;}
+	int capacity(){ return _vec_capacity - _start;}
 	
-	// bool empty(){return ( (_end - _start) == 0);}
+	bool empty(){return ( (_end - _start) == 0);}
 	// void reserve(int){}
 	// void shrink_to_fit(){}
 
