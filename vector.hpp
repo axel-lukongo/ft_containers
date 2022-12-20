@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/19 19:20:40 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/20 04:14:03 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ public:
 	typedef typename allocator_type::size_type size_type;
 	typedef typename  ft::reverse_iterator<iterator> reverse_iterator;
 	typedef typename  ft::reverse_iterator<const_iterator> const_reverse_iterator;
+            typedef typename  allocator_type::difference_type difference_type;
 
 private:
 	pointer _start;
@@ -149,9 +150,16 @@ public:
 /************************************************************/
 /*                        capacity                          */
 /************************************************************/
-	size_type size(){ return (_end - _start); }
+	size_type size(){ return (_end - _start);}
+
+
+
 	size_type size_maxe(){return (allocator_type().max_size());}
-	
+
+
+
+
+
 	void fill_memory(pointer end, value_type val, size_type n){
 		for (size_type i = 0; i < n; i++){
 			_alloc.construct(end, val);
@@ -173,10 +181,18 @@ public:
 		}
 	}
 
+
+
+
 	size_type capacity(){ return _vec_capacity - _start;}
-	
+
+
+
+
 	bool empty(){return ( (_end - _start) == 0);}
-	
+
+
+
 
 /******************************** reserve *********************************/
 	
@@ -212,23 +228,14 @@ public:
 	}
 
 
-	// void shrink_to_fit(){}
-
 
 
 
 /************************************************************/
 /*                        modifiers                         */
 /************************************************************/
-	// void new_allocation(){
-	// 	T *tmp = new T[_size + 5];
-	// 	_capacity = _size + 5;
-	// 	for (int i = 0; i < _size; i++){
-	// 		tmp[i] = _arr[i];
-	// 	}
-	// 	_arr = tmp;
-	// 	delete [] tmp;
-	// }
+
+
 
 	void ft_push_back(value_type element){
 		if (capacity() < size() + 1){
@@ -238,17 +245,54 @@ public:
 		_end++;
 	}
 
-	// void ft_pop_back(){
-	// 	if (size() <= 0){
-	// 		std::cout << "impossible to pop back" << std::endl;
-	// 		return ;
-	// 	}
-	// 	_alloc.destroy(_end - 1);
-	// 	_end--;
-	// }
+	void ft_pop_back(){
+		if (size() <= 0){
+			std::cout << "impossible to pop back" << std::endl;
+			return ;
+		}
+		_alloc.destroy(_end - 1);
+		_end--;
+	}
 	
-	// void insert(iterator position, const value_type & val){}
+iterator insert (iterator position, const value_type& val){
+
+	size_t offset_begin;
+
+	distance(begin(), position, offset_begin);
+
+	if (size() + 1 > capacity())
+		reserve(size() * 2);
+
+	pointer new_pos = _end;
+
+	if(position != _end){
+		while (new_pos != (_start + offset_begin)){
+			_alloc.destroy(new_pos);
+			_alloc.construct(new_pos, *(new_pos - 1));
+			new_pos--;
+		}
+	}
+	else
+		ft_push_back(val);
+
+	if(!empty())
+		_alloc.destroy(position);
+
+	_alloc.construct(position, val);
+	_end++;
+	return new_pos;
+}
+
+// void insert (iterator position, size_type n, const value_type& val){
+	//if size > capacity: i reserve
 	
+// }
+
+// template <class InputIterator>
+// void insert (iterator position, InputIterator first, InputIterator last){
+	//if size > capacity: i reserve
+	
+// }
 	// template <class InputIterator>
 	// void assign (InputIterator first, InputIterator last){
 		

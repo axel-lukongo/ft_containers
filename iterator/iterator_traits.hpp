@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:02:27 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/16 20:50:28 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/20 03:39:08 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define ITERATOR_TRAIT_H
 
 #include<cstddef>
+# include <memory> //for the std:..._iterator_tag definitions and the ptrdiff_t
 
 namespace ft{
 	/*here i creat my class iterator_trait who will define the property
@@ -58,7 +59,7 @@ namespace ft{
 			typedef T value_type;
 			typedef T* pointer;
 			typedef T& reference;
-			typedef random_access_iterator_tag iterator_category;
+			typedef std::random_access_iterator_tag iterator_category;
 	};
 
 	template <class T> 
@@ -68,8 +69,89 @@ namespace ft{
 			typedef T value_type;
 			typedef const T* pointer;
 			typedef const T& reference;
-			typedef random_access_iterator_tag iterator_category;
+			typedef std::random_access_iterator_tag iterator_category;
 	};
+
+
+// template<> class iterator_traits<bool>{};
+// 	template<> class iterator_traits<char>{};
+// 	template<> class iterator_traits<char16_t>{};
+// 	template<> class iterator_traits<char32_t>{};
+// 	template<> class iterator_traits<wchar_t>{};
+// 	template<> class iterator_traits<signed char>{};
+// 	template<> class iterator_traits<short int>{};
+// 	template<> class iterator_traits<int>{};
+// 	template<> class iterator_traits<long>{};
+// 	template<> class iterator_traits<long long>{};
+// 	template<> class iterator_traits<unsigned char>{};
+// 	template<> class iterator_traits<unsigned short int>{};
+// 	template<> class iterator_traits<unsigned int>{};
+// 	template<> class iterator_traits<unsigned long>{};
+// 	template<> class iterator_traits<unsigned long long>{};
+
+
+
+	
+
+		template <typename InputIterator, typename Distance>
+	void	
+	distance(InputIterator first, const InputIterator &last, Distance &n, std::random_access_iterator_tag)
+	{
+		n = 0;
+		while (last != first)
+		{
+			n++;
+			++first;
+		}
+	}
+
+	//specialisation for the other types of iterators.
+	template <typename InputIterator, typename Distance>
+	void	
+	distance(InputIterator first, const InputIterator &last, Distance &n, std::forward_iterator_tag)
+	{
+		n = 0;
+		while (last != first)
+		{
+			n++;
+			++first;
+		}
+	}
+
+	//specialisation for the other types of iterators.
+	template <typename InputIterator, typename Distance>
+	void	
+	distance(InputIterator first, const InputIterator &last, Distance &n, std::bidirectional_iterator_tag)
+	{
+		n = 0;
+		while (last != first)
+		{
+			n++;
+			++first;
+		}
+	}
+
+	//specialisation for the other types of iterators.
+	template <typename InputIterator, typename Distance>
+	void	
+	distance(InputIterator first, const InputIterator &last, Distance &n, std::input_iterator_tag)
+	{
+		n = 0;
+		while (last != first)
+		{
+			n++;
+			++first;
+		}
+	}
+
+	//base function before dispatching to calculate the distance between two
+	//iterators
+	template <typename InputIterator, typename Distance>
+	void
+	distance(InputIterator first, const InputIterator &last, Distance &n)
+	{
+		distance(first, last, n, typename iterator_traits<InputIterator>::iterator_category());
+	}
 
 }
 
