@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/20 17:24:07 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:23:01 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int main(){
 	test.ft_push_back(3);
 	test.ft_push_back(2);
 	test.ft_push_back(1);
-	it = test.begin();
-	it++;
+	it = test.end();
+	// it++;
 	std::cout << "size: "<<test.size() << std::endl;
 	std::cout << "capacity: "<<test.capacity() << std::endl;
 
@@ -53,7 +53,7 @@ int main(){
 		std::cout<< *its << std::endl;
 
 	std::cout<<std::endl;
-
+	it++;
 	test.insert(it, 9);
 	// test.insert(it, 5);
 	// test.insert(it, 5);

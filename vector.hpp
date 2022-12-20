@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/20 17:24:41 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:24:26 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ template<typename T, class Alloc = std::allocator<T> >
 class vector
 {
 public:
+	
 	typedef T* iterator;
 	typedef const T* const_iterator;
 	typedef T value_type;
@@ -251,34 +252,36 @@ public:
 		_end--;
 	}
 	
-iterator insert (iterator position, const value_type& val){
+	iterator insert (iterator position, const value_type& val){
 
-	size_t diff;
+		size_t diff;
 
-	distance(begin(), position, diff);
+		/*i calculate the distance between begin and position,
+		so i save this difference in diff*/
+		distance(begin(), position, diff);
+		
+		
+		if (size() + 1 > capacity())
+			reserve(size() * 2);
 
-	if (size() + 1 > capacity())
-		reserve(size() * 2);
+		/* /!\/!\: don't initialize new_pos before the reserve function,
+		because reserve will put _start and _end in a new memorie zone
+		that mean, new_pos will be on the old memorie zone of _end if
+		we anitialize before reserve */
+		pointer new_pos = _end;
 
-	pointer new_pos = _end;
-
-	if(position != _end){
 		while (new_pos != (_start + diff)){
 			_alloc.destroy(new_pos);
 			_alloc.construct(new_pos, *(new_pos - 1));
 			new_pos--;
 		}
+		if(!empty())
+			_alloc.destroy(new_pos);
+
+		_alloc.construct(new_pos, val);
+		_end++;
+		return new_pos;
 	}
-	else
-		ft_push_back(val);
-
-	if(!empty())
-		_alloc.destroy(new_pos);
-
-	_alloc.construct(new_pos, val);
-	_end++;
-	return new_pos;
-}
 
 // void insert (iterator position, size_type n, const value_type& val){
 	//if size > capacity: i reserve
@@ -300,13 +303,6 @@ iterator insert (iterator position, const value_type& val){
 	//void erase(iterator position){}
 	
 	//void swap(vector & x){}
-	
-	// void clear(){
-	// 	while (_end != _start){
-	// 		_end--;
-	// 		_alloc.destroy(_end);
-	// 	}
-	// }
 
 	//iterator emplace(){}
 	
@@ -322,10 +318,7 @@ iterator insert (iterator position, const value_type& val){
 	void clear()
 	{
 		for (;_end != _start; --_end)
-		{
-			// --_end;
 			_alloc.destroy(_end);
-		}	
 	}
 
 

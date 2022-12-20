@@ -8,8 +8,8 @@ int main()
 	test.push_back(3);
 	test.push_back(2);
 	test.push_back(1);
-	it = test.begin();
-	it++;
+	it = test.end();
+	// it++;
 	std::cout << "size: "<<test.size() << std::endl;
 	std::cout << "capacity: "<<test.capacity() << std::endl;
 
@@ -20,7 +20,7 @@ int main()
 
 	std::cout<<std::endl;
 
-	test.insert(it, 9);
+	// test.insert(it, 9);
 	// test.insert(it, 7);
 	// test.insert(it, 5);
 	for(std::vector<int>::iterator its = test.begin(); its < test.end(); its++)
