@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/20 03:48:50 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:24:07 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ int main(){
 
 	std::cout<<std::endl;
 
-	test.insert(it, 5);
+	test.insert(it, 9);
+	// test.insert(it, 5);
+	// test.insert(it, 5);
 	for(ft::vector<int>::iterator its = test.begin(); its < test.end(); its++)
 		std::cout<< *its << std::endl;
 	std::cout<<std::endl;
 	std::cout << "size: "<<test.size() << std::endl;
 	std::cout << "capacity: "<<test.capacity() << std::endl;
+	return (0);
 }

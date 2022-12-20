@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/20 04:14:03 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:24:41 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ public:
 	/************************************************************/
 	/*                        destructor                        */
 	/************************************************************/
-	~vector(){}
+	~vector(){
+		clear();
+		_alloc.deallocate(_start, capacity());
+	}
 
 
 
@@ -160,12 +163,6 @@ public:
 
 
 
-	void fill_memory(pointer end, value_type val, size_type n){
-		for (size_type i = 0; i < n; i++){
-			_alloc.construct(end, val);
-			end++;
-		}
-	}
 	void resize (size_type n, value_type val = value_type()){
 		if (n < size()){
 			for(pointer ptr = _start + n ;ptr < _end; ptr++)
@@ -256,9 +253,9 @@ public:
 	
 iterator insert (iterator position, const value_type& val){
 
-	size_t offset_begin;
+	size_t diff;
 
-	distance(begin(), position, offset_begin);
+	distance(begin(), position, diff);
 
 	if (size() + 1 > capacity())
 		reserve(size() * 2);
@@ -266,7 +263,7 @@ iterator insert (iterator position, const value_type& val){
 	pointer new_pos = _end;
 
 	if(position != _end){
-		while (new_pos != (_start + offset_begin)){
+		while (new_pos != (_start + diff)){
 			_alloc.destroy(new_pos);
 			_alloc.construct(new_pos, *(new_pos - 1));
 			new_pos--;
@@ -276,9 +273,9 @@ iterator insert (iterator position, const value_type& val){
 		ft_push_back(val);
 
 	if(!empty())
-		_alloc.destroy(position);
+		_alloc.destroy(new_pos);
 
-	_alloc.construct(position, val);
+	_alloc.construct(new_pos, val);
 	_end++;
 	return new_pos;
 }
@@ -316,10 +313,32 @@ iterator insert (iterator position, const value_type& val){
 	//emplace_back(){}
 
 
+/************************************************************/
+/*                          utils                           */
+/************************************************************/
+
+
+	/*here i destroy every thing from the end to the begin */
+	void clear()
+	{
+		for (;_end != _start; --_end)
+		{
+			// --_end;
+			_alloc.destroy(_end);
+		}	
+	}
+
+
+	/*this function is for fill my memory with a speecific value*/
+	
+	void fill_memory(pointer end, value_type val, size_type n){
+		for (size_type i = 0; i < n; i++){
+			_alloc.construct(end, val);
+			end++;
+		}
+	}
+
+
 };
-
-
-
 }
-
 #endif // !vector_H
