@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/21 19:51:40 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:03:52 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,33 +288,32 @@ public:
 		return new_pos;
 	}
 
-// void insert (iterator position, size_type n, const value_type& val){
-
-// 	size_t diff_e_c;
-// 	size_t diff;
-// 	// (void) position;
-// 	// (void) val;
-// 	distance(end() , _vec_capacity, diff_e_c);
-// 	if(!capacity())
-// 		reserve(n);
-// 	else if (size() + n > capacity() * 2) 
-// 		reserve(capacity() + n);
-// 	else if (size() + n > capacity())
-// 		reserve(size() * 2);
-
-// 	// if (n > diff){
-// 	// 	reserve(capacity()+diff);
-// 	// }
-
-// 	else if (size() + 1 > capacity())
-// 		reserve(size() * 2);
-// 	if (n > 0){
-// 		if (n <= diff){
-// 			std::cout << "i can\n";
-// 		}
-// 	}
-// 	//loop for construct until n finished
-// }
+void insert (iterator position, size_type n, const value_type& val){
+	// diff_s_p it mean difference between _start and position
+	size_t diff_s_p;
+	distance(begin() , position, diff_s_p);
+	if (n){
+		if(!capacity())
+			reserve(n);
+		else if (size() + n > capacity()) 
+			reserve(capacity() + ((size() + n ) - capacity()));
+		_end = _end + n;
+		pointer ptr = _end - 1;
+		size_type tmp = n;
+		while(ptr && ((ptr-n) >= _start + diff_s_p)){
+			_alloc.construct(ptr, *(ptr - n));
+			ptr--;
+			tmp--;
+		}
+		while(ptr && ptr >= _start + diff_s_p){
+			if(*ptr)
+				_alloc.destroy(ptr);
+			_alloc.construct(ptr, val);
+			ptr--;
+			n--;
+		}
+	}
+}
 
 // template <class InputIterator>
 // void insert (iterator position, InputIterator first, InputIterator last){
