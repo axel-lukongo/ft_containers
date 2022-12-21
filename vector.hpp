@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/20 18:24:26 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:51:12 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,34 +195,67 @@ public:
 /******************************** reserve *********************************/
 	
 	void reserve (size_type n){
-		if(!n)
-			reserve(1);
-		else if (n > capacity()){
-			pointer new_vec;
-			new_vec = _alloc.allocate(n);
-			pointer ptr1 = new_vec;
-			if (size()){
-				for (pointer ptr2 = _start ;ptr2 != _end; ptr2++)
-				{
-					_alloc.construct(ptr1, *ptr2);
-					ptr1++;
-				}
-				if(_start)
-					while(_end >= _start)
-						_alloc.destroy(--_end);
-				_alloc.deallocate(_start, capacity());
-				_start = new_vec;
-				_end = ptr1;
-				_vec_capacity = _start + n;
-			}
-			else{
-				if(capacity())
-					_alloc.deallocate(_start, capacity());
-				_start = new_vec;
-				_end = _start;
-				_vec_capacity = _start + n;
-			}
-		}
+		// if(!n)
+		// 	reserve(1);
+		// else if (n > capacity()){
+		// 	pointer new_vec;
+		// 	new_vec = _alloc.allocate(n);
+		// 	pointer ptr1 = new_vec;
+		// 	if (size()){
+		// 		for (pointer ptr2 = _start ;ptr2 != _end; ptr2++)
+		// 		{
+		// 			_alloc.construct(ptr1, *ptr2);
+		// 			ptr1++;
+		// 		}
+		// 		if(_start)
+		// 			while(_end >= _start)
+		// 				_alloc.destroy(--_end);
+		// 		_alloc.deallocate(_start, capacity());
+		// 		_start = new_vec;
+		// 		_end = ptr1;
+		// 		_vec_capacity = _start + n;
+		// 	}
+		// 	else{
+		// 		if(capacity())
+		// 			_alloc.deallocate(_start, capacity());
+		// 		_start = new_vec;
+		// 		_end = _start;
+		// 		_vec_capacity = _start + n;
+		// 	}
+		// }
+		  if (!n) {
+                  reserve(1);
+                  return ;
+               }
+               if (n > capacity()) {
+                  pointer  start;
+                  pointer  end;
+                  pointer  ptr;
+
+                  start = _alloc.allocate(sizeof(value_type) * n);
+                  end = start;
+                  ptr = _start;
+                  if (size()) {
+                     while (ptr < _end) {
+                        _alloc.construct(end, *ptr);
+                        ptr++;
+                        end++;
+                     }
+                     clear();
+                     if (capacity())
+                        _alloc.deallocate(_start, capacity());
+                     _start = start;
+                     _vec_capacity = start + n;
+                     _end = end;
+                  }
+                  else {
+                     if (capacity())
+                        _alloc.deallocate(_start, capacity());
+                     _start = start;
+                     _vec_capacity = start + n;
+                     _end = start;
+                  }
+               }
 	}
 
 
@@ -236,12 +269,18 @@ public:
 
 
 	void ft_push_back(value_type element){
-		if (capacity() < size() + 1){
-			reserve(size() * 2);
+		if (size() + 1 > capacity()){
+			if(!capacity())
+				reserve(1);
+			else
+				reserve(size() * 2);
 		}
 		_alloc.construct(_end, element);
 		_end++;
 	}
+
+
+
 
 	void ft_pop_back(){
 		if (size() <= 0){
@@ -251,7 +290,10 @@ public:
 		_alloc.destroy(_end - 1);
 		_end--;
 	}
-	
+
+
+
+
 	iterator insert (iterator position, const value_type& val){
 
 		size_t diff;
@@ -284,8 +326,31 @@ public:
 	}
 
 // void insert (iterator position, size_type n, const value_type& val){
-	//if size > capacity: i reserve
-	
+
+// 	size_t diff_e_c;
+// 	size_t diff;
+// 	// (void) position;
+// 	// (void) val;
+// 	distance(end() , _vec_capacity, diff_e_c);
+// 	if(!capacity())
+// 		reserve(n);
+// 	else if (size() + n > capacity() * 2) 
+// 		reserve(capacity() + n);
+// 	else if (size() + n > capacity())
+// 		reserve(size() * 2);
+
+// 	// if (n > diff){
+// 	// 	reserve(capacity()+diff);
+// 	// }
+
+// 	else if (size() + 1 > capacity())
+// 		reserve(size() * 2);
+// 	if (n > 0){
+// 		if (n <= diff){
+// 			std::cout << "i can\n";
+// 		}
+// 	}
+// 	//loop for construct until n finished
 // }
 
 // template <class InputIterator>
@@ -317,8 +382,14 @@ public:
 	/*here i destroy every thing from the end to the begin */
 	void clear()
 	{
-		for (;_end != _start; --_end)
-			_alloc.destroy(_end);
+		if (_start != NULL){
+			--_end;
+			while (_end >= _start) {
+				_alloc.destroy(_end);
+				_end--;
+			}
+			_end = _start;
+		}
 	}
 
 
