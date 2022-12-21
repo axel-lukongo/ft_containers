@@ -4,24 +4,24 @@
 int main()
 {
 	std::vector<std::string> test;
-	// std::vector<std::string>::iterator it;
+	std::vector<std::string>::iterator it;
 	std::cout << "capacity: "<<test.capacity() << std::endl;
 	test.push_back("salut");
 	// std::cout << "capacity: "<<test.capacity() << std::endl;
-	// test.push_back("je fais");
+	test.push_back("je fais");
+	// std::cout << "capacity: "<<test.capacity() << std::endl;
+	test.push_back("un teste");
 	// std::cout << "capacity: "<<test.capacity() << std::endl;
 	// test.push_back("un teste");
-	// std::cout << "capacity: "<<test.capacity() << std::endl;
-	// test.push_back("un teste");
-	// it = test.begin();
-	// it++;
+	it = test.begin();
+	it++;
 	// std::cout << "size: "<<test.size() << std::endl;
 	// std::cout << "capacity: "<<test.capacity() << std::endl;
 
-	// test.insert(it, 6, 5);
+	test.insert(it, "5");
 
-	// for(std::vector<std::string>::iterator its = test.begin(); its < test.end(); its++)
-	// 	std::cout<< *its << std::endl;
+	for(std::vector<std::string>::iterator its = test.begin(); its < test.end(); its++)
+		std::cout<< *its << std::endl;
 
 	// std::cout<<std::endl;
 

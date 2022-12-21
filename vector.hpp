@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/21 15:51:12 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/21 19:51:40 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,67 +195,30 @@ public:
 /******************************** reserve *********************************/
 	
 	void reserve (size_type n){
-		// if(!n)
-		// 	reserve(1);
-		// else if (n > capacity()){
-		// 	pointer new_vec;
-		// 	new_vec = _alloc.allocate(n);
-		// 	pointer ptr1 = new_vec;
-		// 	if (size()){
-		// 		for (pointer ptr2 = _start ;ptr2 != _end; ptr2++)
-		// 		{
-		// 			_alloc.construct(ptr1, *ptr2);
-		// 			ptr1++;
-		// 		}
-		// 		if(_start)
-		// 			while(_end >= _start)
-		// 				_alloc.destroy(--_end);
-		// 		_alloc.deallocate(_start, capacity());
-		// 		_start = new_vec;
-		// 		_end = ptr1;
-		// 		_vec_capacity = _start + n;
-		// 	}
-		// 	else{
-		// 		if(capacity())
-		// 			_alloc.deallocate(_start, capacity());
-		// 		_start = new_vec;
-		// 		_end = _start;
-		// 		_vec_capacity = _start + n;
-		// 	}
-		// }
-		  if (!n) {
-                  reserve(1);
-                  return ;
-               }
-               if (n > capacity()) {
-                  pointer  start;
-                  pointer  end;
-                  pointer  ptr;
-
-                  start = _alloc.allocate(sizeof(value_type) * n);
-                  end = start;
-                  ptr = _start;
-                  if (size()) {
-                     while (ptr < _end) {
-                        _alloc.construct(end, *ptr);
-                        ptr++;
-                        end++;
-                     }
-                     clear();
-                     if (capacity())
-                        _alloc.deallocate(_start, capacity());
-                     _start = start;
-                     _vec_capacity = start + n;
-                     _end = end;
-                  }
-                  else {
-                     if (capacity())
-                        _alloc.deallocate(_start, capacity());
-                     _start = start;
-                     _vec_capacity = start + n;
-                     _end = start;
-                  }
-               }
+		if (n > capacity()){
+			pointer new_vec;
+			new_vec = _alloc.allocate(sizeof(value_type) * n);
+			pointer ptr1 = new_vec;
+			if (size()){
+				for (pointer ptr2 = _start ;ptr2 != _end; ptr2++)
+				{
+					_alloc.construct(ptr1, *ptr2);
+					ptr1++;
+				}
+				clear();
+				_alloc.deallocate(_start, capacity());
+				_start = new_vec;
+				_end = ptr1;
+				_vec_capacity = _start + n;
+			}
+			else{
+				if(capacity())
+					_alloc.deallocate(_start, capacity());
+				_start = new_vec;
+				_end = _start;
+				_vec_capacity = _start + n;
+			}
+		}
 	}
 
 
@@ -270,10 +233,12 @@ public:
 
 	void ft_push_back(value_type element){
 		if (size() + 1 > capacity()){
-			if(!capacity())
+			if(!capacity()){
 				reserve(1);
-			else
+			}
+			else{
 				reserve(size() * 2);
+			}
 		}
 		_alloc.construct(_end, element);
 		_end++;
@@ -302,10 +267,8 @@ public:
 		so i save this difference in diff*/
 		distance(begin(), position, diff);
 		
-		
 		if (size() + 1 > capacity())
 			reserve(size() * 2);
-
 		/* /!\/!\: don't initialize new_pos before the reserve function,
 		because reserve will put _start and _end in a new memorie zone
 		that mean, new_pos will be on the old memorie zone of _end if
@@ -313,8 +276,8 @@ public:
 		pointer new_pos = _end;
 
 		while (new_pos != (_start + diff)){
-			_alloc.destroy(new_pos);
 			_alloc.construct(new_pos, *(new_pos - 1));
+			_alloc.destroy(new_pos - 1);
 			new_pos--;
 		}
 		if(!empty())
@@ -382,13 +345,10 @@ public:
 	/*here i destroy every thing from the end to the begin */
 	void clear()
 	{
-		if (_start != NULL){
+		while (_end != _start)
+		{
 			--_end;
-			while (_end >= _start) {
-				_alloc.destroy(_end);
-				_end--;
-			}
-			_end = _start;
+			_alloc.destroy(_end);
 		}
 	}
 
