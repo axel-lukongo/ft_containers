@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/22 01:28:11 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/22 02:20:14 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,8 +267,12 @@ public:
 		so i save this difference in diff*/
 		distance(begin(), position, diff);
 		
-		if (size() + 1 > capacity())
-			reserve(size() * 2);
+		if (size() == capacity()){
+			if(!size())
+				reserve(1);
+			else
+				reserve(size() * 2);
+		}
 		/* /!\/!\: don't initialize new_pos before the reserve function,
 		because reserve will put _start and _end in a new memorie zone
 		that mean, new_pos will be on the old memorie zone of _end if
@@ -282,7 +286,6 @@ public:
 		}
 		if(!empty())
 			_alloc.destroy(new_pos);
-
 		_alloc.construct(new_pos, val);
 		_end++;
 		return new_pos;
@@ -314,7 +317,15 @@ void insert (iterator position, size_type n, const value_type& val){
 
 // template <class InputIterator>
 // void insert (iterator position, InputIterator first, InputIterator last){
-	//if size > capacity: i reserve
+	/*this methode take 3 iterator:
+	position,
+	iterator of the begin of the other vector
+	iterator of the end of the other vecto*/
+	
+	
+	/*this methode will copy at position,
+	the element og the other vector starting by 
+	the first iterator until the last iterator.*/
 	
 // }
 	// template <class InputIterator>
