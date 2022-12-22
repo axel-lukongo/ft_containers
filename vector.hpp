@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/21 22:03:52 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/22 01:28:11 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,18 +299,15 @@ void insert (iterator position, size_type n, const value_type& val){
 			reserve(capacity() + ((size() + n ) - capacity()));
 		_end = _end + n;
 		pointer ptr = _end - 1;
-		size_type tmp = n;
 		while(ptr && ((ptr-n) >= _start + diff_s_p)){
 			_alloc.construct(ptr, *(ptr - n));
 			ptr--;
-			tmp--;
 		}
 		while(ptr && ptr >= _start + diff_s_p){
-			if(*ptr)
+			if(ptr < (_end - n))
 				_alloc.destroy(ptr);
 			_alloc.construct(ptr, val);
 			ptr--;
-			n--;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/21 22:07:16 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/22 01:29:35 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main(){
 	std::cout << "capacity: "<<test.capacity() << std::endl;
 	std::cout<<std::endl<<std::endl;
 
-	test.insert(it, 6, 8);
+	test.insert(it, 100, 8);
 
 	for(ft::vector<int>::iterator its = test.begin(); its < test.end(); its++)
 		std::cout<< *its << std::endl;
