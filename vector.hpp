@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/22 02:20:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:16:38 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,8 @@ public:
 
 
 
+/******************************** INSERT *********************************/
+
 	iterator insert (iterator position, const value_type& val){
 
 		size_t diff;
@@ -291,48 +293,97 @@ public:
 		return new_pos;
 	}
 
-void insert (iterator position, size_type n, const value_type& val){
-	// diff_s_p it mean difference between _start and position
-	size_t diff_s_p;
-	distance(begin() , position, diff_s_p);
-	if (n){
-		if(!capacity())
-			reserve(n);
-		else if (size() + n > capacity()) 
-			reserve(capacity() + ((size() + n ) - capacity()));
-		_end = _end + n;
-		pointer ptr = _end - 1;
-		while(ptr && ((ptr-n) >= _start + diff_s_p)){
-			_alloc.construct(ptr, *(ptr - n));
-			ptr--;
-		}
-		while(ptr && ptr >= _start + diff_s_p){
-			if(ptr < (_end - n))
-				_alloc.destroy(ptr);
-			_alloc.construct(ptr, val);
-			ptr--;
+	void insert (iterator position, size_type n, const value_type& val){
+		// diff_s_p it mean difference between _start and position
+		size_t diff_s_p;
+		distance(begin() , position, diff_s_p);
+		if (n){
+			if(!capacity())
+				reserve(n);
+			else if (size() + n > capacity()) 
+				reserve(capacity() + ((size() + n ) - capacity()));
+			_end = _end + n;
+			pointer ptr = _end - 1;
+			while(ptr && ((ptr-n) >= _start + diff_s_p)){
+				_alloc.construct(ptr, *(ptr - n));
+				ptr--;
+			}
+			while(ptr && ptr >= _start + diff_s_p){
+				if(ptr < (_end - n))
+					_alloc.destroy(ptr);
+				_alloc.construct(ptr, val);
+				ptr--;
+			}
 		}
 	}
-}
 
-// template <class InputIterator>
-// void insert (iterator position, InputIterator first, InputIterator last){
-	/*this methode take 3 iterator:
-	position,
-	iterator of the begin of the other vector
-	iterator of the end of the other vecto*/
-	
-	
-	/*this methode will copy at position,
-	the element og the other vector starting by 
-	the first iterator until the last iterator.*/
-	
-// }
-	// template <class InputIterator>
-	// void assign (InputIterator first, InputIterator last){
+	template <class InputIterator>
+	void insert (iterator position, InputIterator first, InputIterator last){
+		/*this methode take 3 iterator:
+		position,
+		iterator of the begin of the other vector
+		iterator of the end of the other vecto*/
 		
-	// }
-	
+		
+		/*this methode will copy at position,
+		the element og the other vector starting by 
+		the first iterator until the last iterator.*/
+
+		size_t diff_f_l; //diff between _start and _end of the other vector;
+		size_t diff_s_p; // diff between _start and position;
+
+		distance(first, last, diff_f_l);
+		distance(begin() , position, diff_s_p);
+
+		if (diff_f_l){
+			if(!capacity())
+				reserve(diff_f_l);
+			else if (size() + diff_f_l > capacity())
+				reserve(size() + diff_f_l);
+			_end = _end + diff_f_l;
+			pointer ptr = _end - 1;
+			while(ptr && ((ptr - diff_f_l) >= (_start + diff_s_p))){
+				_alloc.construct(ptr, *(ptr - diff_f_l));
+				ptr--;
+			}
+			while(ptr && ptr >= _start + diff_s_p){
+				if(ptr < (_end - diff_f_l))
+					_alloc.destroy(ptr);
+				last--;
+				_alloc.construct(ptr, *last);
+				ptr--;
+			}
+		}
+	}
+
+
+
+/******************************** Assign *********************************/
+
+
+
+	template <class InputIterator>
+	void assign (InputIterator first, InputIterator last){
+
+		size_t diff;
+		distance(first, last, diff);
+		if(capacity()){
+			clear();
+			// _alloc.deallocate(_start, capacity());
+		}
+		if (diff){
+				std::cout << "-----------------------------------\n";
+			reserve(diff);
+			
+			while(first != last){
+				_alloc.construct(_end, *first);
+				first++;
+				_end++;
+			}
+			// _end = _end + diff;
+		}
+	}
+
 	//void assign (size_type n, const value_type& val){}
 	
 	//void erase(iterator position){}

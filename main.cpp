@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/22 02:13:48 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:16:52 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,37 @@ int main(){
 	// std::cout << "capacity: "<<test.capacity() << std::endl;
 
 	ft::vector<int> test;
-	ft::vector<int>::iterator it;
-	test.ft_push_back(1);
-	test.ft_push_back(2);
-	test.ft_push_back(3);
-	test.ft_push_back(4);
-	test.ft_push_back(5);
-	it = test.begin();
-	it++;
-	std::cout << "size: "<<test.size() << std::endl;
+	// ft::vector<int>::iterator it;
+	// test.ft_push_back(1);
+	// test.ft_push_back(2);
+	// test.ft_push_back(3);
+	// test.ft_push_back(4);
+	// test.ft_push_back(5);
+	ft::vector<int> test2;
+	test2.ft_push_back(8);
+	test2.ft_push_back(9);
+	test2.ft_push_back(10);
+	test2.ft_push_back(11);
+	test2.ft_push_back(12);
+	test2.ft_push_back(13);
+
+	// it = test.begin();
+	// // it++;
+	std::cout << "size: "<< test.size() << std::endl;
 	std::cout << "capacity: "<<test.capacity() << std::endl;
 	std::cout<<std::endl<<std::endl;
 
-	test.insert(it, 100, 8);
+	// std::cout<<std::endl<<std::endl;
+	// std::cout<<std::endl<<std::endl;
+	std::cout<<std::endl<<std::endl;
+	// std::cout << "----------------: "<<*(test2.begin() + 4) << std::endl;
+	// test.insert(it, test2.begin(), test2.end());
+
+	test.assign(test2.begin(), test2.end());
+
+	std::cout<<std::endl<<std::endl;
+	// std::cout<<std::endl<<std::endl;
+	// std::cout<<std::endl<<std::endl;
 
 	for(ft::vector<int>::iterator its = test.begin(); its < test.end(); its++)
 		std::cout<< *its << std::endl;
