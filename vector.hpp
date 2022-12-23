@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/22 21:16:38 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/23 02:08:33 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,27 +372,43 @@ public:
 			// _alloc.deallocate(_start, capacity());
 		}
 		if (diff){
-				std::cout << "-----------------------------------\n";
 			reserve(diff);
-			
 			while(first != last){
 				_alloc.construct(_end, *first);
 				first++;
 				_end++;
 			}
-			// _end = _end + diff;
+		}
+		else{
+			_start = NULL;
+			_end = NULL;
 		}
 	}
 
-	//void assign (size_type n, const value_type& val){}
+	void assign (size_type n, const value_type& val){
+		
+		std::cout<< "---------------------\n\n";
+		if(capacity()){
+			clear();
+			// _alloc.deallocate(_start, capacity());
+		}
+		if (n){
+			reserve(n);
+			while(n){
+				_alloc.construct(_end, val);
+				n--;
+				_end++;
+			}
+		}
+		else{
+			_start = NULL;
+			_end = NULL;
+		}
+	}
 	
 	//void erase(iterator position){}
 	
 	//void swap(vector & x){}
-
-	//iterator emplace(){}
-	
-	//emplace_back(){}
 
 
 /************************************************************/
@@ -420,6 +436,9 @@ public:
 		}
 	}
 
+	template <bool Cond, class T = void>
+	struct	enable_if {
+	};
 
 };
 }

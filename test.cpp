@@ -32,43 +32,30 @@ int main()
 	// std::cout<<std::endl;
 	// std::cout << "size: "<<test.size() << std::endl;
 	// std::cout << "capacity: "<<test.capacity() << std::endl;
-	std::vector<int> test;
-	std::vector<int>::iterator it;
-	test.push_back(1);
-	test.push_back(2);
-	test.push_back(3);
-	// test.push_back(4);
-	// test.push_back(5);
-	// test.push_back(6);
-	std::vector<int> test2;
-	test2.push_back(8);
-	test2.push_back(9);
-	test2.push_back(10);
-	test2.push_back(11);
-	test2.push_back(12);
-	// test2.push_back(13);
-	// test2.push_back(14);
-	// test2.push_back(15);
-	// test2.push_back(16);
-	it = test.begin();
-	it++;
-	std::cout << "size: "<<test.size() << std::endl;
-	std::cout << "capacity: "<<test.capacity() << std::endl;
-	std::cout<<std::endl<<std::endl;
+	std::vector<int> vec;
+	vec.push_back(2);
+	vec.push_back(4);
+	vec.push_back(6);
+	vec.push_back(8);
+	std::vector<int> vec2;
+	vec2.push_back(1);
+	vec2.push_back(3);
+	vec2.push_back(5);
+	vec2.push_back(7);
 
-	// std::cout << "----------------: "<<*(test2.end()) << std::endl;
-	// test.insert(it, test2.begin(), test2.end()-1);
-		test.assign(test2.begin(), test2.end());
 
-	for(std::vector<int>::iterator its = test.begin(); its < test.end(); its++)
-		std::cout<< *its << std::endl;
-
-	// test.insert(it, 5);
-	// test.insert(it, 5);
-	// for(std::vector<int>::iterator its = test.begin(); its < test.end(); its++)
-	// 	std::cout<< *its << std::endl;
-	std::cout<<std::endl<<std::endl;
-	std::cout << "size: "<<test.size() << std::endl;
-	std::cout << "capacity: "<<test.capacity() << std::endl;
+	std::cout << "size: "<< vec.size() << std::endl;
+	std::cout << "capacity: "<<vec.capacity() << std::endl;
+	std::cout<<std::endl<<std::endl;	//Inserting vec2 at the beginning of the vec vector
+	vec.assign(3,6);
+	
+	for(std::vector<int>::iterator i=vec.begin(); i<vec.end(); i++)
+	{
+		std::cout<<" "<<*i << "\n";
+	}
+	std::cout<<std::endl<<std::endl;	//Inserting vec2 at the beginning of the vec vector
+	std::cout << "size: "<< vec.size() << std::endl;
+	std::cout << "capacity: "<<vec.capacity() << std::endl;
+	std::cout<<std::endl<<std::endl;	//Inserting vec2 at the beginning of the vec vector
 	return 0;
 }

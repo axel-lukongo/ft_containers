@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/22 21:16:52 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/23 02:00:03 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int main(){
 
 	ft::vector<int> test;
 	// ft::vector<int>::iterator it;
-	// test.ft_push_back(1);
-	// test.ft_push_back(2);
-	// test.ft_push_back(3);
+	test.ft_push_back(1);
+	test.ft_push_back(2);
+	test.ft_push_back(3);
 	// test.ft_push_back(4);
 	// test.ft_push_back(5);
 	ft::vector<int> test2;
@@ -64,7 +64,7 @@ int main(){
 	// std::cout << "----------------: "<<*(test2.begin() + 4) << std::endl;
 	// test.insert(it, test2.begin(), test2.end());
 
-	test.assign(test2.begin(), test2.end());
+	test.assign(3,5);
 
 	std::cout<<std::endl<<std::endl;
 	// std::cout<<std::endl<<std::endl;
