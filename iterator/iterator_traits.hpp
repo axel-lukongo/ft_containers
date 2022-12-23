@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:02:27 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/20 03:39:08 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:55:39 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,7 @@ namespace ft{
 			typedef std::random_access_iterator_tag iterator_category;
 	};
 
-
-// template<> class iterator_traits<bool>{};
-// 	template<> class iterator_traits<char>{};
-// 	template<> class iterator_traits<char16_t>{};
-// 	template<> class iterator_traits<char32_t>{};
-// 	template<> class iterator_traits<wchar_t>{};
-// 	template<> class iterator_traits<signed char>{};
-// 	template<> class iterator_traits<short int>{};
-// 	template<> class iterator_traits<int>{};
-// 	template<> class iterator_traits<long>{};
-// 	template<> class iterator_traits<long long>{};
-// 	template<> class iterator_traits<unsigned char>{};
-// 	template<> class iterator_traits<unsigned short int>{};
-// 	template<> class iterator_traits<unsigned int>{};
-// 	template<> class iterator_traits<unsigned long>{};
-// 	template<> class iterator_traits<unsigned long long>{};
-
-
-
-	
-
-		template <typename InputIterator, typename Distance>
+	template <typename InputIterator, typename Distance>
 	void	
 	distance(InputIterator first, const InputIterator &last, Distance &n, std::random_access_iterator_tag)
 	{
@@ -152,6 +131,29 @@ namespace ft{
 	{
 		distance(first, last, n, typename iterator_traits<InputIterator>::iterator_category());
 	}
+
+	template <typename T> struct is_integral{static const bool value = false;};
+	template <> struct is_integral<bool>{static const bool value = true;};
+	template <> struct is_integral<char>{static const bool value = true;};
+	// template <> struct is_integral<char16_t>{static const bool value = true;};
+	// template <> struct is_integral<char32_t>{static const bool value = true;};
+	template <> struct is_integral<wchar_t>{static const bool value = true;};
+	template <> struct is_integral<signed char>{static const bool value = true;};
+	template <> struct is_integral<short int>{static const bool value = true;};
+	template <> struct is_integral<int>{static const bool value = true;};
+	template <> struct is_integral<long int>{static const bool value = true;};
+	template <> struct is_integral<long long int>{static const bool value = true;};
+	template <> struct is_integral<unsigned char>{static const bool value = true;};
+	template <> struct is_integral<unsigned short int>{static const bool value = true;};
+	template <> struct is_integral<unsigned int>{static const bool value = true;};
+	template <> struct is_integral<unsigned long int>{static const bool value = true;};
+	template <> struct is_integral<unsigned long long int>{static const bool value = true;};
+
+	template<bool B, class T = void>
+	struct enable_if {};
+	
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
 
 }
 

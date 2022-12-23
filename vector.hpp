@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/23 02:08:33 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:50:38 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,7 +363,7 @@ public:
 
 
 	template <class InputIterator>
-	void assign (InputIterator first, InputIterator last){
+	void assign (InputIterator first, InputIterator last, typename enable_if<!ft::is_integral<InputIterator>::value,InputIterator >::type = InputIterator()){
 
 		size_t diff;
 		distance(first, last, diff);
@@ -386,8 +386,6 @@ public:
 	}
 
 	void assign (size_type n, const value_type& val){
-		
-		std::cout<< "---------------------\n\n";
 		if(capacity()){
 			clear();
 			// _alloc.deallocate(_start, capacity());
@@ -405,10 +403,45 @@ public:
 			_end = NULL;
 		}
 	}
+
+
+
+/******************************** erase *********************************/
+
+	iterator erase(iterator position){
+		iterator save;
+
+		save = position;
+		_alloc.destroy(save);
+		while (save + 1 < _end) {
+			_alloc.construct(save, *(save + 1));
+			_alloc.destroy(save + 1);
+			save++;
+		}
+		_end--;
+		return position;
+	}
 	
-	//void erase(iterator position){}
+	iterator erase (iterator first, iterator last){
+		size_t diff;
+		iterator ptr = first;
+		iterator ptr2 = first;
+		distance(first, last, diff);
+		while(ptr < last){
+			_alloc.destroy(ptr);
+			ptr++;
+		}
+		while (ptr < _end){
+			_alloc.construct(ptr2, *ptr);
+			_alloc.destroy(ptr);
+			ptr++;
+			ptr2++;
+		}
+		_end = _end - diff;
+		return first;
+	}
 	
-	//void swap(vector & x){}
+	void swap (vector& x){}
 
 
 /************************************************************/
@@ -429,16 +462,16 @@ public:
 
 	/*this function is for fill my memory with a speecific value*/
 	
-	void fill_memory(pointer end, value_type val, size_type n){
-		for (size_type i = 0; i < n; i++){
-			_alloc.construct(end, val);
-			end++;
-		}
-	}
+	// void fill_memory(pointer end, value_type val, size_type n){
+	// 	for (size_type i = 0; i < n; i++){
+	// 		_alloc.construct(end, val);
+	// 		end++;
+	// 	}
+	// }
 
-	template <bool Cond, class T = void>
-	struct	enable_if {
-	};
+	// template <bool Cond, class T = void>
+	// struct	enable_if {
+	// };
 
 };
 }

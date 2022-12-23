@@ -33,21 +33,27 @@ int main()
 	// std::cout << "size: "<<test.size() << std::endl;
 	// std::cout << "capacity: "<<test.capacity() << std::endl;
 	std::vector<int> vec;
-	vec.push_back(2);
-	vec.push_back(4);
-	vec.push_back(6);
+	vec.push_back(9);
 	vec.push_back(8);
+	vec.push_back(7);
+
 	std::vector<int> vec2;
 	vec2.push_back(1);
+	vec2.push_back(2);
 	vec2.push_back(3);
+	vec2.push_back(4);
 	vec2.push_back(5);
+	vec2.push_back(6);
 	vec2.push_back(7);
-
-
 	std::cout << "size: "<< vec.size() << std::endl;
 	std::cout << "capacity: "<<vec.capacity() << std::endl;
 	std::cout<<std::endl<<std::endl;	//Inserting vec2 at the beginning of the vec vector
-	vec.assign(3,6);
+
+	vec.swap(vec2);
+	// vec.erase(it);
+	// vec.erase(it);
+
+	// vec.assign(3,6);
 	
 	for(std::vector<int>::iterator i=vec.begin(); i<vec.end(); i++)
 	{
