@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/23 19:50:38 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/24 18:30:05 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,7 +441,26 @@ public:
 		return first;
 	}
 	
-	void swap (vector& x){}
+	void swap (vector& x){
+			pointer tmp;
+			allocator_type tmp_alloc;
+			//swap _alloc;
+			tmp_alloc = _alloc;
+			_alloc = x._alloc;
+			x._alloc = tmp_alloc;
+			//swap _end;
+			tmp = _end;
+			_end = x._end;
+			x._end = tmp;
+			//swap _start;
+			tmp = _start;
+			_start = x._start;
+			x._start = tmp;
+			//swap _vec_capacity
+			tmp = _vec_capacity;
+			_vec_capacity = x._vec_capacity;
+			x._vec_capacity = tmp;
+	}
 
 
 /************************************************************/
