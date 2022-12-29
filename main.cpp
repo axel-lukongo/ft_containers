@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/29 21:21:28 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/29 21:35:47 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,17 @@
 
 int main(){
 	ft::vector<int> test(5);
-	std::cout << test.size();
+	ft::vector<int>::reverse_iterator it = test.rbegin();
+	for (size_t i = 0; i < test.size(); ++i)
+		it[i] = (test.size() - i) * 5;
+
+	it = it + 5;
+	it = 1 + it;
+	it = it - 4;
+	
+	
+	// std::cout << *(it += 2) << std::endl;
+	// std::cout << *(it -= 1) << std::endl;
 	// test.push_back(1);
 	// test.push_back(11);
 	// test.push_back(111);

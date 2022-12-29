@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/29 21:06:06 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/29 21:36:56 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,17 @@ public:
 	//************* reverse iterator *******************/
 
 	reverse_iterator rbegin(){
-		return _end;
+		return reverse_iterator(_end);
 	}
 	reverse_iterator rend(){
-		return _start;
+		return reverse_iterator(_start);
 	}
 
 	const_reverse_iterator rbegin()const{
-		return _end;
+		return const_reverse_iterator(_end);
 	}
 	const_reverse_iterator rend() const{
-		return _start;
+		return const_reverse_iterator(_start);
 	}
 
 
