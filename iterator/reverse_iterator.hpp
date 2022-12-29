@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:00:06 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/16 21:15:03 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/29 21:12:50 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft{
 			typedef typename ft::iterator_traits<Iterator>::reference reference;
 			typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
 
-		private:
+		// protected:
 			Iterator _it;
 		public:
 			/************************************************************/
@@ -43,8 +43,8 @@ namespace ft{
 			/****************** Copy *******************/
 
 			template <class Iter>
-			reverse_iterator (const reverse_iterator<Iter>& rev_it){
-				_it = rev_it._it;
+			reverse_iterator (const reverse_iterator<Iter>& rev_it): _it(rev_it._it){
+				// _it = rev_it._it;
 			}
 
 			iterator_type base() const{

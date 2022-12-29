@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/29 14:33:42 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/29 21:06:06 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,11 @@ public:
 
 
 
-	vector(vector const & copy)
-	/*: _start(NULL), _end(NULL), _vec_capacity(copy._vec_capacity), _alloc(copy._alloc)*/{
-		// size_t diff = 0;
-		// distance(copy.begin(), copy.capacity(), diff);
-		_alloc.allocate(copy.capacity());
+	vector(vector const & copy){
+		_start = NULL;
+		_end = NULL;
 		_vec_capacity = copy._vec_capacity;
-		_start = copy._start;
-		_end = copy._end;
+		_alloc = copy._alloc;
 		*this = copy;
 	}
 
@@ -105,7 +102,7 @@ public:
 	/************************************************************/
 	~vector(){
 		clear();
-		std::cout << capacity() <<"--------------------\n";
+		// std::cout << capacity() <<"--------------------\n";
 		_alloc.deallocate(_start, capacity());
 	}
 
@@ -126,6 +123,7 @@ public:
 	
 	iterator end(){
 		return _end;
+		
 	}
 	
 	const_iterator end()const {
@@ -158,7 +156,7 @@ public:
 
 
 
-	size_type size_maxe() const {return (allocator_type().max_size());}
+	size_type max_size() const {return (allocator_type().max_size());}
 
 
 
@@ -171,7 +169,7 @@ public:
 		}
 		if (n > size())
 		{
-			if (n < _vec_capacity)
+			if (n < capacity())
 				reserve(n);
 			if (n != size())
 				fill_memory(_end, n - size(), val);
@@ -386,15 +384,18 @@ public:
 		distance(first, last, diff);
 		if(capacity()){
 			clear();
-			// _alloc.deallocate(_start, capacity());
+			_alloc.deallocate(_start, capacity());
 		}
 		if (diff){
+			_start = _alloc.allocate(sizeof(value_type) * diff);
+			_end = _start;
 			reserve(diff);
 			while(first != last){
 				_alloc.construct(_end, *first);
 				first++;
 				_end++;
 			}
+			_vec_capacity = _end;
 		}
 		else{
 			_start = NULL;
@@ -467,28 +468,27 @@ public:
 /*                      Element acces                       */
 /************************************************************/
 
-	reference		operator[] (size_type n) { return _start[n]; }
+		reference	operator[] (size_type n) { return _start[n]; }
 		const_reference	operator[] (size_type n) const { return _start[n]; }
 
 		reference		at(size_type n)
 		{
-			// if (n >= size())
-			// 	throw (std::out_of_range("vector"));
+			if (n >= size())
+				throw (std::out_of_range("vector"));
 			return (_start[n]);
 		}
 		const_reference	at(size_type n) const
 		{
-			// if (n >= size())
-			// 	throw (std::out_of_range("vector"));
+			if (n >= size())
+				throw (std::out_of_range("vector"));
 			return (_start[n]);
 		}
 
-		reference		front() { return (*_start); }
 
+
+		reference	front() {return (*_start); }
 		const_reference	front() const { return (*_start); }
-
-		reference		back() { return *(_end - 1); }
-
+		reference	back() { return *(_end - 1); }
 		const_reference	back() const { return *(_end - 1); }
 
 
@@ -513,25 +513,25 @@ public:
 		}
 	}
 
-	template <typename InputIterator>
-		pointer
-		_uninitialized_copy(InputIterator begin, InputIterator end, iterator start)
-		{
-			while (begin != end)	
-			{
-				_alloc.construct(start++, *begin++);
-			}
-			return (start);
-		}
+	// template <typename InputIterator>
+	// 	pointer
+	// 	_uninitialized_copy(InputIterator begin, InputIterator end, iterator start)
+	// 	{
+	// 		while (begin != end)	
+	// 		{
+	// 			_alloc.construct(start++, *begin++);
+	// 		}
+	// 		return (start);
+	// 	}
 
 	/*this function is for fill my memory with a speecific value*/
 	
-	// void fill_memory(pointer end, value_type val, size_type n){
-	// 	for (size_type i = 0; i < n; i++){
-	// 		_alloc.construct(end, val);
-	// 		end++;
-	// 	}
-	// }
+	void fill_memory(pointer end, value_type val, size_type n){
+		for (size_type i = 0; i < n; i++){
+			_alloc.construct(end, val);
+			end++;
+		}
+	}
 
 	// template <bool Cond, class T = void>
 	// struct	enable_if {
