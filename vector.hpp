@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/29 21:36:56 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/30 19:55:37 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,13 +135,14 @@ public:
 	reverse_iterator rbegin(){
 		return reverse_iterator(_end);
 	}
+	const_reverse_iterator rbegin()const{
+		return const_reverse_iterator(_end);
+	}
+
 	reverse_iterator rend(){
 		return reverse_iterator(_start);
 	}
 
-	const_reverse_iterator rbegin()const{
-		return const_reverse_iterator(_end);
-	}
 	const_reverse_iterator rend() const{
 		return const_reverse_iterator(_start);
 	}
@@ -166,13 +167,14 @@ public:
 		if (n < size()){
 			for(pointer ptr = _start + n ;ptr < _end; ptr++)
 				_alloc.destroy(ptr);
+			_end = _start + n;
 		}
 		if (n > size())
 		{
-			if (n < capacity())
+			if (n > capacity())
 				reserve(n);
 			if (n != size())
-				fill_memory(_end, n - size(), val);
+				fill_memory(_end, val, n - size());
 			_end = _start + n;
 		}
 	}
@@ -245,7 +247,7 @@ public:
 
 
 
-	void ft_pop_back(){
+	void pop_back(){
 		if (size() <= 0){
 			std::cout << "impossible to pop back" << std::endl;
 			return ;
@@ -316,7 +318,7 @@ public:
 	}
 
 	template <class InputIterator>
-	void insert (iterator position, InputIterator first, InputIterator last){
+	void insert (iterator position, InputIterator first, InputIterator last,typename enable_if<!is_integral<InputIterator>::value,InputIterator >::type = InputIterator()){
 		/*this methode take 3 iterator:
 		position,
 		iterator of the begin of the other vector

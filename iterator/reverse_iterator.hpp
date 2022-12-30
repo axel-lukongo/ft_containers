@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:00:06 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/29 21:42:23 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/12/30 18:47:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft{
 			typedef typename ft::iterator_traits<Iterator>::reference reference;
 			typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
 
-		// protected:
+		private:
 			Iterator _it;
 		public:
 			/************************************************************/
@@ -44,7 +44,6 @@ namespace ft{
 
 			template <class Iter>
 			reverse_iterator (const reverse_iterator<Iter>& rev_it): _it(rev_it._it){
-				// _it = rev_it._it;
 			}
 
 			iterator_type base() const{
@@ -64,7 +63,7 @@ namespace ft{
 			/************************************************************/
 			/*                        operators                         */
 			/************************************************************/
-			
+
 			reverse_iterator operator- (difference_type n) const{
 				return(reverse_iterator(_it + n));
 			}
@@ -105,11 +104,12 @@ namespace ft{
 			/*here we decrease the copy of _it because the start it the
 			end, ans the end it mean the next element after the last memory case.
 			*/
-			reverse_iterator& operator*(){
-				Iterator tmp = _it;
-				return *--tmp;
-			}
+			reference  operator*(void) {
+				Iterator it;
 
+				it = _it;
+				return *(--it);
+			}
 
 			
 			reverse_iterator operator+ (difference_type n) const{
@@ -150,61 +150,63 @@ namespace ft{
 	/*              non member function overloead               */
 	/************************************************************/
 	//is not in the revers_iterator class
-	//otherwise i wouldd have to use the function friend
+	//otherwise i wouldd have to use the keyword "friend"
 
 	template <class Iterator>
 	typename reverse_iterator<Iterator>::difference_type
 	operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it - rhs._it);
+		return (lhs.base() - rhs.base());
 	}
 
 
 
 	template <class Iterator>
 	reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& rev_it){
-		return reverse_iterator<Iterator>(n + rev_it);
+		return reverse_iterator<Iterator>(rev_it.base() - n);
 	}
 
 
 	template <class Iterator>
 	bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it == rhs._it);
+		return (lhs.base() == rhs.base());
 	}
 
 
 
 	template <class Iterator>
 	bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it != rhs._it);
+		return (lhs.base() != rhs.base());
 	}
 
 
 
 	template <class Iterator>  
 	bool operator<  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it > rhs._it);
+		return (lhs.base() > rhs.base());
 	}
 
 
 
 	template <class Iterator>  
 	bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it >= rhs._it);
+		return (lhs.base() >= rhs.base());
 	}
 
 
 
 	template <class Iterator>
 	bool operator>  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it < rhs._it);
+		return (lhs.base() < rhs.base());
 	}
 
 
 
 	template <class Iterator>
 	bool operator >=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs._it <= rhs._it);
+		return (lhs.base() <= rhs.base());
 	}
 }
+
+
 
 #endif // !REVERS_ITERATOR_H
