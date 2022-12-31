@@ -72,6 +72,19 @@ namespace ft{
 		return (_cont.back());
 	}
 
+	friend 
+		bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+		{
+			return (lhs._cont == rhs._cont);
+		}
+
+		//(3)
+		friend
+		bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+		{
+			return (lhs._cont < rhs._cont);	
+		}
+
 };
 
 
