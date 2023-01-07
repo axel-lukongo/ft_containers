@@ -7,16 +7,16 @@ struct node{
 	//this is my key and my value
 	k _key;
 	v _value;
-	// _leftchild is for know if the node are on the left or right to the parent
+	// _is_leftchild is for know if the node are on the left or right to the parent
 	// _black is just for know if the node is black else i considered this as red
-	bool _black, _leftchild;
+	bool _black, _is_leftchild;
 	//here i stock my nodes in the appropriet nodes;
 	node<k,v> *_left, *_right, *_parent;
 	
 	public:
 		node(k key, v val):_key(key), _value(val){
 			_left = _right = _parent = NULL;
-			_black = _leftchild = false;
+			_black = _is_leftchild = false;
 		}
 };
 
@@ -58,7 +58,7 @@ public:
 	i call the second function add */
 	void add(k key, v value){
 		node<k, v> *_node = new node<k, v>(key, value);
-		if (_root == NULL){
+		if (_root == NULL){ //if my tree is empty
 			_root = _node;
 			_root->_black = true;
 			count++;
@@ -82,7 +82,7 @@ public:
 		of the grand parent i check the right of the grand parent else 
 		i check the left of grand parent*/
 
-		if(tmp_node->_parent->_leftchild == true){ //if the parent is on the left on grand parent
+		if(tmp_node->_parent->_is_leftchild == true){ //if the parent is on the left on grand parent
 			if (tmp_node->_parent->_parent->_right->_black == true ||
 			tmp_node->_parent->_parent->_right == NULL ){ //if the aunt is black
 				//rotate
@@ -118,7 +118,7 @@ private:
 				if(_parent->_left == NULL){
 					_parent->_left = new_node;
 					new_node->_parent = _parent;
-					new_node->_leftchild = true;
+					new_node->_is_leftchild = true;
 					new_node->_black = false;
 				}
 				else
@@ -128,7 +128,7 @@ private:
 				if (_parent->_right == NULL){
 					_parent->_right = new_node;
 					new_node->_parent = _parent;
-					new_node->_leftchild = false;
+					new_node->_is_leftchild = false;
 					new_node->_black = false;
 				}
 				else
