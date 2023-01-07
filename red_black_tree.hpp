@@ -51,7 +51,7 @@ public:
 	v get_left(){return _root->_left->_value;}
 	v get_right(){return _root->_right->_value;}
 	/************************************************************/
-	/*                        function                          */
+	/*                        functions                         */
 	/************************************************************/
 
 	/*In this function i add a new value in my tree else
@@ -68,53 +68,211 @@ public:
 			count++;
 		}
 	}
-
 	int print_tree(int space){
 		print_tree(_root, space);
 		return(1);
 	}
 
+
+
+
+
+/*************************** correct violation *********************************/
 	/*first i have to check the aunt of the node where we are*/
-	
-	void correct_violation(node<k, v> *tmp_node){
+	void correct_violation(node<k, v> *my_node){
 		
 		/*for check the aunt: if parent are in left 
 		of the grand parent i check the right of the grand parent else 
 		i check the left of grand parent*/
-
-		if(tmp_node->_parent->_is_leftchild == true){ //if the parent is on the left on grand parent
-			if (tmp_node->_parent->_parent->_right->_black == true ||
-			tmp_node->_parent->_parent->_right == NULL ){ //if the aunt is black
-				//rotate
+		if(my_node->_parent->_is_leftchild == true){ //if the current parent is on the left on grand parent
+			if (my_node->_parent->_parent->_right == NULL ||
+				my_node->_parent->_parent->_right->_black == true){ //if the aunt is black or null
+				rotate(my_node);//rotate
 			}
 			else{
-				//flip color
+				// i got to do a flip color
+				if(my_node->_parent->_parent->_right != NULL)
+					my_node->_parent->_parent->_right->_black = true;
+				my_node->_parent->_parent->_black = false;
+				my_node->_parent->_black = true;
 			}
 		}
 		else{
-			if (tmp_node->_parent->_parent->_left->_black == true || 
-			tmp_node->_parent->_parent->_left == NULL){ //if the aunt is black
-				//rotate
+			if (my_node->_parent->_parent->_left == NULL ||
+				my_node->_parent->_parent->_left->_black == true){ //if the aunt is black or null
+				rotate(my_node);//rotate
 			}
 			else{
-				//flip color
+				// i got to do a flip color
+				if(my_node->_parent->_parent->_left != NULL)
+					my_node->_parent->_parent->_left->_black = true;
+				my_node->_parent->_parent->_black = false;
+				my_node->_parent->_black = true;
 			}
 
 		}
+		_root->_black = true;
 	}
 
-	void check_color(node<k, v> *tmp_node){
-		if(tmp_node == _root)
-			return;
-		if (!tmp_node->_black && !tmp_node->_parent->_black){
-			correct_violation(tmp_node);
+
+
+
+
+
+
+
+	/************************************************************/
+	/*                      rotation part                       */
+	/************************************************************/
+
+	/*************************** rotate *********************************/
+
+	void rotate(node<k, v> *my_node){
+		if(my_node->_is_leftchild == true){
+			if(my_node->_parent->_is_leftchild == true){
+				right_rotation(my_node->_parent->_parent); //right rotation
+				my_node->_black = false;
+				my_node->_parent->_black = true;
+				if (my_node->_parent->_right != NULL)
+					my_node->_parent->_right->_black = false;
+			}
+			else{
+				right_left_rotation(my_node->_parent->_parent); //right left rotation
+				my_node->_black = true;
+				if (my_node->_parent->_left != NULL)
+					my_node->_left->_black = true;
+				if (my_node->_right != NULL)
+					my_node->_right->_black = false;
+
+			}
 		}
-		check_color(tmp_node->_parent);
+		else{ // it mean the current node is on the right
+			if(my_node->_parent->_is_leftchild == false){//if is on the right
+				left_rotation(my_node->_parent->_parent); //left rotation
+				my_node->_black = false;
+				my_node->_parent->_black = true;
+				if (my_node->_parent->_left != NULL)
+					my_node->_parent->_left->_black = false;
+			}
+			else{
+				left_right_rotation(my_node->_parent->_parent); //left right rotation
+				my_node->_black = true;
+				if (my_node->_left != NULL)
+					my_node->_left->_black = false;
+				if (my_node->_right != NULL)
+					my_node->_right->_black = false;
+
+			}
+		}
 	}
+
+
+
+
+	/*************************** left rotation *********************************/
+	void left_rotation(node<k, v> *my_node){
+		node<k, v> *tmp_node = my_node->_right;
+		
+		my_node->_right = tmp_node->_left;
+
+		if (my_node->_right != NULL){
+			my_node->_right->_parent = my_node;
+			my_node->_right->_is_leftchild = false;
+		}
+
+		if (my_node->_parent == NULL){
+			_root = tmp_node;
+			tmp_node->_parent = NULL;
+		}
+		else{
+			tmp_node->_parent = my_node->_parent;
+			if(my_node->_is_leftchild){
+				tmp_node->_is_leftchild = true;
+				tmp_node->_parent->_left = tmp_node;
+			}
+			else{
+				tmp_node->_is_leftchild = false;
+				tmp_node->_parent->_right = tmp_node;
+			}
+		}
+		tmp_node->_left = my_node;
+		my_node->_is_leftchild = true;
+		my_node->_parent = tmp_node;
+
+	}
+	void left_right_rotation(node<k, v> *my_node){
+		std::cout << "left_right_rot\n\n\n";
+		left_rotation(my_node->_left);
+		right_rotation(my_node);
+	}
+
+
+
+
+	/*************************** right rotation *********************************/
+	void right_rotation(node<k, v> *my_node){
+		node<k, v> *tmp_node = my_node->_left;
+		
+		my_node->_left = tmp_node->_right;
+
+		if (my_node->_left != NULL){
+			my_node->_left->_parent = my_node;
+			my_node->_left->_is_leftchild = false;
+		}
+
+		if (my_node->_parent == NULL){
+			_root = tmp_node;
+			tmp_node->_parent = NULL;
+		}
+		else{
+			tmp_node->_parent = my_node->_parent;
+			if(my_node->_is_leftchild){
+				tmp_node->_is_leftchild = true;
+				tmp_node->_parent->_left = tmp_node;
+			}
+			else{
+				tmp_node->_is_leftchild = false;
+				tmp_node->_parent->_right = tmp_node;
+			}
+		}
+		tmp_node->_right = my_node;
+		my_node->_is_leftchild = false;
+		my_node->_parent = tmp_node;
+
+	}
+	void right_left_rotation(node<k, v> *my_node){
+		std::cout << "right_left_rot\n\n\n";
+		right_rotation(my_node->_right);
+		left_rotation(my_node);
+	}
+
+
+
+
+
+
+
+	/**************************** check colors *******************************/
+
+	void check_color(node<k, v> *my_node){
+		if(my_node == _root)
+			return;
+		if (!my_node->_black && !my_node->_parent->_black){
+			correct_violation(my_node);
+		}
+		check_color(my_node->_parent);
+	}
+
+
+
+
+
 
 private:
+
+	/*************************** private add *********************************/
 		void add(node<k, v> *_parent, node<k, v> *new_node){
-			if(_parent->_key >= new_node->_key){
+			if(_parent->_key <= new_node->_key){
 				if(_parent->_left == NULL){
 					_parent->_left = new_node;
 					new_node->_parent = _parent;
@@ -134,16 +292,19 @@ private:
 				else
 					return add(_parent->_right, new_node);
 			}
-			check_color();
+			check_color(new_node);
 		}
 
+
+
+	/*************************** print tree *********************************/
 	int	print_tree(node<k,v> *_root, int space)
 	{
 		if (!_root)
 			return (0);
 		space += 10;
 
-		print_tree(_root->_right, space);
+		print_tree(_root->_left, space);
 
 		std::cout<<"\n\n";
 		for (int i = 0; i < space; i++)
@@ -152,7 +313,7 @@ private:
 			std::cout << "\033[4;31m"<<_root->_value << "\033[0m";
 		else
 			std::cout << _root->_value;
-		print_tree(_root->_left, space);
+		print_tree(_root->_right, space);
 		return (1);
 	}
 

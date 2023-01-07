@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/06 22:15:38 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/08 00:58:09 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int main(){
 	tree.add(13, 13);
 	tree.add(4, 4);
 	tree.add(7, 7);
-	tree.add(9, 9);
+	tree.add(73, 73);
+	tree.add(15, 15);
+	tree.add(16, 16);
 	tree.print_tree(5);
 }
 
