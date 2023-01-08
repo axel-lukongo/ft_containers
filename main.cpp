@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/08 00:58:09 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/08 02:11:11 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ int main(){
 	tree.add(5, 5);
 	tree.add(3, 3);
 	tree.add(6, 6);
-	tree.add(1, 1);
-	tree.add(2, 2);
-	tree.add(13, 13);
-	tree.add(4, 4);
-	tree.add(7, 7);
-	tree.add(73, 73);
-	tree.add(15, 15);
-	tree.add(16, 16);
+	// tree.add(1, 1);
+	// tree.add(2, 2);
+	// tree.add(13, 13);
+	// tree.add(4, 4);
+	// tree.add(7, 7);
+	// tree.add(73, 73);
+	// tree.add(15, 15);
+	// tree.add(16, 16);
 	tree.print_tree(5);
+	std::cout << "\n\n height tree: "<<tree.height();
+	std::cout << "\n\n black node: "<<tree.black_node();
 }
 
 

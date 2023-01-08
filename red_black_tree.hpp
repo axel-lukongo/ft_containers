@@ -116,9 +116,42 @@ public:
 
 
 
+	int height(){
+		if(_root == NULL)
+			return 0;
+		else
+			return(height(_root) - 1);
+	}
 
+	int height(node<k,v> *my_node){
+		if(my_node == NULL)
+			return 0;
+		int left_height = height(my_node->_left)+1;
+		int right_height = height(my_node->_right)+1;
 
+		if(left_height > right_height)
+			return left_height;
+		return right_height;
+	}
 
+	int black_node(){
+		if(_root == NULL)
+			return 0;
+		return black_node(_root);
+	}
+
+	int black_node(node<k,v> *my_node){
+		if(my_node == NULL)
+			return 1;
+
+		int blacknode1 = black_node(my_node->_left);
+		int blacknode2 = black_node(my_node->_right);
+
+		if (my_node->_black == true)
+			blacknode1++;
+
+		return blacknode1;
+	}
 
 
 	/************************************************************/
@@ -201,7 +234,6 @@ public:
 
 	}
 	void left_right_rotation(node<k, v> *my_node){
-		std::cout << "left_right_rot\n\n\n";
 		left_rotation(my_node->_left);
 		right_rotation(my_node);
 	}
@@ -241,7 +273,6 @@ public:
 
 	}
 	void right_left_rotation(node<k, v> *my_node){
-		std::cout << "right_left_rot\n\n\n";
 		right_rotation(my_node->_right);
 		left_rotation(my_node);
 	}
@@ -268,7 +299,10 @@ public:
 
 
 
+
 private:
+
+
 
 	/*************************** private add *********************************/
 		void add(node<k, v> *_parent, node<k, v> *new_node){
