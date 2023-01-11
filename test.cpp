@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <stack>
-
+#include<map>
 template <typename T>
 void	printSize(std::vector<T> const &vct, bool print_content = true)
 {
@@ -116,22 +116,22 @@ int main()
 	// std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
 
 
-	const int start_size = 7;
-	std::vector<int> vct(start_size, 20);
-	std::vector<int> vct2;
-	std::vector<int>::iterator it = vct.begin();
+	// const int start_size = 7;
+	// std::vector<int> vct(start_size, 20);
+	// std::vector<int> vct2;
+	// std::vector<int>::iterator it = vct.begin();
 
 	// std::vector<int> vct(10);
 	// std::vector<int> vct2;
 	// std::vector<int> vct3;
 
 
-	for (int i = 2; i < start_size; ++i)
-		it[i] = (start_size - i) * 3;
-	printSize(vct, true);
+	// for (int i = 2; i < start_size; ++i)
+	// 	it[i] = (start_size - i) * 3;
+	// printSize(vct, true);
 
-	vct.resize(10, 42);
-	printSize(vct, true);
+	// vct.resize(10, 42);
+	// printSize(vct, true);
 
 	// vct.resize(18, 43);
 	// printSize(vct, true);
@@ -158,7 +158,13 @@ int main()
 	// vct2.resize(0);
 	// is_empty(vct2);
 	// printSize(vct2, true);
-
+	std::map<int,int> tree;
+	tree[1] = 83;
+	tree[3] = 213;
+	tree[12] = 33;
+	tree[6] = 21;
+	std::map<int,int>::iterator it = tree.begin();
+	std::cout << it->second << "----------'n"; 
 
 	return 0;
 }
