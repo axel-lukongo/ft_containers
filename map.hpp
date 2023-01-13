@@ -5,6 +5,7 @@
 #include "iterator/iterator_traits.hpp"
 #include "iterator/pair.hpp"
 #include"iterator/red_black_tree_iterator.hpp"
+// #include"iterator/red_black_tree_iterator.hpp"
 
 namespace ft{
 	template<	class Key, \
@@ -23,7 +24,13 @@ namespace ft{
 		//value_type:		the type of elements contained in the Node
 		typedef	ft::pair<const key_type, mapped_type>		value_type;
 
-		typedef typename red_black_tree<Key,T,Alloc>::iterator		iterator;
+	
+		typedef typename ft::red_black_tree<Key,T,Alloc>::iterator iterator;
+		// typedef typename ft::red_black_tree_iterator<typename ft::red_black_tree<Key,T,Alloc>::node_ty> iterator;
+	
+	
+		// typedef node<k,v> iterator;
+
 		// //the underlying tree storing the data.
 		public:
 		// //value_compare:	a function object that allows to compare 2 value_type
@@ -92,7 +99,7 @@ namespace ft{
 	/*                        iterator                          */
 	/************************************************************/
 
-		iterator *begin(void){
+		iterator begin(void){
 			return _tree.begin();
 		}
 

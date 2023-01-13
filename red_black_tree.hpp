@@ -8,6 +8,7 @@
 template<typename k, typename v>
 struct node{
 	//this is my key and my value
+	typedef v value_type;
 	k _key;
 	v _value;
 	// _is_leftchild is for know if the node are on the left or right to the parent
@@ -15,7 +16,7 @@ struct node{
 	bool _black, _is_leftchild;
 	//here i stock my nodes in the appropriet nodes;
 	node<k,v> *_left, *_right, *_parent;
-	
+
 	public:
 		node(k key, v val):_key(key), _value(val){
 			_left = _right = _parent = NULL;
@@ -24,6 +25,8 @@ struct node{
 };
 
 
+
+namespace ft{
 
 
 template<typename k,
@@ -40,6 +43,8 @@ private:
 	size_t count;
 public:
 	typedef Alloc										allocator_type;
+	typedef k key_type;
+	typedef v val_type;
 	// typedef typename allocator_type::reference			reference; 
 	// typedef typename allocator_type::const_reference	const_reference;
 	// typedef typename allocator_type::pointer			pointer;
@@ -49,6 +54,7 @@ public:
 
 
 	typedef Node								node_type;
+	typedef node<k,v>								node_ty;
 	typedef node_type*							node_ptr;
 	typedef node_type&							node_ref;
 	typedef typename ft::red_black_tree_iterator<Node>	iterator;
@@ -211,7 +217,6 @@ public:
 					my_node->_parent->_left->_black = false;
 			}
 			else{
-				// std::cout <<"-------------- ici -----------------";
 				left_right_rotation(my_node->_parent->_parent); //left right rotation
 				my_node->_black = true;
 				if (my_node->_left != NULL)
@@ -260,7 +265,6 @@ public:
 	void left_right_rotation(node<k, v> *my_node){
 		left_rotation(my_node->_left);
 		right_rotation(my_node);
-		// std::cout << _root->_key <<"  -------------- right left ----------------- ";
 
 	}
 
@@ -296,8 +300,6 @@ public:
 		tmp_node->_right = my_node;
 		my_node->_is_leftchild = false;
 		my_node->_parent = tmp_node;
-
-		// std::cout << _root->_key <<"  -------------- right left -----------------";
 	}
 	void right_left_rotation(node<k, v> *my_node){
 		right_rotation(my_node->_right);
@@ -313,7 +315,6 @@ public:
 	/**************************** check colors *******************************/
 
 	void check_color(node<k, v> *my_node){
-		// std::cout << _root->_key <<"  -------------- right left -----------------\n";
 		if(my_node == _root || !my_node){
 
 			return;
@@ -329,15 +330,18 @@ public:
 	/*                         capacity                         */
 	/************************************************************/
 
-	iterator begin(){
+	node_ptr find_begin(){
 		if(_root != NULL){
-		node_ptr ptr = _root;
+			node_ptr ptr = _root;
 			while(ptr->_right)
 				ptr = ptr->_right;
-			std::cout << ptr->_value;
-			return(ptr);
+			return ptr;
 		}
 		return(NULL);
+	}
+
+	iterator begin(){
+		return iterator(find_begin(), NULL);
 	}
 
 
@@ -396,5 +400,5 @@ private:
 
 };
 
-
+}
 #endif // !RED_BLACK_TREE_H

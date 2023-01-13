@@ -167,7 +167,7 @@ int main()
 	tree[6] = 23;
 	tree[7] = 24;
 	std::map<int,int>::iterator it = tree.begin();
-	std::cout << it->first << "----------'n"; 
+	std::cout << it->first << "----------\n";
 
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:02:27 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/11 21:26:53 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/13 15:18:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,8 @@ namespace ft{
 			typename Reference = T& >
 	class iterator
 	{
-		protected:
+		// protected:
+		public:
 		typedef T         value_type;
 		typedef Distance  difference_type;
 		typedef Pointer   pointer;

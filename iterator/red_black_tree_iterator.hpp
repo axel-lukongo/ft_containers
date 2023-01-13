@@ -11,16 +11,20 @@ namespace ft{
 	public:
 
 		typedef				Iterator*								iterator_type;
-		typedef typename	Iterator::v					value_type;
+		typedef typename	Iterator::value_type					value_type;
 
 		typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category	iterator_category;
 		typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type	difference_type;
 		typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer			pointer;
 		typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference			reference;
 
+	private:
+		iterator_type _node;
+		iterator_type _end;
 		/************************************************************/
 		/*                        constructor                       */
 		/************************************************************/
+	public:
 		red_black_tree_iterator(): _node(NULL), _end(NULL){}
 
 		red_black_tree_iterator(iterator_type node, iterator_type end):
@@ -45,11 +49,11 @@ namespace ft{
 		/*                         operator                         */
 		/************************************************************/
 		reference	operator*(void) const {
-			return _node->data;
+			return _node->_key;
 		}
 
 		pointer	operator->(void) const {
-			return &(_node->data);
+			return &(_node->_key);
 		}
 
 		iterator_type	base(void) const {
@@ -96,9 +100,7 @@ namespace ft{
 		}
 
 
-	private:
-		iterator_type _node;
-		iterator_type _end;
+	
 
 		void _increment_iterator(){
 			if (_node->left){
