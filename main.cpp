@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/10 17:40:22 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/13 01:54:30 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,28 @@
 #include"map.hpp"
 int main(){
 
-	ft::map<int, int> test;
-	// red_black_tree<int, int> tree;
-	// tree.add(5, 5);
-	// tree.add(3, 3);
-	// tree.add(6, 6);
-	// tree.add(1, 1);
-	// tree.add(2, 2);
-	// tree.add(13, 13);
-	// tree.add(4, 4);
-	// tree.add(7, 7);
-	// tree.add(73, 73);
-	// tree.add(15, 15);
-	// tree.add(16, 16);
-	// tree.print_tree(5);
+	// ft::map<int, int> test;
+	// test.insert(3,10);
+	// test.insert(4,32);
+	// test.insert(2,16);
+	// test.insert(8,16);
+	// test.insert(10,16);
+	// test.insert(9,16);
+	// test.insert(1,16);
+	// test.insert(6,16);
+	// test.begin();
+	red_black_tree<int, int> tree;
+	tree.add(15, 5);
+	tree.add(4, 3);
+	tree.add(2, 6);
+	tree.add(3, 1);
+	tree.add(26, 2);
+	tree.add(38, 13);
+	tree.add(25, 4);
+	tree.add(20, 7);
+	tree.add(23, 9);
+	tree.add(21, 7);
+	tree.print_tree(5);
 	// std::cout << "\n\n height tree: "<<tree.height();
 	// std::cout << "\n\n black node: "<<tree.black_node();
 }

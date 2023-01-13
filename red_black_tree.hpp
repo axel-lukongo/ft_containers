@@ -1,6 +1,9 @@
 #ifndef RED_BLACK_TREE_H
 #define RED_BLACK_TREE_H
 #include<iostream>
+#include "iterator/iterator_traits.hpp"
+#include"iterator/pair.hpp"
+#include "iterator/red_black_tree_iterator.hpp"
 
 template<typename k, typename v>
 struct node{
@@ -23,7 +26,11 @@ struct node{
 
 
 
-template<typename k, typename v>
+template<typename k,
+typename v,
+class Alloc = std::allocator<std::pair<const k, v> >,
+class Node = node<k,v> >
+
 class red_black_tree
 {
 private:
@@ -32,6 +39,22 @@ private:
 	//count is for have the number of element in my tree
 	size_t count;
 public:
+	typedef Alloc										allocator_type;
+	// typedef typename allocator_type::reference			reference; 
+	// typedef typename allocator_type::const_reference	const_reference;
+	// typedef typename allocator_type::pointer			pointer;
+	// typedef typename allocator_type::const_pointer		const_pointer;
+	// typedef typename Node::Node_ptr						Node_ptr;
+	// typedef std::allocator<node_type> 					node_allocator_type;
+
+
+	typedef Node								node_type;
+	typedef node_type*							node_ptr;
+	typedef node_type&							node_ref;
+	typedef typename ft::red_black_tree_iterator<Node>	iterator;
+
+
+	
 	/************************************************************/
 	/*                        constructor                       */
 	/************************************************************/
@@ -188,6 +211,7 @@ public:
 					my_node->_parent->_left->_black = false;
 			}
 			else{
+				// std::cout <<"-------------- ici -----------------";
 				left_right_rotation(my_node->_parent->_parent); //left right rotation
 				my_node->_black = true;
 				if (my_node->_left != NULL)
@@ -236,6 +260,8 @@ public:
 	void left_right_rotation(node<k, v> *my_node){
 		left_rotation(my_node->_left);
 		right_rotation(my_node);
+		// std::cout << _root->_key <<"  -------------- right left ----------------- ";
+
 	}
 
 
@@ -271,6 +297,7 @@ public:
 		my_node->_is_leftchild = false;
 		my_node->_parent = tmp_node;
 
+		// std::cout << _root->_key <<"  -------------- right left -----------------";
 	}
 	void right_left_rotation(node<k, v> *my_node){
 		right_rotation(my_node->_right);
@@ -286,8 +313,11 @@ public:
 	/**************************** check colors *******************************/
 
 	void check_color(node<k, v> *my_node){
-		if(my_node == _root)
+		// std::cout << _root->_key <<"  -------------- right left -----------------\n";
+		if(my_node == _root || !my_node){
+
 			return;
+		}
 		if (!my_node->_black && !my_node->_parent->_black){
 			correct_violation(my_node);
 		}
@@ -295,13 +325,25 @@ public:
 	}
 
 
+	/************************************************************/
+	/*                         capacity                         */
+	/************************************************************/
 
+	iterator begin(){
+		if(_root != NULL){
+		node_ptr ptr = _root;
+			while(ptr->_right)
+				ptr = ptr->_right;
+			std::cout << ptr->_value;
+			return(ptr);
+		}
+		return(NULL);
+	}
 
 
 
 
 private:
-
 
 
 	/*************************** private add *********************************/
@@ -344,9 +386,9 @@ private:
 		for (int i = 0; i < space; i++)
 			std::cout <<" ";
 		if (_root->_black == false)
-			std::cout << "\033[4;31m"<<_root->_value << "\033[0m";
+			std::cout << "\033[4;31m"<<_root->_key << "\033[0m";
 		else
-			std::cout << _root->_value;
+			std::cout << _root->_key;
 		print_tree(_root->_right, space);
 		return (1);
 	}

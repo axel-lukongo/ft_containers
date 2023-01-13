@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:02:27 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/29 21:04:45 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:26:53 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,21 @@ namespace ft{
 	template <> struct is_integral<unsigned int>{static const bool value = true;};
 	template <> struct is_integral<unsigned long int>{static const bool value = true;};
 	template <> struct is_integral<unsigned long long int>{static const bool value = true;};
+
+	template< typename Category,
+			typename T,
+			typename Distance = ptrdiff_t,
+			typename Pointer = T*,
+			typename Reference = T& >
+	class iterator
+	{
+		protected:
+		typedef T         value_type;
+		typedef Distance  difference_type;
+		typedef Pointer   pointer;
+		typedef Reference reference;
+		typedef Category  iterator_category;
+	};
 
 	template<bool B, class T = void>
 	struct enable_if {};
