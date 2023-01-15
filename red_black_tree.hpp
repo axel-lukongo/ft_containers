@@ -5,12 +5,12 @@
 #include"iterator/pair.hpp"
 #include "iterator/red_black_tree_iterator.hpp"
 
-template<typename k, typename v>
+template<class k, class v>
 struct node{
 	//this is my key and my value
-	typedef v value_type;
-	k _key;
-	v _value;
+	typedef  ft::pair<k, v> value_type;
+	value_type _key;
+	// v _value;
 	// _is_leftchild is for know if the node are on the left or right to the parent
 	// _black is just for know if the node is black else i considered this as red
 	bool _black, _is_leftchild;
@@ -18,16 +18,14 @@ struct node{
 	node<k,v> *_left, *_right, *_parent;
 
 	public:
-		node(k key, v val):_key(key), _value(val){
+		node(k key, v val):_key(key, val){
 			_left = _right = _parent = NULL;
 			_black = _is_leftchild = false;
 		}
 };
 
 
-
 namespace ft{
-
 
 template<typename k,
 typename v,

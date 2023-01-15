@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/13 19:59:15 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/15 01:49:52 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int main(){
 
 	ft::map<int, int> test;
 	test.insert(3,10);
-	test.insert(4,32);
-	test.insert(1,1);
-	test.insert(2,16);
 	ft::map<int, int>::iterator it;
 	// test.insert(8,16);
 	// test.insert(10,16);
@@ -28,7 +25,7 @@ int main(){
 	// test.insert(1,16);
 	// test.insert(6,16);
 	it = test.begin();
-	std::cout << *it << " -----------\n";
+	std::cout << it->first << " -----------\n";
 	// red_black_tree<int, int> tree;
 	// tree.add(15, 5);
 	// tree.add(4, 3);
