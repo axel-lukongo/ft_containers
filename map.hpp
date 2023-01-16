@@ -22,7 +22,7 @@ namespace ft{
 		typedef T											mapped_type;
 		
 		//value_type:		the type of elements contained in the Node
-		typedef	ft::pair<const key_type, mapped_type>		value_type;
+		typedef	ft::pair< Key, T>						value_type;
 
 	
 		typedef typename ft::red_black_tree<Key,T,Alloc>::iterator iterator;
@@ -106,8 +106,11 @@ namespace ft{
 	/************************************************************/
 	/*                         modifier                         */
 	/************************************************************/
-	void insert(Key k, T v){
-		_tree.add(k,v);
+	pair<iterator,bool> insert(const value_type& val){
+		ft::pair<iterator, bool>	tmp;
+		
+		tmp = _tree.add_one(val);
+		return tmp;
 	}
 
 	};

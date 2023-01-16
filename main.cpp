@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/15 01:49:52 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/16 22:28:24 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 #include <iostream>
 #include <vector>
 #include"map.hpp"
+#include<map>
 int main(){
 
 	ft::map<int, int> test;
-	test.insert(3,10);
+	test.insert(ft::pair<int,int>(1,100));
 	ft::map<int, int>::iterator it;
-	// test.insert(8,16);
-	// test.insert(10,16);
-	// test.insert(9,16);
-	// test.insert(1,16);
-	// test.insert(6,16);
 	it = test.begin();
 	std::cout << it->first << " -----------\n";
 	// red_black_tree<int, int> tree;

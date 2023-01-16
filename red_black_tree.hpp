@@ -27,8 +27,8 @@ struct node{
 
 namespace ft{
 
-template<typename k,
-typename v,
+template<class k,
+class v,
 class Alloc = std::allocator<std::pair<const k, v> >,
 class Node = node<k,v> >
 
@@ -40,6 +40,7 @@ private:
 	//count is for have the number of element in my tree
 	size_t count;
 public:
+	typedef ft::pair<k, v>								value_type;
 	typedef Alloc										allocator_type;
 	typedef k key_type;
 	typedef v val_type;
@@ -52,11 +53,12 @@ public:
 
 
 	typedef Node								node_type;
-	typedef node<k,v>								node_ty;
+	typedef node<k,v>							node_ty;
 	typedef node_type*							node_ptr;
 	typedef node_type&							node_ref;
 	typedef typename ft::red_black_tree_iterator<Node>	iterator;
 
+	std::allocator<Node> alloc;
 
 	
 	/************************************************************/
@@ -83,17 +85,21 @@ public:
 
 	/*In this function i add a new value in my tree else
 	i call the second function add */
-	void add(k key, v value){
-		node<k, v> *_node = new node<k, v>(key, value);
+	ft::pair<iterator, bool> add_one(const value_type &val){
+		node<k, v> *_node = new node<k, v>(val.first, val.second);
 		if (_root == NULL){ //if my tree is empty
-			_root = _node;
+			_root = alloc.allocate(sizeof(Node));;
+			alloc.construct(_root, val.first, val.second);
 			_root->_black = true;
 			count++;
+			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 		}
 		else{
-			add(_root, _node);
 			count++;
+			add(_root, _node);
 		}
+		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
+
 	}
 	int print_tree(int space){
 		print_tree(_root, space);
@@ -352,6 +358,7 @@ private:
 		void add(node<k, v> *_parent, node<k, v> *new_node){
 			if(_parent->_key <= new_node->_key){
 				if(_parent->_left == NULL){
+					node_ptr new_node;
 					_parent->_left = new_node;
 					new_node->_parent = _parent;
 					new_node->_is_leftchild = true;

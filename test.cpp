@@ -158,15 +158,9 @@ int main()
 	// vct2.resize(0);
 	// is_empty(vct2);
 	// printSize(vct2, true);
-	std::map<int,int> tree;
-	tree[2] = 213;
-	tree[3] = 33;
-	tree[4] = 21;
-	tree[1] = 83;
-	tree[5] = 22;
-	tree[6] = 23;
-	tree[7] = 24;
-	std::map<int,int>::iterator it = tree.begin();
+	std::map<int,int> test;
+	test.insert(std::pair<int,int>(1,100));
+	std::map<int,int>::iterator it = test.begin();
 	std::cout << it->first << "----------\n";
 
 	return 0;
