@@ -4,7 +4,11 @@
 #include"pair.hpp"
 #include"iterator_traits.hpp"
 
+  
 namespace ft{
+template <class Iterator>
+  class const_red_black_tree_iterator;
+
 	template <class Iterator>
 	class red_black_tree_iterator
 	{
@@ -30,7 +34,7 @@ namespace ft{
 		red_black_tree_iterator(iterator_type node, iterator_type end):
 		_node(node), _end(end){}
 
-		red_black_tree_iterator(const red_black_tree_iterator& src) : _node(src._node), _end(src._end) {
+		red_black_tree_iterator(const red_black_tree_iterator& cpy) : _node(cpy._node), _end(cpy._end) {
 		}
 
 
@@ -43,9 +47,9 @@ namespace ft{
 		/************************************************************/
 		/*                         operator                         */
 		/************************************************************/
-		red_black_tree_iterator&	operator=(const red_black_tree_iterator& src) {
-			_node = src._node;
-			_end = src._end;
+		red_black_tree_iterator&	operator=(const red_black_tree_iterator& cpy) {
+			_node = cpy._node;
+			_end = cpy._end;
 			return *this;
 		}
 
@@ -92,12 +96,12 @@ namespace ft{
 			return tmp;
 		}
 
-		bool	operator==(const red_black_tree_iterator& src) const {
-			return _node == src._node;
+		bool	operator==(const red_black_tree_iterator& cpy) const {
+			return _node == cpy._node;
 		}
 
-		bool	operator!=(const red_black_tree_iterator& src) const {
-			return _node != src._node;
+		bool	operator!=(const red_black_tree_iterator& cpy) const {
+			return _node != cpy._node;
 		}
 
 	private:
@@ -136,6 +140,13 @@ namespace ft{
 			}
 	};
 
+
+
+
+
+
+
+
 	template <class Iterator>
 	class const_red_black_tree_iterator {
 
@@ -163,8 +174,19 @@ namespace ft{
 		/************************************************************/
 		/*                           copy                           */
 		/************************************************************/
-			 const_red_black_tree_iterator(const const_red_black_tree_iterator<Iterator>& cpy)
-			 : _node(cpy.base()), _end(cpy.end()) {} 
+			//  const_red_black_tree_iterator(const const_red_black_tree_iterator<Iterator>& cpy)
+			//  : _node(cpy.base()), _end(cpy.end()) {} 
+
+			// const_red_black_tree_iterator(const const_red_black_tree_iterator &cpy) //meme qu'en haut sans preciser le template
+			// : _node(cpy.base()), _end(cpy.end()) {}
+
+				const_red_black_tree_iterator(const const_red_black_tree_iterator& cpy)
+					: _node(cpy.base()), _end(cpy._end) {
+					} 
+
+				const_red_black_tree_iterator(const red_black_tree_iterator<Iterator>& cpy)
+					: _node(cpy.base()), _end(cpy.end()) {
+					} 
 
 		/************************************************************/
 		/*                        destructor                        */
@@ -174,9 +196,9 @@ namespace ft{
 		/************************************************************/
 		/*                         operator                         */
 		/************************************************************/
-			 const_red_black_tree_iterator&	operator=(const  const_red_black_tree_iterator& src) {
-				_node = src._node;
-				_end = src._end;
+			 const_red_black_tree_iterator&	operator=(const  const_red_black_tree_iterator& cpy) {
+				_node = cpy._node;
+				_end = cpy._end;
 				return *this;
 			}
 
@@ -222,12 +244,12 @@ namespace ft{
 				return tmp;
 			}
 
-			bool	operator==(const  const_red_black_tree_iterator& src) const {
-				return _node == src._node;
+			bool	operator==(const  const_red_black_tree_iterator& cpy) const {
+				return _node == cpy._node;
 			}
 
-			bool	operator!=(const  const_red_black_tree_iterator& src) const {
-				return _node != src._node;
+			bool	operator!=(const  const_red_black_tree_iterator& cpy) const {
+				return _node != cpy._node;
 			}
 
 		private:

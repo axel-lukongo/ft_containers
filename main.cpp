@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/18 22:02:22 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:59:30 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,54 +21,44 @@
 
 int main(){
 
+
+	{
+	std::cout << std::endl<< std::endl<< std::endl;
+	std::cout << "************************** const iterator ************************";
+	std::cout << std::endl;
 	ft::map<int, std::string> test;
 	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
 	test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
 	ft::map<int, std::string>::const_reverse_iterator it = test.rbegin();
 
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	// ft::map<int, std::string> test;
+	std::cout << it->first;
+	}
+	{
+	std::cout << std::endl<< std::endl<< std::endl;
+	std::cout << "************************** insert ************************";
+	std::cout << std::endl;
+	ft::map<int, std::string> test;
+	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
 	// test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	// // test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	// // test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	// // test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	// test.insert(ft::pair<int,std::string>(3,"le 3eme mini"));
-	// test.insert(ft::pair<int,std::string>(5,"le 3eme mini"));
-	// test.insert(ft::pair<int,std::string>(1,"le 3eme mini"));
-	// ft::map<int, std::string>::const_reverse_iterator it;
-	// it = test.rend();
-	// it--;
-	// std::cout << it->first << "\n";
-	// it++;
-	// std::cout << it->first << "\n";
-	// it++;
-	// std::cout << it->first << "\n";
-	// it++;
-	// std::cout << it->first << "\n";
-	// it++;
+	// test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	test.insert(ft::pair<int,std::string>(3,"le 3eme mini"));
+	test.insert(ft::pair<int,std::string>(4,"le 5eme "));
+	test.insert(ft::pair<int,std::string>(5,"le 4eme"));
+	test.insert(ft::pair<int,std::string>(1,"le 1er"));
+	ft::map<int, std::string>::iterator it;
+	it = test.begin();
+	std::cout << it->first << "\n";
+	it++;
+	std::cout << it->first << "\n";
+	it++;
+	std::cout << it->first << "\n";
+	it++;
+	std::cout << it->first << "\n";
+	it++;
+	}
 	// red_black_tree<int, int> tree;
-	// tree.add(15, 5);
-	// tree.add(4, 3);
-	// tree.add(2, 6);
-	// tree.add(3, 1);
-	// tree.add(26, 2);
-	// tree.add(38, 13);
-	// tree.add(25, 4);
-	// tree.add(20, 7);
-	// tree.add(23, 9);
-	// tree.add(21, 7);
+
 	// tree.print_tree(5);
 	// std::cout << "\n\n height tree: "<<tree.height();
 	// std::cout << "\n\n black node: "<<tree.black_node();

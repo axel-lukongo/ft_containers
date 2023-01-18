@@ -30,7 +30,7 @@ namespace ft{
 		typedef Compare														key_compare;
 		// allocator_type:	the allocator used to allocate memory.
 		typedef Alloc														allocator_type;
-		typedef red_black_tree<key_type, T>									red_black_tree;
+		typedef red_black_tree<key_type, T>									my_tree;
 		typedef typename allocator_type::reference							reference; 
 		typedef typename allocator_type::const_reference					const_reference;
 		//pointer:			the type "pointer to value_type"
@@ -42,7 +42,7 @@ namespace ft{
 
 		// //OTHER
 		private:
-		red_black_tree _tree;
+		my_tree _tree;
 
 		public:
 	/************************************************************/
