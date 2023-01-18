@@ -5,6 +5,8 @@
 #include "iterator/iterator_traits.hpp"
 #include "iterator/pair.hpp"
 #include"iterator/red_black_tree_iterator.hpp"
+#include"iterator/reverse_iterator.hpp"
+
 // #include"iterator/red_black_tree_iterator.hpp"
 
 namespace ft{
@@ -15,59 +17,36 @@ namespace ft{
 	class map{
 
 		public:
+
 		//key_type:			the type of the key in the key value pair.
-		typedef Key											key_type;
-
+		typedef Key															key_type;
 		//mapped_type:		the type of the value in the key value pair.
-		typedef T											mapped_type;
-		
+		typedef T															mapped_type;
 		//value_type:		the type of elements contained in the Node
-		typedef	ft::pair< Key, T>						value_type;
-
-	
-		typedef typename ft::red_black_tree<Key,T,Alloc>::iterator iterator;
-		// typedef typename ft::red_black_tree_iterator<typename ft::red_black_tree<Key,T,Alloc>::node_ty> iterator;
-	
-	
-		// typedef node<k,v> iterator;
-
-		// //the underlying tree storing the data.
-		public:
-		// //value_compare:	a function object that allows to compare 2 value_type
-		// typedef typename map_tree::value_compare			value_compare;
-		// //key_compare:		The third parameter, it allows us to copmare keys.
-		typedef Compare										key_compare;
+		typedef	ft::pair< Key, T>											value_type;
+		typedef typename ft::red_black_tree<Key,T,Alloc>::iterator			iterator;
+		typedef typename ft::red_black_tree<Key,T,Alloc>::const_iterator	const_iterator;
+		//key_compare:		The third parameter, it allows us to copmare keys.
+		typedef Compare														key_compare;
 		// allocator_type:	the allocator used to allocate memory.
-		typedef Alloc										allocator_type;
-		// //reference:		the type "reference to value_type"
-		typedef typename allocator_type::reference			reference; 
-		// //const_reference:	the type "const reference to value_type"
-		typedef typename allocator_type::const_reference	const_reference;
-		// //pointer:			the type "pointer to value_type"
-		typedef typename allocator_type::pointer			pointer;
-		// //const_pointer:	the type "const pointer to value_type"
-		typedef typename allocator_type::const_pointer		const_pointer;	
-
-		// //ITERATORS
-		// typedef typename map_tree::iterator					iterator;
-		// typedef typename map_tree::const_iterator			const_iterator;
-		// typedef typename map_tree::reverse_iterator			reverse_iterator;
-		// typedef typename map_tree::const_reverse_iterator	const_reverse_iterator;
+		typedef Alloc														allocator_type;
+		typedef red_black_tree<key_type, T>									red_black_tree;
+		typedef typename allocator_type::reference							reference; 
+		typedef typename allocator_type::const_reference					const_reference;
+		//pointer:			the type "pointer to value_type"
+		typedef typename allocator_type::pointer							pointer;
+		//const_pointer:	the type "const pointer to value_type"
+		typedef typename allocator_type::const_pointer						const_pointer;	
+		typedef typename ft::reverse_iterator<iterator>						reverse_iterator;
+		typedef typename ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 
 		// //OTHER
-		// typedef typename iterator_traits<iterator>::difference_type \
-		// 													difference_type;
-		// typedef typename node_allocator_type::size_type		size_type;
-	
+		private:
+		red_black_tree _tree;
 
-
-
-
-			red_black_tree<key_type, mapped_type> _tree;
-		
 		public:
 	/************************************************************/
-	/*                        iterator                          */
+	/*                      constructor                         */
 	/************************************************************/
 		//empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
@@ -95,13 +74,53 @@ namespace ft{
 
 		}
 
+
+	/************************************************************/
+	/*                        operator                          */
+	/************************************************************/
+	mapped_type&	operator[](const key_type& k) {
+		return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
+	}
+
 	/************************************************************/
 	/*                        iterator                          */
 	/************************************************************/
 
+		/****************************** BEGIN *******************************/
 		iterator begin(void){
 			return _tree.begin();
 		}
+
+		const_iterator cbegin(void){
+			return _tree.cbegin();
+		}
+
+		//********revers**********
+		reverse_iterator	rbegin(void) {
+			return reverse_iterator(_tree.end());
+		}
+
+		const_reverse_iterator	rbegin(void) const {
+			return const_reverse_iterator(_tree.crend());
+		}
+
+		/****************************** END *******************************/
+		iterator end(){
+			return _tree.end();
+		}
+		const_iterator cend(){
+			return _tree.cend();
+		}
+
+		//********revers**********
+		reverse_iterator	rend(void) {
+			return reverse_iterator(_tree.begin());
+		}
+
+		const_reverse_iterator	rend(void) const {
+			return const_reverse_iterator(_tree.cbegin());
+		}
+
 
 	/************************************************************/
 	/*                         modifier                         */
@@ -110,6 +129,7 @@ namespace ft{
 		ft::pair<iterator, bool>	tmp;
 		
 		tmp = _tree.add_one(val);
+		// _tree.print_tree(5);
 		return tmp;
 	}
 

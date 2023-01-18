@@ -159,8 +159,14 @@ int main()
 	// is_empty(vct2);
 	// printSize(vct2, true);
 	std::map<int,int> test;
-	test.insert(std::pair<int,int>(1,100));
-	std::map<int,int>::iterator it = test.begin();
+	test.insert(std::pair<int,int>(2,100));
+	test.insert(std::pair<int,int>(2,100));
+	test.insert(std::pair<int,int>(2,100));
+	test.insert(std::pair<int,int>(2,100));
+	test.insert(std::pair<int,int>(3,100));
+	std::map<int,int>::const_iterator it; 
+	it = test.begin();
+	it++;
 	std::cout << it->first << "----------\n";
 
 	return 0;

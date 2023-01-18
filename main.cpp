@@ -6,22 +6,58 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/16 22:28:24 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:02:22 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.hpp"
+// #include "stack.hpp"
 #include <iostream>
-#include <vector>
+// #include <vector>
 #include"map.hpp"
+// #include "print_tree.hpp"
 #include<map>
+
+
+
 int main(){
 
-	ft::map<int, int> test;
-	test.insert(ft::pair<int,int>(1,100));
-	ft::map<int, int>::iterator it;
-	it = test.begin();
-	std::cout << it->first << " -----------\n";
+	ft::map<int, std::string> test;
+	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
+	ft::map<int, std::string>::const_reverse_iterator it = test.rbegin();
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	// ft::map<int, std::string> test;
+	// test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// // test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// // test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// // test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// test.insert(ft::pair<int,std::string>(3,"le 3eme mini"));
+	// test.insert(ft::pair<int,std::string>(5,"le 3eme mini"));
+	// test.insert(ft::pair<int,std::string>(1,"le 3eme mini"));
+	// ft::map<int, std::string>::const_reverse_iterator it;
+	// it = test.rend();
+	// it--;
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// it++;
 	// red_black_tree<int, int> tree;
 	// tree.add(15, 5);
 	// tree.add(4, 3);

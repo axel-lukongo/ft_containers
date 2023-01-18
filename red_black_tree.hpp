@@ -4,6 +4,7 @@
 #include "iterator/iterator_traits.hpp"
 #include"iterator/pair.hpp"
 #include "iterator/red_black_tree_iterator.hpp"
+#include"iterator/reverse_iterator.hpp"
 
 template<class k, class v>
 struct node{
@@ -34,8 +35,6 @@ class Node = node<k,v> >
 
 class red_black_tree
 {
-private:
-	node<k, v> *_root;
 
 	//count is for have the number of element in my tree
 	size_t count;
@@ -48,18 +47,18 @@ public:
 	// typedef typename allocator_type::const_reference	const_reference;
 	// typedef typename allocator_type::pointer			pointer;
 	// typedef typename allocator_type::const_pointer		const_pointer;
-	// typedef typename Node::Node_ptr						Node_ptr;
-	// typedef std::allocator<node_type> 					node_allocator_type;
 
 
 	typedef Node								node_type;
-	typedef node<k,v>							node_ty;
-	typedef node_type*							node_ptr;
+	typedef node_type*							node_ptr ;
 	typedef node_type&							node_ref;
 	typedef typename ft::red_black_tree_iterator<Node>	iterator;
+	typedef typename ft::const_red_black_tree_iterator<Node>	const_iterator;
 
+private:
+	node_ptr  _root;
 	std::allocator<Node> alloc;
-
+public:
 	
 	/************************************************************/
 	/*                        constructor                       */
@@ -86,7 +85,8 @@ public:
 	/*In this function i add a new value in my tree else
 	i call the second function add */
 	ft::pair<iterator, bool> add_one(const value_type &val){
-		node<k, v> *_node = new node<k, v>(val.first, val.second);
+		node_ptr  _node = alloc.allocate(1);
+		alloc.construct(_node, val.first, val.second);
 		if (_root == NULL){ //if my tree is empty
 			_root = alloc.allocate(sizeof(Node));;
 			alloc.construct(_root, val.first, val.second);
@@ -95,12 +95,12 @@ public:
 			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 		}
 		else{
-			count++;
 			add(_root, _node);
 		}
 		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 
 	}
+
 	int print_tree(int space){
 		print_tree(_root, space);
 		return(1);
@@ -112,7 +112,7 @@ public:
 
 /*************************** correct violation *********************************/
 	/*first i have to check the aunt of the node where we are*/
-	void correct_violation(node<k, v> *my_node){
+	void correct_violation(node_ptr my_node){
 		
 		/*for check the aunt: if parent are in left 
 		of the grand parent i check the right of the grand parent else 
@@ -193,7 +193,7 @@ public:
 
 	/*************************** rotate *********************************/
 
-	void rotate(node<k, v> *my_node){
+	void rotate(node_ptr my_node){
 		if(my_node->_is_leftchild == true){
 			if(my_node->_parent->_is_leftchild == true){
 				right_rotation(my_node->_parent->_parent); //right rotation
@@ -236,8 +236,8 @@ public:
 
 
 	/*************************** left rotation *********************************/
-	void left_rotation(node<k, v> *my_node){
-		node<k, v> *tmp_node = my_node->_right;
+	void left_rotation(node_ptr my_node){
+		node_ptr tmp_node = my_node->_right;
 		
 		my_node->_right = tmp_node->_left;
 
@@ -266,7 +266,7 @@ public:
 		my_node->_parent = tmp_node;
 
 	}
-	void left_right_rotation(node<k, v> *my_node){
+	void left_right_rotation(node_ptr my_node){
 		left_rotation(my_node->_left);
 		right_rotation(my_node);
 
@@ -276,8 +276,8 @@ public:
 
 
 	/*************************** right rotation *********************************/
-	void right_rotation(node<k, v> *my_node){
-		node<k, v> *tmp_node = my_node->_left;
+	void right_rotation(node_ptr my_node){
+		node_ptr tmp_node = my_node->_left;
 		
 		my_node->_left = tmp_node->_right;
 
@@ -305,7 +305,7 @@ public:
 		my_node->_is_leftchild = false;
 		my_node->_parent = tmp_node;
 	}
-	void right_left_rotation(node<k, v> *my_node){
+	void right_left_rotation(node_ptr my_node){
 		right_rotation(my_node->_right);
 		left_rotation(my_node);
 	}
@@ -318,7 +318,7 @@ public:
 
 	/**************************** check colors *******************************/
 
-	void check_color(node<k, v> *my_node){
+	void check_color(node_ptr  my_node){
 		if(my_node == _root || !my_node){
 
 			return;
@@ -334,9 +334,9 @@ public:
 	/*                         capacity                         */
 	/************************************************************/
 
-	node_ptr find_begin(){
+	node_ptr  find_begin() const{
 		if(_root != NULL){
-			node_ptr ptr = _root;
+			node_ptr  ptr = _root;
 			while(ptr->_right)
 				ptr = ptr->_right;
 			return ptr;
@@ -348,40 +348,69 @@ public:
 		return iterator(find_begin(), NULL);
 	}
 
+	const_iterator cbegin(){
+		return const_iterator(find_begin(), NULL);
+	}
 
 
+	node_ptr  find_end() const {
+		if(_root != NULL){
+			node_ptr  ptr = _root;
+			while(ptr->_left)
+				ptr = ptr->_left;
+			return ptr;
+		}
+		return(NULL);
+	}
+
+	typedef typename ft::reverse_iterator<const_iterator>				const_reverse_iterator;
+
+	iterator crend(){
+		return iterator(NULL, find_end());
+	}
+
+	iterator end(){
+		return iterator(NULL, find_end());
+	}
+
+	const_iterator cend() const {
+		return const_iterator(NULL, find_end());
+	}
 
 private:
 
 
 	/*************************** private add *********************************/
-		void add(node<k, v> *_parent, node<k, v> *new_node){
-			if(_parent->_key <= new_node->_key){
+		void add(node_ptr _parent, node_ptr new_node){
+			int check_add = count;
+			if(_parent->_key < new_node->_key){
 				if(_parent->_left == NULL){
-					node_ptr new_node;
 					_parent->_left = new_node;
 					new_node->_parent = _parent;
 					new_node->_is_leftchild = true;
 					new_node->_black = false;
+					count++;
 				}
 				else
 					return add(_parent->_left, new_node);
 			}
-			else{
+			else if (_parent->_key > new_node->_key){
 				if (_parent->_right == NULL){
 					_parent->_right = new_node;
 					new_node->_parent = _parent;
 					new_node->_is_leftchild = false;
 					new_node->_black = false;
+					count++;
 				}
 				else
 					return add(_parent->_right, new_node);
 			}
-			check_color(new_node);
+			if (check_add != count)
+				check_color(new_node);
 		}
 
 
-
+	public:
 	/*************************** print tree *********************************/
 	int	print_tree(node<k,v> *_root, int space)
 	{
@@ -395,7 +424,7 @@ private:
 		for (int i = 0; i < space; i++)
 			std::cout <<" ";
 		if (_root->_black == false)
-			std::cout << "\033[4;31m"<<_root->_key << "\033[0m";
+			std::cout << "\033[4;31m"<<_root->_key.first << "\033[0m";
 		else
 			std::cout << _root->_key;
 		print_tree(_root->_right, space);
