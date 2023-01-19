@@ -383,7 +383,7 @@ private:
 	/*************************** private add *********************************/
 		void add(node_ptr _parent, node_ptr new_node){
 			int check_add = count;
-			if(_parent->_key < new_node->_key){
+			if(_parent->_key.first < new_node->_key.first){
 				if(_parent->_left == NULL){
 					_parent->_left = new_node;
 					new_node->_parent = _parent;
@@ -394,7 +394,7 @@ private:
 				else
 					return add(_parent->_left, new_node);
 			}
-			else if (_parent->_key > new_node->_key){
+			else if (_parent->_key.first > new_node->_key.first){
 				if (_parent->_right == NULL){
 					_parent->_right = new_node;
 					new_node->_parent = _parent;
@@ -423,10 +423,11 @@ private:
 		std::cout<<"\n\n";
 		for (int i = 0; i < space; i++)
 			std::cout <<" ";
-		if (_root->_black == false)
+		if (_root->_black == false){
 			std::cout << "\033[4;31m"<<_root->_key.first << "\033[0m";
+		}
 		else
-			std::cout << _root->_key;
+			std::cout <<_root->_key.first;
 		print_tree(_root->_right, space);
 		return (1);
 	}

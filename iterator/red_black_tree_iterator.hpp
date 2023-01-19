@@ -106,38 +106,38 @@ template <class Iterator>
 
 	private:
 		void	_increment_iterator(void) {
-			if (_node) {
-				_end = _node;
-				if (_node->_left) {
-					_node = _node->_left;
-					while (_node && _node->_left)
-						_node = _node->_left;
-				}
-				else {
-					while (_node->_parent && _node->_parent->_left == _node)
-						_node = _node->_parent;
-					_node = _node->_parent;
-				}
-			}
-		}
-
-
-		void	_decrement_iterator(void) {
 				if (_node) {
-					if (_node->_right) {
-						_node = _node->_right;
+					_end = _node;
+					if (_node->_left) {
+						_node = _node->_left;
 						while (_node && _node->_right)
 							_node = _node->_right;
 					}
 					else {
-						while (_node->_parent && _node->_parent->_right == _node)
+						while (_node->_parent && _node->_parent->_left == _node)
 							_node = _node->_parent;
 						_node = _node->_parent;
 					}
 				}
-				else
-					_node = _end;
 			}
+
+
+			void	_decrement_iterator(void) {
+					if (_node) {
+						if (_node->_right) {
+							_node = _node->_right;
+							while (_node && _node->_left)
+								_node = _node->_left;
+						}
+						else {
+							while (_node->_parent && _node->_parent->_right == _node)
+								_node = _node->_parent;
+							_node = _node->_parent;
+						}
+					}
+					else
+						_node = _end;
+				}
 	};
 
 
@@ -174,19 +174,14 @@ template <class Iterator>
 		/************************************************************/
 		/*                           copy                           */
 		/************************************************************/
-			//  const_red_black_tree_iterator(const const_red_black_tree_iterator<Iterator>& cpy)
-			//  : _node(cpy.base()), _end(cpy.end()) {} 
 
-			// const_red_black_tree_iterator(const const_red_black_tree_iterator &cpy) //meme qu'en haut sans preciser le template
-			// : _node(cpy.base()), _end(cpy.end()) {}
+			const_red_black_tree_iterator(const const_red_black_tree_iterator& cpy)
+				: _node(cpy.base()), _end(cpy._end) {
+				} 
 
-				const_red_black_tree_iterator(const const_red_black_tree_iterator& cpy)
-					: _node(cpy.base()), _end(cpy._end) {
-					} 
-
-				const_red_black_tree_iterator(const red_black_tree_iterator<Iterator>& cpy)
-					: _node(cpy.base()), _end(cpy.end()) {
-					} 
+			const_red_black_tree_iterator(const red_black_tree_iterator<Iterator>& cpy)
+				: _node(cpy.base()), _end(cpy.end()) {
+				} 
 
 		/************************************************************/
 		/*                        destructor                        */
@@ -258,8 +253,8 @@ template <class Iterator>
 					_end = _node;
 					if (_node->_left) {
 						_node = _node->_left;
-						while (_node && _node->_left)
-							_node = _node->_left;
+						while (_node && _node->_right)
+							_node = _node->_right;
 					}
 					else {
 						while (_node->_parent && _node->_parent->_left == _node)
@@ -274,8 +269,8 @@ template <class Iterator>
 					if (_node) {
 						if (_node->_right) {
 							_node = _node->_right;
-							while (_node && _node->_right)
-								_node = _node->_right;
+							while (_node && _node->_left)
+								_node = _node->_left;
 						}
 						else {
 							while (_node->_parent && _node->_parent->_right == _node)

@@ -71,7 +71,7 @@ namespace ft{
 		}
 
 		~map(){
-
+			_tree.print_tree(5);
 		}
 
 
