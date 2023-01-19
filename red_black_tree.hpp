@@ -39,8 +39,8 @@ class red_black_tree
 	//count is for have the number of element in my tree
 	size_t count;
 public:
-	typedef ft::pair<k, v>								value_type;
-	typedef Alloc										allocator_type;
+	typedef ft::pair<k, v>											value_type;
+	typedef Alloc													allocator_type;
 	typedef k key_type;
 	typedef v val_type;
 	// typedef typename allocator_type::reference			reference; 
@@ -49,15 +49,18 @@ public:
 	// typedef typename allocator_type::const_pointer		const_pointer;
 
 
-	typedef Node								node_type;
-	typedef node_type*							node_ptr ;
-	typedef node_type&							node_ref;
-	typedef typename ft::red_black_tree_iterator<Node>	iterator;
-	typedef typename ft::const_red_black_tree_iterator<Node>	const_iterator;
+	typedef Node													node_type;
+	typedef node_type*												node_ptr ;
+	typedef node_type&												node_ref;
+	typedef typename ft::red_black_tree_iterator<Node>				iterator;
+	typedef typename ft::const_red_black_tree_iterator<Node>		const_iterator;
+	typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+	typedef typename allocator_type::template rebind<Node>::other	node_alloc;
 
 private:
-	node_ptr  _root;
-	std::allocator<Node> alloc;
+	node_ptr				_root;
+	std::allocator<Node>	_alloc;
+	node_alloc				_alloc_node;
 public:
 	
 	/************************************************************/
@@ -72,24 +75,24 @@ public:
 	/*                        destructor                        */
 	/************************************************************/
 	~red_black_tree(){
-
+		clear_tree(_root);
 	};
 
 	v get_val(){return _root->_value;}
 	v get_left(){return _root->_left->_value;}
 	v get_right(){return _root->_right->_value;}
 	/************************************************************/
-	/*                        functions                         */
+	/*                           ADD                            */
 	/************************************************************/
 
 	/*In this function i add a new value in my tree else
 	i call the second function add */
 	ft::pair<iterator, bool> add_one(const value_type &val){
-		node_ptr  _node = alloc.allocate(1);
-		alloc.construct(_node, val.first, val.second);
+		node_ptr  _node = _alloc.allocate(1);
+		_alloc.construct(_node, val.first, val.second);
 		if (_root == NULL){ //if my tree is empty
-			_root = alloc.allocate(sizeof(Node));;
-			alloc.construct(_root, val.first, val.second);
+			_root = _alloc.allocate(sizeof(Node));;
+			_alloc.construct(_root, val.first, val.second);
 			_root->_black = true;
 			count++;
 			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
@@ -110,7 +113,10 @@ public:
 
 
 
-/*************************** correct violation *********************************/
+	/************************************************************/
+	/*                    check violation                       */
+	/************************************************************/
+
 	/*first i have to check the aunt of the node where we are*/
 	void correct_violation(node_ptr my_node){
 		
@@ -148,6 +154,7 @@ public:
 	}
 
 
+//****************************************************************************
 
 	int height(){
 		if(_root == NULL)
@@ -155,7 +162,7 @@ public:
 		else
 			return(height(_root) - 1);
 	}
-
+//****************************************************************************
 	int height(node<k,v> *my_node){
 		if(my_node == NULL)
 			return 0;
@@ -166,19 +173,20 @@ public:
 			return left_height;
 		return right_height;
 	}
+//****************************************************************************
 
 	int black_node(){
 		if(_root == NULL)
 			return 0;
 		return black_node(_root);
 	}
-
+//****************************************************************************
 	int black_node(node<k,v> *my_node){
 		if(my_node == NULL)
 			return 1;
 
 		int blacknode1 = black_node(my_node->_left);
-		int blacknode2 = black_node(my_node->_right);
+		// int blacknode2 = black_node(my_node->_right);
 
 		if (my_node->_black == true)
 			blacknode1++;
@@ -186,13 +194,11 @@ public:
 		return blacknode1;
 	}
 
-
 	/************************************************************/
 	/*                      rotation part                       */
 	/************************************************************/
 
-	/*************************** rotate *********************************/
-
+//*************************** rotate *********************************
 	void rotate(node_ptr my_node){
 		if(my_node->_is_leftchild == true){
 			if(my_node->_parent->_is_leftchild == true){
@@ -232,10 +238,7 @@ public:
 		}
 	}
 
-
-
-
-	/*************************** left rotation *********************************/
+//*************************** left rotation *********************************
 	void left_rotation(node_ptr my_node){
 		node_ptr tmp_node = my_node->_right;
 		
@@ -272,10 +275,7 @@ public:
 
 	}
 
-
-
-
-	/*************************** right rotation *********************************/
+//*************************** right rotation *********************************/
 	void right_rotation(node_ptr my_node){
 		node_ptr tmp_node = my_node->_left;
 		
@@ -310,14 +310,7 @@ public:
 		left_rotation(my_node);
 	}
 
-
-
-
-
-
-
-	/**************************** check colors *******************************/
-
+//**************************** check colors *******************************/
 	void check_color(node_ptr  my_node){
 		if(my_node == _root || !my_node){
 
@@ -334,6 +327,7 @@ public:
 	/*                         capacity                         */
 	/************************************************************/
 
+//***************************** BEGIN *********************************/
 	node_ptr  find_begin() const{
 		if(_root != NULL){
 			node_ptr  ptr = _root;
@@ -352,7 +346,7 @@ public:
 		return const_iterator(find_begin(), NULL);
 	}
 
-
+//****************************** END *********************************/
 	node_ptr  find_end() const {
 		if(_root != NULL){
 			node_ptr  ptr = _root;
@@ -363,7 +357,6 @@ public:
 		return(NULL);
 	}
 
-	typedef typename ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 
 	iterator crend(){
 		return iterator(NULL, find_end());
@@ -380,9 +373,9 @@ public:
 private:
 
 
-	/*************************** private add *********************************/
+//*************************** private add *********************************/
 		void add(node_ptr _parent, node_ptr new_node){
-			int check_add = count;
+			size_t check_add = count;
 			if(_parent->_key.first < new_node->_key.first){
 				if(_parent->_left == NULL){
 					_parent->_left = new_node;
@@ -407,6 +400,22 @@ private:
 			}
 			if (check_add != count)
 				check_color(new_node);
+		}
+
+	/************************************************************/
+	/*                          CLEAR                           */
+	/************************************************************/
+		node_ptr	clear_tree(node_ptr _root){
+			if (!_root)
+				return NULL;	
+			if (_root->_left)
+				clear_tree(_root->_left);
+			if (_root->_right)
+				clear_tree(_root->_right);
+			_alloc_node.destroy(_root);
+			_alloc_node.deallocate(_root, 1);
+			_root = NULL;
+			return NULL;
 		}
 
 

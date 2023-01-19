@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/19 04:35:07 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:17:37 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,18 @@ int main(){
 
 	{
 	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** const iterator ************************";
+	std::cout << "************************** iterator ************************";
+	std::cout << std::endl;
+	ft::map<int, std::string> test;
+	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
+	ft::map<int, std::string>::iterator it = test.begin();
+
+	std::cout << it->first;
+	}
+	{
+	std::cout << std::endl<< std::endl<< std::endl;
+	std::cout << "************************** riverse const iterator ************************";
 	std::cout << std::endl;
 	ft::map<int, std::string> test;
 	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
@@ -35,7 +46,7 @@ int main(){
 	}
 	{
 	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** insert ************************";
+	std::cout << "************************** insert one ************************";
 	std::cout << std::endl;
 	ft::map<int, std::string> test2;
 	test2.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));

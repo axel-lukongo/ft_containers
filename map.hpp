@@ -51,23 +51,24 @@ namespace ft{
 		//empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
 		const allocator_type& alloc = allocator_type()){
-
+			(void) comp;
+			(void) alloc;
 		}
 
 
 		//range (2)	
-		template <class InputIterator>
-		map (InputIterator first,
-		InputIterator last,
-		const key_compare& comp = key_compare(),
-		const allocator_type& alloc = allocator_type()){
+		// template <class InputIterator>
+		// map (InputIterator first,
+		// InputIterator last,
+		// const key_compare& comp = key_compare(),
+		// const allocator_type& alloc = allocator_type()){
 
-		}
+		// }
 
 
 		//copy (3)	
 		map (const map& x){
-
+			*this = x;
 		}
 
 		~map(){
@@ -126,11 +127,11 @@ namespace ft{
 	/*                         modifier                         */
 	/************************************************************/
 	pair<iterator,bool> insert(const value_type& val){
-		ft::pair<iterator, bool>	tmp;
+		// ft::pair<iterator, bool>	tmp;
 		
-		tmp = _tree.add_one(val);
+		// tmp = _tree.add_one(val);
 		// _tree.print_tree(5);
-		return tmp;
+		return _tree.add_one(val);
 	}
 
 	};
