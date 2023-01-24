@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/24 14:16:20 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:15:15 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,24 @@ void	printSize(ft::vector<T> const &vct, bool print_content = true)
 
 int main(){
 
+
+// {
+// 	std::cout << std::endl<< std::endl<< std::endl;
+// 	std::cout << "************************** count ***************************";
+// 	std::cout << std::endl;
+// 	ft::map<int, std::string> test;
+// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+// 	test.insert(ft::pair<int,std::string>(1,"un"));
+// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+// 	test.insert(ft::pair<int,std::string>(19,"trois"));
+// 	test.insert(ft::pair<int,std::string>(34,"trois"));
+// 	test.insert(ft::pair<int,std::string>(21,"trois"));
+// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+// 	int count = test.erase(19);
+// 	std::cout << count;
+// }
 
 {
 		const int size = 5;

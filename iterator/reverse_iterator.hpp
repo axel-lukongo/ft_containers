@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:00:06 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/24 14:17:16 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/24 20:05:52 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ namespace ft{
 			}
 
 
-			reference  operator*(void) {
+			reference operator*(void) const {
 				Iterator it;
 
 				it = _it;
@@ -118,6 +118,8 @@ namespace ft{
 			reverse_iterator operator+ (difference_type n) const{
 				return reverse_iterator(_it - n);
 			}
+
+
 
 			reverse_iterator& operator++(){
 				_it--;

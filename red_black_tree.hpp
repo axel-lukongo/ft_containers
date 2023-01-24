@@ -182,7 +182,7 @@ public:
 		iterator	find(const key_type& my_key) {
 			node_ptr ptr = _root;
 			while (ptr) {
-				if (_cmp(ptr->_key.first, my_key))
+				if (_cmp(ptr->_key.first, my_key)) // if ptr->_key.first < my_key, _cmp will return true.
 					ptr = ptr->_left;
 				else if (_cmp(my_key, ptr->_key.first))
 					ptr = ptr->_right;
@@ -292,7 +292,23 @@ public:
 		}
 
 
+		// void erase(const key_type& my_key){
+		// 	node_ptr ptr = _root;
+		// 	//fisrt i have to find the correct value to delete
+		// 	while (ptr){
+		// 		if (_cmp(ptr->_key.first, my_key))
+		// 			ptr = ptr->_left;
+		// 		else if (_cmp(my_key, ptr->_key.first))
+		// 			ptr = ptr->_right;
+		// 		else
+		// 			return remove_node(ptr);
+		// 	}
+		// }
 
+		// void remove_node(node_ptr ptr){
+		// 	// i came here when i find the value who i have to delete.
+			
+		// }
 
 
 	/************************************************************/

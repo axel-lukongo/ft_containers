@@ -186,11 +186,15 @@ namespace ft{
 		// void erase (iterator position){
 		// 	erase(position->first);
 		// }
+		
 		// size_type erase (const key_type& k){
-			
+		// 	_tree.erase();
 		// }
 		// void erase (iterator first, iterator last){
-
+		// 	while (first != last){
+		// 		erase(first->first);
+		// 		first++;
+		// 	}
 		// }
 
 		void clear(){
