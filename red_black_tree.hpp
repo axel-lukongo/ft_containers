@@ -30,19 +30,19 @@ namespace ft{
 
 template<class k,
 class v,
-class Alloc = std::allocator<std::pair<const k, v> >,
-class Node = node<k,v> >
+class compare >
 
 class red_black_tree
 {
 
-	//count is for have the number of element in my tree
-	size_t count;
+	//_count is for have the number of element in my tree
 public:
+	typedef node<k,v>												Node;
 	typedef ft::pair<k, v>											value_type;
-	typedef Alloc													allocator_type;
-	typedef k key_type;
-	typedef v val_type;
+	typedef	std::allocator<std::pair<const k, v> >					allocator_type;
+	typedef value_type												val_type;
+	typedef typename value_type::first_type							key_type;
+	typedef typename value_type::second_type 						mapped_type;
 	// typedef typename allocator_type::reference			reference; 
 	// typedef typename allocator_type::const_reference	const_reference;
 	// typedef typename allocator_type::pointer			pointer;
@@ -56,11 +56,13 @@ public:
 	typedef typename ft::const_red_black_tree_iterator<Node>		const_iterator;
 	typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 	typedef typename allocator_type::template rebind<Node>::other	node_alloc;
-
+	typedef typename allocator_type::size_type						size_type;
 private:
+	size_type				_count;
 	node_ptr				_root;
 	std::allocator<Node>	_alloc;
 	node_alloc				_alloc_node;
+	compare					_cmp;
 public:
 	
 	/************************************************************/
@@ -68,13 +70,14 @@ public:
 	/************************************************************/
 
 	red_black_tree(): _root(NULL){
-		count = 0;
+		_count = 0;
 	};
 
 	/************************************************************/
 	/*                        destructor                        */
 	/************************************************************/
 	~red_black_tree(){
+		// std::cout << "--------------------destrucort\n";
 		clear_tree(_root);
 	};
 
@@ -82,32 +85,211 @@ public:
 	v get_left(){return _root->_left->_value;}
 	v get_right(){return _root->_right->_value;}
 	/************************************************************/
-	/*                           ADD                            */
+	/*                         capacity                         */
+	/************************************************************/
+	bool empty() const{
+		if (_count > 0)
+			return true;
+		return false;
+	}
+
+	size_type size() const{
+		return _count;
+	}
+
+	size_type max_size() const{
+		return _alloc.max_size();
+	}
+
+	/************************************************************/
+	/*                        function                          */
 	/************************************************************/
 
+//*************************** add *********************************/
 	/*In this function i add a new value in my tree else
 	i call the second function add */
 	ft::pair<iterator, bool> add_one(const value_type &val){
 		node_ptr  _node = _alloc.allocate(1);
-		_alloc.construct(_node, val.first, val.second);
+		_alloc.construct(_node,  Node(val.first, val.second));
 		if (_root == NULL){ //if my tree is empty
 			_root = _alloc.allocate(sizeof(Node));;
-			_alloc.construct(_root, val.first, val.second);
+			_alloc.construct(_root,  Node(val.first, val.second));
 			_root->_black = true;
-			count++;
+			_count++;
 			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 		}
 		else{
 			add(_root, _node);
 		}
 		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
-
 	}
 
+private:
+//*************************** private add *********************************/
+		void add(node_ptr _parent, node_ptr new_node){
+			size_type check_add = _count;
+			if(_parent->_key.first < new_node->_key.first){
+				if(_parent->_left == NULL){
+					_parent->_left = new_node;
+					new_node->_parent = _parent;
+					new_node->_is_leftchild = true;
+					new_node->_black = false;
+					_count++;
+				}
+				else
+					return add(_parent->_left, new_node);
+			}
+			else if (_parent->_key.first > new_node->_key.first){
+				if (_parent->_right == NULL){
+					_parent->_right = new_node;
+					new_node->_parent = _parent;
+					new_node->_is_leftchild = false;
+					new_node->_black = false;
+					_count++;
+				}
+				else
+					return add(_parent->_right, new_node);
+			}
+			if (check_add != _count)
+				check_color(new_node);
+		}
+
+public:
 	int print_tree(int space){
 		print_tree(_root, space);
 		return(1);
 	}
+
+
+	void	swap(red_black_tree& x) {
+		node_ptr	tmp_node = _root;
+		compare	tmp_key = _cmp;
+		node_alloc	tmp_node_alloc = _alloc_node;
+
+		_root = x._root;
+		_cmp = x._cmp;
+		_alloc_node = x._alloc_node;
+		
+		x._root = tmp_node;
+		x._cmp = tmp_key;
+		x._alloc_node = tmp_node_alloc;
+
+	}
+
+
+
+//*************************** find *********************************/
+		iterator	find(const key_type& my_key) {
+			node_ptr ptr = _root;
+			while (ptr) {
+				if (_cmp(ptr->_key.first, my_key))
+					ptr = ptr->_left;
+				else if (_cmp(my_key, ptr->_key.first))
+					ptr = ptr->_right;
+				else
+					return iterator(ptr, NULL);
+			}
+			return iterator(ptr, NULL);
+		}
+
+		const_iterator	find(const key_type& my_key) const {
+			node_ptr ptr = _root;
+			while (ptr) {
+				if (_cmp(ptr->_key.first, my_key))
+					ptr = ptr->_left;
+				else if (_cmp(my_key, ptr->_key.first))
+					ptr = ptr->_right;
+				else
+					return const_iterator(ptr, NULL);
+			}
+			return const_iterator(ptr, NULL);
+		}
+
+
+
+//*************************** lower_bound *********************************/
+		iterator	lower_bound (const key_type& my_key){
+			iterator ptr = begin();
+			iterator save = end();
+			while (ptr != save){
+				if (_cmp(ptr->first, my_key)){
+					ptr++;
+				}
+				else
+					return ptr;
+			}
+			return save;
+		}
+
+//*****************************************************/
+		const_iterator	lower_bound (const key_type& my_key) const{
+			const_iterator ptr = cbegin();
+			const_iterator save = cend();
+			while (ptr != save){
+				if (_cmp(ptr->first, my_key)){
+					ptr++;
+				}
+				else
+					return ptr;
+			}
+			return save;
+		}
+
+
+
+
+
+//*************************** upper_bound *********************************/
+		iterator	upper_bound (const key_type& my_key){
+			iterator ptr = begin();
+			iterator save = end();
+			while (ptr != save){
+				if (_cmp(ptr->first, my_key)){
+					ptr++;
+				}
+				else if(!_cmp(ptr->first, my_key) && !_cmp(my_key, ptr->first))
+					return ++ptr;
+				else
+					return ptr;
+			}
+			return save;
+		}
+//*****************************************************/
+		const_iterator	upper_bound (const key_type& my_key) const{
+			const_iterator ptr = cbegin();
+			const_iterator save = cend();
+			while (ptr != save){
+				if (_cmp(ptr->first, my_key)){
+					ptr++;
+				}
+				else if(!_cmp(ptr->first, my_key) && !_cmp(my_key, ptr->first))
+					return ++ptr;
+				else
+					return ptr;
+			}
+			return save;
+		}
+
+
+
+
+
+
+//***************************** count **********************************/
+		size_type	count(const key_type& my_key) const {
+			node_ptr ptr;
+
+			ptr = _root;
+			while (ptr) {
+				if (_cmp(ptr->_key.first, my_key))
+					ptr = ptr->_left;
+				else if (_cmp(my_key, ptr->_key.first))
+					ptr = ptr->_right;
+				else
+					return 1;
+			}
+			return 0;
+		}
 
 
 
@@ -370,38 +552,7 @@ public:
 		return const_iterator(NULL, find_end());
 	}
 
-private:
-
-
-//*************************** private add *********************************/
-		void add(node_ptr _parent, node_ptr new_node){
-			size_t check_add = count;
-			if(_parent->_key.first < new_node->_key.first){
-				if(_parent->_left == NULL){
-					_parent->_left = new_node;
-					new_node->_parent = _parent;
-					new_node->_is_leftchild = true;
-					new_node->_black = false;
-					count++;
-				}
-				else
-					return add(_parent->_left, new_node);
-			}
-			else if (_parent->_key.first > new_node->_key.first){
-				if (_parent->_right == NULL){
-					_parent->_right = new_node;
-					new_node->_parent = _parent;
-					new_node->_is_leftchild = false;
-					new_node->_black = false;
-					count++;
-				}
-				else
-					return add(_parent->_right, new_node);
-			}
-			if (check_add != count)
-				check_color(new_node);
-		}
-
+// private:
 	/************************************************************/
 	/*                          CLEAR                           */
 	/************************************************************/
@@ -421,7 +572,7 @@ private:
 
 	public:
 	/*************************** print tree *********************************/
-	int	print_tree(node<k,v> *_root, int space)
+	int	print_tree(node_ptr _root, int space)
 	{
 		if (!_root)
 			return (0);
@@ -440,6 +591,23 @@ private:
 		print_tree(_root->_right, space);
 		return (1);
 	}
+	// #include <queue>
+// 	void print_tree(node_ptr root)
+// {
+//     if (root == NULL) return;
+//     std::queue<node_ptr> q;
+//     q.push(root);
+//     while (!q.empty())
+//     {
+//         node_ptr temp = q.front();
+//         q.pop();
+//         std::cout << temp->_key.first << " ";
+//         if (temp->_left != NULL)
+// 			q.push(temp->_left);
+//         if (temp->_right != NULL)
+// 			q.push(temp->_right);
+//     }
+// }
 
 
 };

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/19 15:17:37 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/23 20:56:03 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,55 +21,238 @@
 
 int main(){
 
-
 	{
-	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** iterator ************************";
-	std::cout << std::endl;
-	ft::map<int, std::string> test;
-	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
-	ft::map<int, std::string>::iterator it = test.begin();
+		
+	}
 
-	std::cout << it->first;
-	}
-	{
-	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** riverse const iterator ************************";
-	std::cout << std::endl;
-	ft::map<int, std::string> test;
-	test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
-	ft::map<int, std::string>::const_reverse_iterator it = test.rbegin();
+	// {
+	// 	std::cout << std::endl<< std::endl<< std::endl;
+	// 	std::cout << "************************** swap ***************************";
+	// 	std::cout << std::endl;
 
-	std::cout << it->first;
-	}
-	{
-	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** insert one ************************";
-	std::cout << std::endl;
-	ft::map<int, std::string> test2;
-	test2.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
-	test2.insert(ft::pair<int,std::string>(33,"le 3eme mini"));
-	test2.insert(ft::pair<int,std::string>(24,"le 4eme "));
-	test2.insert(ft::pair<int,std::string>(76,"le 6eme "));
-	test2.insert(ft::pair<int,std::string>(15,"le 3eme"));
-	test2.insert(ft::pair<int,std::string>(15,"le 5eme"));
-	test2.insert(ft::pair<int,std::string>(53,"le 4eme"));
-	test2.insert(ft::pair<int,std::string>(1,"le 1er"));
-	test2.insert(ft::pair<int,std::string>(4,"le 1er"));
-	ft::map<int, std::string>::iterator it;
-	it = test2.begin();
-	std::cout << it->first << "\n";
-	it++;
-	std::cout << it->first << "\n";
-	it++;
-	std::cout << it->first << "\n";
-	it++;
-	std::cout << it->first << "\n";
-	it++;
-	std::cout << it->first << "\n";
-	}
+	// 	ft::map<int, std::string> test;
+	// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+	// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+	// 	test.insert(ft::pair<int,std::string>(6,"cinq"));
+	// 	test.insert(ft::pair<int,std::string>(1,"un"));
+	// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+	// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(7,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(4,"trois"));
+	
+
+	// 	ft::map<int, std::string> bigger;
+	// 	bigger.insert(ft::pair<int,std::string>(43,"trois"));
+	// 	bigger.insert(ft::pair<int,std::string>(41,"un"));
+	// 	bigger.insert(ft::pair<int,std::string>(49,"neuf"));
+	// 	bigger.insert(ft::pair<int,std::string>(45,"cinq"));
+	// 	bigger.insert(ft::pair<int,std::string>(40,"zero"));
+	// 	bigger.insert(ft::pair<int,std::string>(46,"zero"));
+	// 	bigger.insert(ft::pair<int,std::string>(42,"deux"));
+	// 	bigger.insert(ft::pair<int,std::string>(44,"deux"));
+	// 	bigger.insert(ft::pair<int,std::string>(47,"sept"));
+
+	// 	ft::map<int, std::string>::iterator it;
+	// 	std::cout << "test: ";
+	// 	for(it = test.begin();it != test.end(); it++){
+	// 		std::cout << it->first << " ";
+	// 	}
+
+	// 	std::cout << "\nbigger: ";
+	// 	for(it = bigger.begin();it != bigger.end(); it++){
+	// 		std::cout << it->first << " ";
+	// 	}
+
+	// 	std::cout << "\n\n----------swap --------------\n\n";
+
+	// 	test.swap(bigger);
+
+	// 	std::cout << "test: ";
+	// 	for(it = test.begin();it != test.end(); it++){
+	// 		std::cout << it->first << " ";
+	// 	}
+
+	// 	std::cout << "\nbigger: ";
+	// 	for(it = bigger.begin();it != bigger.end(); it++){
+	// 		std::cout << it->first << " ";
+	// 	}
+	// }
+
+	// {
+	// 	std::cout << std::endl<< std::endl<< std::endl;
+	// 	std::cout << "************************** count ***************************";
+	// 	std::cout << std::endl;
+	// 	ft::map<int, std::string> test;
+	// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+	// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+	// 	test.insert(ft::pair<int,std::string>(1,"un"));
+	// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+	// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(19,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(34,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(21,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	// 	int count = test.count(2);
+	// 	std::cout << count;
+
+	// }
+
+
+	// {
+	//	std::cout << std::endl<< std::endl<< std::endl;
+	// 	std::cout << "************************** equal_range ***************************";
+	// 	std::cout << std::endl;
+	// ft::map<int,int> mymap;
+
+	// 	mymap.insert(ft::pair<int,int>(1, 10));
+	// 	mymap.insert(ft::pair<int,int>(2, 20));
+	// 	mymap.insert(ft::pair<int,int>(3, 30));
+	// 	mymap.insert(ft::pair<int,int>(4, 40));
+	// 	mymap.insert(ft::pair<int,int>(5, 50));
+	// 	mymap.insert(ft::pair<int,int>(6, 60));
+
+
+	// 	ft::pair<ft::map<int,int>::iterator,ft::map<int,int>::iterator> ret;
+	// 	ret = mymap.equal_range(2);
+
+	// 	std::cout << "lower bound points to: ";
+	// 	std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+	// 	std::cout << "upper bound points to: ";
+	// 	std::cout << ret.second->first << " => " << ret.second->second << '\n';
+
+	// 	return 0;
+
+	// }
+
+
+
+
+	// {
+	// 	std::cout << std::endl<< std::endl<< std::endl;
+	// 	std::cout << "************************** upper_bound ***************************";
+	// 	std::cout << std::endl;
+	// 	ft::map<int, std::string> test;
+	// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+	// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+	// 	test.insert(ft::pair<int,std::string>(1,"un"));
+	// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+	// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(19,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(34,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(21,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	// 	ft::map<int, std::string>::iterator it = test.upper_bound(21);
+	// 	std::cout << it->first;
+	// }
+	
+
+	
+	// {
+	// 	std::cout << std::endl<< std::endl<< std::endl;
+	// 	std::cout << "************************** lower_bound ***************************";
+	// 	std::cout << std::endl;
+	// 	ft::map<int, std::string> test;
+	// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+	// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+	// 	test.insert(ft::pair<int,std::string>(1,"un"));
+	// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+	// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(19,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(34,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(21,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	// 	ft::map<int, std::string>::iterator it = test.lower_bound(30);
+	// 	std::cout << it->first;
+	// }
+
+
+
+	// {
+	// 	std::cout << std::endl<< std::endl<< std::endl;
+	// 	std::cout << "************************** find ***************************";
+	// 	std::cout << std::endl;
+	// 	ft::map<int, std::string> test;
+	// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+	// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+	// 	test.insert(ft::pair<int,std::string>(1,"un"));
+	// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+	// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(19,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(34,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(21,"trois"));
+	// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	// 	ft::map<int, std::string>::iterator it = test.find(200);
+	// 	std::cout << it->first;
+	// }
+
+
+
+
+	// {
+	// std::cout << std::endl<< std::endl<< std::endl;
+	// std::cout << "************************** iterator ************************";
+	// std::cout << std::endl;
+	// ft::map<int, std::string> test;
+	// test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// // test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
+	// ft::map<int, std::string>::iterator it = test.begin();
+	// std::cout << it->first;
+
+	// }
+
+
+
+	// {
+	// std::cout << std::endl<< std::endl<< std::endl;
+	// std::cout << "************************** riverse const iterator ************************";
+	// std::cout << std::endl;
+	// ft::map<int, std::string> test;
+	// test.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// test.insert(ft::pair<int,std::string>(5,"le 2eme plus grand"));
+	// ft::map<int, std::string>::const_reverse_iterator it = test.rbegin();
+
+	// std::cout << it->first;
+	// }
+
+
+
+
+	// {
+	// std::cout << std::endl<< std::endl<< std::endl;
+	// std::cout << "************************** insert one ************************";
+	// std::cout << std::endl;
+	// ft::map<int, std::string> test2;
+	// test2.insert(ft::pair<int,std::string>(2,"le deuxieme mini"));
+	// test2.insert(ft::pair<int,std::string>(33,"le 3eme mini"));
+	// test2.insert(ft::pair<int,std::string>(24,"le 4eme "));
+	// test2.insert(ft::pair<int,std::string>(76,"le 6eme "));
+	// test2.insert(ft::pair<int,std::string>(15,"le 3eme"));
+	// test2.insert(ft::pair<int,std::string>(15,"le 5eme"));
+	// test2.insert(ft::pair<int,std::string>(53,"le 4eme"));
+	// test2.insert(ft::pair<int,std::string>(1,"le 1er"));
+	// test2.insert(ft::pair<int,std::string>(4,"le 1er"));
+	// ft::map<int, std::string>::iterator it;
+	// it = test2.begin();
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// it++;
+	// std::cout << it->first << "\n";
+	// }
+
+
+
+
+
+
+
+	
 	// red_black_tree<int, int> tree;
 
 	// tree.print_tree(5);

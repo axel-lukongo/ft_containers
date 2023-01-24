@@ -158,16 +158,65 @@ int main()
 	// vct2.resize(0);
 	// is_empty(vct2);
 	// printSize(vct2, true);
-	std::map<int,int> test;
-	test.insert(std::pair<int,int>(2,100));
-	test.insert(std::pair<int,int>(2,100));
-	test.insert(std::pair<int,int>(2,100));
-	test.insert(std::pair<int,int>(2,100));
-	test.insert(std::pair<int,int>(3,100));
-	std::map<int,int>::const_iterator it; 
-	it = test.begin();
-	it++;
-	std::cout << it->first << "----------\n";
+	// std::map<int,int> test;
+	// test.insert(std::pair<int,int>(2,100));
+	// test.insert(std::pair<int,int>(2,100));
+	// test.insert(std::pair<int,int>(2,100));
+	// test.insert(std::pair<int,int>(2,100));
+	// test.insert(std::pair<int,int>(3,100));
+	// std::map<int,int>::const_iterator it; 
+	// it = test.begin();
+	// it++;
+	// std::cout << it->first << "----------\n";
+
+
+// {
+// 	std::cout << std::endl<< std::endl<< std::endl;
+// 	std::cout << "************************** find ***************************";
+// 	std::cout << std::endl;
+// 	std::map<int, std::string> test;
+// 	test.insert(std::pair<int,std::string>(2, "le deuxieme mini"));
+// 	test.insert(std::pair<int,std::string>(5,"le 2eme plus grand"));
+// 	test.insert(std::pair<int,std::string>(1,"le 2eme plus grand"));
+// 	test.insert(std::pair<int,std::string>(8,"le 2eme plus grand"));
+// 	test.insert(std::pair<int,std::string>(3,"le 2eme plus grand"));
+// 	std::map<int, std::string>::iterator it = test.find(122);
+// 	std::cout << it->first;
+
+// 	}
+
+	// std::map<int, int> m;
+	// m[2] = 2;
+	// m[5] = 5;
+	// m[1] = 1;
+	// m[8] = 8;
+	// m[3] = 3;
+	// m[19] = 19;
+	// m[34] = 34;
+	// m[21] = 21;
+	// m[9] = 9;
+
+	// std::map<int,int>::iterator found = m.upper_bound(20);
+	// std::cout << "Key: " << found->first << std::endl;
+	// return 0;
+
+	std::map<char,int> mymap;
+
+	mymap['a']=10;
+	mymap['b']=20;
+	mymap['c']=30;
+	mymap['d']=40;
+	mymap['e']=50;
+	mymap['f']=60;
+
+	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+	ret = mymap.equal_range('b');
+
+	std::cout << "lower bound points to: ";
+	std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+	std::cout << "upper bound points to: ";
+	std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
 	return 0;
 }
