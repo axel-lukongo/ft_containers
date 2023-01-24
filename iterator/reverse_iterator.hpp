@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:00:06 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/18 22:40:27 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:17:16 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace ft{
 
 			
 
-			iterator_type get_it() const{
+			iterator_type base() const{
 				return _it;
 			}
 
@@ -69,7 +69,7 @@ namespace ft{
 
 			template <class Iter>
 			reverse_iterator (const reverse_iterator<Iter>& rev_it){
-				_it = rev_it.get_it();
+				_it = rev_it.base();
 			}
 
 
@@ -137,14 +137,11 @@ namespace ft{
 			}
 
 
-
 			// template <class Iter>
 			// reverse_iterator& operator= (const reverse_iterator<Iter>& rev_it){
-			// 	_it = (rev_it.get_it());
+			// 	_it = (rev_it.base());
 			// 	return *this;
 			// }
-
-
 	};
 
 
@@ -154,58 +151,57 @@ namespace ft{
 	//is not in the revers_iterator class
 	//otherwise i wouldd have to use the keyword "friend"
 
-	template <class Iterator>
+	template <class Iterator, class Iterator2>
 	typename reverse_iterator<Iterator>::difference_type
-	operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() - rhs.get_it());
+	operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (rhs.base() - lhs.base());
 	}
-
 
 
 	template <class Iterator>
 	reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& rev_it){
-		return reverse_iterator<Iterator>(rev_it.get_it() - n);
+		return reverse_iterator<Iterator>(rev_it.base() - n);
 	}
 
 
-	template <class Iterator>
-	bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() == rhs.get_it());
-	}
-
-
-
-	template <class Iterator>
-	bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() != rhs.get_it());
+	template <class Iterator, class Iterator2>
+	bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (lhs.base() == rhs.base());
 	}
 
 
 
-	template <class Iterator>  
-	bool operator<  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() > rhs.get_it());
+	template <class Iterator, class Iterator2>
+	bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (lhs.base() != rhs.base());
 	}
 
 
 
-	template <class Iterator>  
-	bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() >= rhs.get_it());
+	template <class Iterator, class Iterator2>  
+	bool operator<  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (lhs.base() > rhs.base());
 	}
 
 
 
-	template <class Iterator>
-	bool operator>  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() < rhs.get_it());
+	template <class Iterator, class Iterator2>  
+	bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (lhs.base() >= rhs.base());
 	}
 
 
 
-	template <class Iterator>
-	bool operator >=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
-		return (lhs.get_it() <= rhs.get_it());
+	template <class Iterator, class Iterator2>
+	bool operator>  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (lhs.base() < rhs.base());
+	}
+
+
+
+	template <class Iterator, class Iterator2>
+	bool operator >=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator2>& rhs){
+		return (lhs.base() <= rhs.base());
 	}
 }
 

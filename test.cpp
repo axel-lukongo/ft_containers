@@ -32,6 +32,33 @@ void	is_empty(std::vector<int> const &vct)
 
 int main()
 {
+	{
+	const int size = 5;
+	std::vector<int> vct(size);
+	std::vector<int>::iterator it_ = vct.begin();
+	std::vector<int>::reverse_iterator it(it_);
+
+	for (int i = 0; i < size; ++i)
+		vct[i] = (i + 1) * 5;
+	printSize(vct);
+
+	std::cout << (it_ == it.base()) << std::endl;
+	std::cout << (it_ == (it + 3).base()) << std::endl;
+
+	std::cout << *(it.base() + 1) << std::endl;
+	std::cout << *(it - 3) << std::endl;
+	std::cout << *(it - 3).base() << std::endl;
+	it -= 3;
+	std::cout << *it.base() << std::endl;
+
+	std::cout << "TEST OFFSET" << std::endl;
+	std::cout << *(it) << std::endl;
+	std::cout << *(it).base() << std::endl;
+	std::cout << *(it - 0) << std::endl;
+	std::cout << *(it - 0).base() << std::endl;
+	std::cout << *(it - 1).base() << std::endl;
+
+	}
 	// // std::vector<int> test;
 	// // std::vector<int>::iterator it;
 	// // // test.push_back(1);
@@ -200,23 +227,23 @@ int main()
 	// std::cout << "Key: " << found->first << std::endl;
 	// return 0;
 
-	std::map<char,int> mymap;
+	// std::map<char,int> mymap;
 
-	mymap['a']=10;
-	mymap['b']=20;
-	mymap['c']=30;
-	mymap['d']=40;
-	mymap['e']=50;
-	mymap['f']=60;
+	// mymap['a']=10;
+	// mymap['b']=20;
+	// mymap['c']=30;
+	// mymap['d']=40;
+	// mymap['e']=50;
+	// mymap['f']=60;
 
-	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
-	ret = mymap.equal_range('b');
+	// std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+	// ret = mymap.equal_range('b');
 
-	std::cout << "lower bound points to: ";
-	std::cout << ret.first->first << " => " << ret.first->second << '\n';
+	// std::cout << "lower bound points to: ";
+	// std::cout << ret.first->first << " => " << ret.first->second << '\n';
 
-	std::cout << "upper bound points to: ";
-	std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	// std::cout << "upper bound points to: ";
+	// std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
-	return 0;
+	// return 0;
 }

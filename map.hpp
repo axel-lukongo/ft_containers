@@ -180,23 +180,18 @@ namespace ft{
 	/*                         modifier                         */
 	/************************************************************/
 		pair<iterator,bool> insert(const value_type& val){
-			// ft::pair<iterator, bool>	tmp;
-			
-			// tmp = _tree.add_one(val);
-			// _tree.print_tree(5);
-			// return tmp;
 			return _tree.add_one(val);
 		}
 
-		void erase (iterator position){
-			erase(position->first);
-		}
-		size_type erase (const key_type& k){
+		// void erase (iterator position){
+		// 	erase(position->first);
+		// }
+		// size_type erase (const key_type& k){
 			
-		}
-		void erase (iterator first, iterator last){
+		// }
+		// void erase (iterator first, iterator last){
 
-		}
+		// }
 
 		void clear(){
 			_tree.clear_tree();
