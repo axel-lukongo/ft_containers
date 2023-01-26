@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2022/12/30 19:55:37 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/24 21:19:22 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ public:
 	vector(vector const & copy){
 		_start = NULL;
 		_end = NULL;
-		_vec_capacity = copy._vec_capacity;
+		_vec_capacity = copy._vec_capacity; //a la place de copy.vec_capacity je devrais mettre copy._vec_size();
 		_alloc = copy._alloc;
 		*this = copy;
 	}

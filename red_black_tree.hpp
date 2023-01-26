@@ -292,23 +292,77 @@ public:
 		}
 
 
-		// void erase(const key_type& my_key){
-		// 	node_ptr ptr = _root;
-		// 	//fisrt i have to find the correct value to delete
-		// 	while (ptr){
-		// 		if (_cmp(ptr->_key.first, my_key))
-		// 			ptr = ptr->_left;
-		// 		else if (_cmp(my_key, ptr->_key.first))
-		// 			ptr = ptr->_right;
-		// 		else
-		// 			return remove_node(ptr);
-		// 	}
-		// }
 
-		// void remove_node(node_ptr ptr){
-		// 	// i came here when i find the value who i have to delete.
+
+
+
+
+//***************************** erase **********************************/
+
+		size_type erase(const key_type& my_key){
+			node_ptr ptr = _root;
+			//first i have to find the correct value to delete
+			while (ptr){
+				if (_cmp(ptr->_key.first, my_key))
+					ptr = ptr->_left;
+				else if (_cmp(my_key, ptr->_key.first))
+					ptr = ptr->_right;
+				else{
+					remove_node(ptr);
+					return 1;
+				}
+			}
+			return 0;
+		}
+
+		void remove_node(node_ptr ptr){
+			//first case is when our node don't have child
 			
-		// }
+			if (ptr->_left == NULL && ptr->_right == NULL){
+				if (ptr->_is_leftchild == true)
+					ptr->_parent->_left = NULL;
+				else
+					ptr->_parent->_right = NULL;
+				_alloc_node.destroy(ptr);
+				_alloc_node.deallocate(ptr, sizeof(node_ptr));
+				_count--;
+			}
+			//if the node is a root
+			else if(ptr->_parent == NULL){
+				node_ptr tmp;
+				if (ptr->_left){ //here i look for the minimum value in the left subtree;
+					tmp = ptr->_left;
+					while (tmp->_right)
+						tmp = tmp->_right;
+				}
+				else
+					tmp = ptr->_right;
+				
+				//i echange the value of ptr and by the value of tmp
+				ptr->_key = tmp->_key;
+				
+				//i delete tmp
+				if (tmp->_is_leftchild == true){
+					tmp->_parent->_left = tmp->_left;
+					tmp->_left = tmp->_parent->_left;
+					if(tmp->_black)
+						tmp->_left->_black = tmp->_black;
+				}
+				else{
+					tmp->_parent->_right = tmp->_left;
+					tmp->_left = tmp->_parent->_right;
+					if(tmp->_black)
+						tmp->_left->_black = tmp->_black;
+				}
+					//tmp->_parent->_right = NULL;
+				_alloc_node.destroy(tmp);
+				_alloc_node.deallocate(tmp, sizeof(node_ptr));
+				_count--;
+			}
+
+		}
+
+
 
 
 	/************************************************************/
@@ -511,7 +565,6 @@ public:
 //**************************** check colors *******************************/
 	void check_color(node_ptr  my_node){
 		if(my_node == _root || !my_node){
-
 			return;
 		}
 		if (!my_node->_black && !my_node->_parent->_black){

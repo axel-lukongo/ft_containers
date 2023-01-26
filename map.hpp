@@ -90,7 +90,7 @@ namespace ft{
 		}
 
 		~map(){
-			// _tree.print_tree(5);
+			_tree.print_tree(5);
 		}
 
 
@@ -183,19 +183,19 @@ namespace ft{
 			return _tree.add_one(val);
 		}
 
-		// void erase (iterator position){
-		// 	erase(position->first);
-		// }
+		void erase (iterator position){
+			erase(position->first);
+		}
 		
-		// size_type erase (const key_type& k){
-		// 	_tree.erase();
-		// }
-		// void erase (iterator first, iterator last){
-		// 	while (first != last){
-		// 		erase(first->first);
-		// 		first++;
-		// 	}
-		// }
+		size_type erase (const key_type& k){
+			return _tree.erase(k);
+		}
+		void erase (iterator first, iterator last){
+			while (first != last){
+				erase(first->first);
+				first++;
+			}
+		}
 
 		void clear(){
 			_tree.clear_tree();

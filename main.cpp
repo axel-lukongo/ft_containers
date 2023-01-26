@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/24 18:15:15 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/26 00:46:29 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,49 @@
 
 #include "vector.hpp"
 
-template <typename T>
-void	printSize(ft::vector<T> const &vct, bool print_content = true)
-{
-	const size_t size = vct.size();
-	const size_t capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
+// template <typename T>
+// void	printSize(ft::vector<T> const &vct, bool print_content = true)
+// {
+// 	const size_t size = vct.size();
+// 	const size_t capacity = vct.capacity();
+// 	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+// 	// Cannot limit capacity's max value because it's implementation dependent
 
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity ok or ko: " << isCapacityOk << std::endl;
-	std::cout << "capacity: " << capacity << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename ft::vector<T>::const_iterator it = vct.begin();
-		typename ft::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
+// 	std::cout << "size: " << size << std::endl;
+// 	std::cout << "capacity ok or ko: " << isCapacityOk << std::endl;
+// 	std::cout << "capacity: " << capacity << std::endl;
+// 	std::cout << "max_size: " << vct.max_size() << std::endl;
+// 	if (print_content)
+// 	{
+// 		typename ft::vector<T>::const_iterator it = vct.begin();
+// 		typename ft::vector<T>::const_iterator ite = vct.end();
+// 		std::cout << std::endl << "Content is:" << std::endl;
+// 		for (; it != ite; ++it)
+// 			std::cout << "- " << *it << std::endl;
+// 	}
+// 	std::cout << "###############################################" << std::endl;
+// }
 
 
 int main(){
+
+{
+	std::cout << std::endl<< std::endl<< std::endl;
+	std::cout << "************************** erase ***************************";
+	std::cout << std::endl;
+	ft::map<int, std::string> test;
+	test.insert(ft::pair<int,std::string>(2, "deux"));
+	test.insert(ft::pair<int,std::string>(5,"cinq"));
+	test.insert(ft::pair<int,std::string>(1,"un"));
+	test.insert(ft::pair<int,std::string>(8,"huit"));
+	test.insert(ft::pair<int,std::string>(3,"trois"));
+	test.insert(ft::pair<int,std::string>(19,"trois"));
+	test.insert(ft::pair<int,std::string>(34,"trois"));
+	test.insert(ft::pair<int,std::string>(21,"trois"));
+	test.insert(ft::pair<int,std::string>(9,"trois"));
+	std::cout << "erase: " << test.erase(5) << std::endl;
+}
+
 
 
 // {
@@ -60,37 +78,37 @@ int main(){
 // 	test.insert(ft::pair<int,std::string>(34,"trois"));
 // 	test.insert(ft::pair<int,std::string>(21,"trois"));
 // 	test.insert(ft::pair<int,std::string>(9,"trois"));
-// 	int count = test.erase(19);
+// 	int count = test.count(19);
 // 	std::cout << count;
 // }
 
-{
-		const int size = 5;
-	ft::vector<int> vct(size);
-	ft::vector<int>::iterator it_ = vct.begin();
-	ft::vector<int>::reverse_iterator it(it_);
+// {
+// 		const int size = 5;
+// 	ft::vector<int> vct(size);
+// 	ft::vector<int>::iterator it_ = vct.begin();
+// 	ft::vector<int>::reverse_iterator it(it_);
 
-	for (int i = 0; i < size; ++i)
-		vct[i] = (i + 1) * 5;
-	printSize(vct);
+// 	for (int i = 0; i < size; ++i)
+// 		vct[i] = (i + 1) * 5;
+// 	printSize(vct);
 
-	std::cout << (it_ == it.base()) << std::endl;
-	std::cout << (it_ == (it + 3).base()) << std::endl;
+// 	std::cout << (it_ == it.base()) << std::endl;
+// 	std::cout << (it_ == (it + 3).base()) << std::endl;
 
-	std::cout << *(it.base() + 1) << std::endl;
-	std::cout << *(it - 3) << std::endl;
-	std::cout << *(it - 3).base() << std::endl;
-	it -= 3;
-	std::cout << *it.base() << std::endl;
+// 	std::cout << *(it.base() + 1) << std::endl;
+// 	std::cout << *(it - 3) << std::endl;
+// 	std::cout << *(it - 3).base() << std::endl;
+// 	it -= 3;
+// 	std::cout << *it.base() << std::endl;
 
-	std::cout << "TEST OFFSET" << std::endl;
-	std::cout << *(it) << std::endl;
-	std::cout << *(it).base() << std::endl;
-	std::cout << *(it - 0) << std::endl;
-	std::cout << *(it - 0).base() << std::endl;
-	std::cout << *(it - 1).base() << std::endl;
+// 	std::cout << "TEST OFFSET" << std::endl;
+// 	std::cout << *(it) << std::endl;
+// 	std::cout << *(it).base() << std::endl;
+// 	std::cout << *(it - 0) << std::endl;
+// 	std::cout << *(it - 0).base() << std::endl;
+// 	std::cout << *(it - 1).base() << std::endl;
 
-}
+// }
 
 
 
@@ -494,5 +512,5 @@ int main(){
 // 	// // ft::cout << test2.capacity() << ft::endl;
 // 	// ft::cout<<ft::endl;
 
-// 	return (0);
+	// return (0);
 // }
