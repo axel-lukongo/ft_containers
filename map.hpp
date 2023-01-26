@@ -184,6 +184,7 @@ namespace ft{
 		}
 
 		void erase (iterator position){
+			// std::cout << "pos: " << position->first << std::endl;
 			erase(position->first);
 		}
 		

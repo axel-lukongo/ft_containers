@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/26 00:46:29 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:15:14 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,20 @@ int main(){
 	test.insert(ft::pair<int,std::string>(19,"trois"));
 	test.insert(ft::pair<int,std::string>(34,"trois"));
 	test.insert(ft::pair<int,std::string>(21,"trois"));
+	test.insert(ft::pair<int,std::string>(51,"trois"));
+	test.insert(ft::pair<int,std::string>(21,"trois"));
+	test.insert(ft::pair<int,std::string>(61,"trois"));
+	test.insert(ft::pair<int,std::string>(71,"trois"));
+	test.insert(ft::pair<int,std::string>(7,"trois"));
 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	// ft::map<int, std::string>::iterator it = test.begin();
+	// it++;
+	// // it++;
+	// std::cout << "it: " << it->first<< std::endl;
+	// test.erase(it);
+	
 	std::cout << "erase: " << test.erase(5) << std::endl;
+	std::cout << "erase: " << test.erase(71) << std::endl;
 }
 
 

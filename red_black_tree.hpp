@@ -120,6 +120,8 @@ public:
 		}
 		else{
 			add(_root, _node);
+			// print_tree(5);
+			// std::cout <<"\n-----------------------------------------\n";
 		}
 		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 	}
@@ -316,8 +318,8 @@ public:
 		}
 
 		void remove_node(node_ptr ptr){
-			//first case is when our node don't have child
 			
+			//first case is when our node don't have child
 			if (ptr->_left == NULL && ptr->_right == NULL){
 				if (ptr->_is_leftchild == true)
 					ptr->_parent->_left = NULL;
@@ -327,11 +329,12 @@ public:
 				_alloc_node.deallocate(ptr, sizeof(node_ptr));
 				_count--;
 			}
-			//if the node is a root
-			else if(ptr->_parent == NULL){
-				node_ptr tmp;
-				if (ptr->_left){ //here i look for the minimum value in the left subtree;
-					tmp = ptr->_left;
+			//if the node are not the root
+			else //if(ptr->_parent == NULL){
+				{
+					node_ptr tmp;
+					if (ptr->_left){ //here i look for the minimum value in the left subtree;
+						tmp = ptr->_left;
 					while (tmp->_right)
 						tmp = tmp->_right;
 				}
@@ -345,14 +348,14 @@ public:
 				if (tmp->_is_leftchild == true){
 					tmp->_parent->_left = tmp->_left;
 					tmp->_left = tmp->_parent->_left;
-					if(tmp->_black)
-						tmp->_left->_black = tmp->_black;
+					// if(tmp->_black)
+					// 	tmp->_left->_black = tmp->_black;
 				}
 				else{
 					tmp->_parent->_right = tmp->_left;
 					tmp->_left = tmp->_parent->_right;
-					if(tmp->_black)
-						tmp->_left->_black = tmp->_black;
+					// if(tmp->_black)
+					// 	tmp->_left->_black = tmp->_black;
 				}
 					//tmp->_parent->_right = NULL;
 				_alloc_node.destroy(tmp);
@@ -535,7 +538,7 @@ public:
 
 		if (my_node->_left != NULL){
 			my_node->_left->_parent = my_node;
-			my_node->_left->_is_leftchild = false;
+			my_node->_left->_is_leftchild = true;
 		}
 
 		if (my_node->_parent == NULL){
@@ -557,6 +560,8 @@ public:
 		my_node->_is_leftchild = false;
 		my_node->_parent = tmp_node;
 	}
+
+
 	void right_left_rotation(node_ptr my_node){
 		right_rotation(my_node->_right);
 		left_rotation(my_node);
@@ -653,10 +658,19 @@ public:
 		for (int i = 0; i < space; i++)
 			std::cout <<" ";
 		if (_root->_black == false){
+			if (_root->_is_leftchild == true)
+				std::cout << "↙️";
+			else
+				std::cout << "↖️";
 			std::cout << "\033[4;31m"<<_root->_key.first << "\033[0m";
 		}
-		else
+		else{
+			if (_root->_is_leftchild == true)
+				std::cout << "↙️";
+			else
+				std::cout << "↖️";
 			std::cout <<_root->_key.first;
+		}
 		print_tree(_root->_right, space);
 		return (1);
 	}
