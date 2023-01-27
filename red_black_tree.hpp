@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/27 17:17:12 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:19:14 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,7 +552,7 @@ public:
 	void rotate(node_ptr my_node){
 		if(my_node->is_leftchild == true){
 			if(my_node->_parent->is_leftchild == true){
-				left_rotation(my_node->_parent->_parent); //right rotation
+				left_rotation(my_node->_parent->_parent); //left rotation
 				my_node->_black = false;
 				my_node->_parent->_black = true;
 				if (my_node->_parent->left != NULL)
@@ -570,7 +570,7 @@ public:
 		}
 		else{ // it mean the current node is on the right
 			if(my_node->_parent->is_leftchild == false){//if is on the right
-				right_rotation(my_node->_parent->_parent); //left rotation
+				right_rotation(my_node->_parent->_parent); //right rotation
 				my_node->_black = false;
 				my_node->_parent->_black = true;
 				if (my_node->_parent->right != NULL)
