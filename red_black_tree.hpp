@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/27 17:03:05 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:17:12 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,7 +405,7 @@ public:
 							if (w->_black == false) {
 								w->_black = true;
 								x->_parent->_black = false;
-								right_rotation(x->_parent);
+								left_rotation(x->_parent);
 								w = x->_parent->right;
 							}
 							if ((!w->right || w->right->_black == true) && (!w->left || w->left->_black == true)) {
@@ -416,7 +416,7 @@ public:
 								if (!w->right || w->right->_black == true) {
 									w->left->_black = true;
 									w->_black = false;
-									left_rotation(w);
+									right_rotation(w);
 									w = x->_parent->right;
 								}
 								w->_black = x->_parent->_black;
@@ -424,7 +424,7 @@ public:
 									x->_parent->_parent->_black = true;
 								if (w->right)
 									w->right->_black = true;
-								right_rotation(x->_parent);
+								left_rotation(x->_parent);
 								x = _root;
 							}
 						}
@@ -433,7 +433,7 @@ public:
 							if (w->_black == false) {
 								w->_black = true;
 								x->_parent->_black = false;
-								left_rotation(x->_parent);
+								right_rotation(x->_parent);
 								w = x->_parent->left;
 							}
 							if ((!w->right || w->right->_black == true) && (!w->left || w->left->_black == true)) {
@@ -444,7 +444,7 @@ public:
 								if (!w->left || w->left->_black == true) {
 									w->right->_black = true;
 									w->_black = false;
-									right_rotation(w);
+									left_rotation(w);
 									w = x->_parent->left;
 								}
 								w->_black = x->_parent->_black;
@@ -452,7 +452,7 @@ public:
 									x->_parent->_parent->_black = true;
 								if (w->left)
 									w->left->_black = true;
-								left_rotation(x->_parent);
+								right_rotation(x->_parent);
 								x = _root;
 							}
 						}
@@ -552,14 +552,14 @@ public:
 	void rotate(node_ptr my_node){
 		if(my_node->is_leftchild == true){
 			if(my_node->_parent->is_leftchild == true){
-				right_rotation(my_node->_parent->_parent); //right rotation
+				left_rotation(my_node->_parent->_parent); //right rotation
 				my_node->_black = false;
 				my_node->_parent->_black = true;
 				if (my_node->_parent->left != NULL)
 					my_node->_parent->left->_black = false;
 			}
 			else{
-				right_left_rotation(my_node->_parent->_parent); //right left rotation
+				left_right_rotation(my_node->_parent->_parent); // left right rotation
 				my_node->_black = true;
 				if (my_node->_parent->right != NULL)
 					my_node->right->_black = true;
@@ -570,14 +570,14 @@ public:
 		}
 		else{ // it mean the current node is on the right
 			if(my_node->_parent->is_leftchild == false){//if is on the right
-				left_rotation(my_node->_parent->_parent); //left rotation
+				right_rotation(my_node->_parent->_parent); //left rotation
 				my_node->_black = false;
 				my_node->_parent->_black = true;
 				if (my_node->_parent->right != NULL)
 					my_node->_parent->right->_black = false;
 			}
 			else{
-				left_right_rotation(my_node->_parent->_parent); //left right rotation
+				right_left_rotation(my_node->_parent->_parent); //right left  rotation
 				my_node->_black = true;
 				if (my_node->right != NULL)
 					my_node->right->_black = false;
@@ -588,8 +588,8 @@ public:
 		}
 	}
 
-//*************************** left rotation *********************************
-	void left_rotation(node_ptr my_node){
+//*************************** right rotation *********************************
+	void right_rotation(node_ptr my_node){
 		node_ptr tmp_node = my_node->left;
 		
 		my_node->left = tmp_node->right;
@@ -619,14 +619,14 @@ public:
 		my_node->_parent = tmp_node;
 
 	}
-	void left_right_rotation(node_ptr my_node){
-		left_rotation(my_node->right);
-		right_rotation(my_node);
+	void right_left_rotation(node_ptr my_node){
+		right_rotation(my_node->right);
+		left_rotation(my_node);
 
 	}
 
-//*************************** right rotation *********************************/
-	void right_rotation(node_ptr my_node){
+//*************************** left rotation *********************************/
+	void left_rotation(node_ptr my_node){
 		node_ptr tmp_node = my_node->right;
 		
 		my_node->right = tmp_node->left;
@@ -657,9 +657,9 @@ public:
 	}
 
 
-	void right_left_rotation(node_ptr my_node){
-		right_rotation(my_node->left);
-		left_rotation(my_node);
+	void left_right_rotation(node_ptr my_node){
+		left_rotation(my_node->left);
+		right_rotation(my_node);
 	}
 
 //**************************** check colors *******************************/
