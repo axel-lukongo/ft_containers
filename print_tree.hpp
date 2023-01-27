@@ -12,7 +12,7 @@ int	print_tree(node<Key, T> _root, int space)
 			return (0);
 		space += 10;
 
-		print_tree(_root->_left, space);
+		print_tree(_root->right, space);
 
 		std::cout<<"\n\n";
 		for (int i = 0; i < space; i++)
@@ -22,6 +22,6 @@ int	print_tree(node<Key, T> _root, int space)
 		}
 		else
 			std::cout <<_root->_key.first;
-		print_tree(_root->_right, space);
+		print_tree(_root->left, space);
 		return (1);
 	}

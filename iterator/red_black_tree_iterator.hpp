@@ -108,13 +108,13 @@ template <class Iterator>
 		void	_increment_iterator(void) {
 				if (_node) {
 					_end = _node;
-					if (_node->_left) {
-						_node = _node->_left;
-						while (_node && _node->_right)
-							_node = _node->_right;
+					if (_node->right) {
+						_node = _node->right;
+						while (_node && _node->left)
+							_node = _node->left;
 					}
 					else {
-						while (_node->_parent && _node->_parent->_left == _node)
+						while (_node->_parent && _node->_parent->right == _node)
 							_node = _node->_parent;
 						_node = _node->_parent;
 					}
@@ -124,13 +124,13 @@ template <class Iterator>
 
 			void	_decrement_iterator(void) {
 					if (_node) {
-						if (_node->_right) {
-							_node = _node->_right;
-							while (_node && _node->_left)
-								_node = _node->_left;
+						if (_node->left) {
+							_node = _node->left;
+							while (_node && _node->right)
+								_node = _node->right;
 						}
 						else {
-							while (_node->_parent && _node->_parent->_right == _node)
+							while (_node->_parent && _node->_parent->left == _node)
 								_node = _node->_parent;
 							_node = _node->_parent;
 						}
@@ -251,13 +251,13 @@ template <class Iterator>
 			void	_increment_iterator(void) {
 				if (_node) {
 					_end = _node;
-					if (_node->_left) {
-						_node = _node->_left;
-						while (_node && _node->_right)
-							_node = _node->_right;
+					if (_node->right) {
+						_node = _node->right;
+						while (_node && _node->left)
+							_node = _node->left;
 					}
 					else {
-						while (_node->_parent && _node->_parent->_left == _node)
+						while (_node->_parent && _node->_parent->right == _node)
 							_node = _node->_parent;
 						_node = _node->_parent;
 					}
@@ -267,13 +267,13 @@ template <class Iterator>
 
 			void	_decrement_iterator(void) {
 					if (_node) {
-						if (_node->_right) {
-							_node = _node->_right;
-							while (_node && _node->_left)
-								_node = _node->_left;
+						if (_node->left) {
+							_node = _node->left;
+							while (_node && _node->right)
+								_node = _node->right;
 						}
 						else {
-							while (_node->_parent && _node->_parent->_right == _node)
+							while (_node->_parent && _node->_parent->left == _node)
 								_node = _node->_parent;
 							_node = _node->_parent;
 						}

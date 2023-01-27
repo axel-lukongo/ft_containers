@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/27 15:32:45 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:58:09 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int main(){
 	// std::cout << "erase: " << test.erase(1) << std::endl;
 	// std::cout << "erase: " << test.erase(81) << std::endl;
 	std::cout << "erase: " << test.erase(1) << std::endl;
+	std::cout << "erase: " << test.erase(2) << std::endl;
+	std::cout << "erase: " << test.erase(7) << std::endl;
 }
 
 
