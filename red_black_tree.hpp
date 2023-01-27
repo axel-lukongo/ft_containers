@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/27 17:19:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:36:00 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,65 +329,62 @@ public:
 			return 0;
 		}
 
-		node_ptr remove_leaf(node_ptr ptr){
-			node_ptr x = ptr->right;
-			
-			if (ptr->is_leftchild == true){
-				ptr->_parent->right = NULL;
+		void remove_node(node_ptr z){
+			node_ptr x, y;
+			bool original_color;
+
+			y = z;
+			original_color = y->_black;
+			if (!z->left) {
+				x = z->right;
+				_transplant(z, z->right);
 			}
-			else
-				ptr->_parent->left = NULL;
-			_alloc_node.destroy(ptr);
-			_alloc_node.deallocate(ptr, sizeof(node_ptr));
-			_count--;
-			return x;
+			else if (!z->right) {
+				x = z->left;
+				_transplant(z, z->left);
+			}
+			else {
+				y = _minimum(z->right);
+				original_color = y->_black;
+				x = y->right;
+
+				if(x && y->_parent == z) {
+					x->_parent = y;
+				}
+				else {
+					_transplant(y, y->right);
+					y->right = z->right;
+					if (y->right) {
+						y->right->_parent = y;
+					}
+				}
+				_transplant(z, y);
+				y->left = z->left;
+				if (y->left) {
+					y->left->_parent = y;
+				}
+				y->_black = z->_black;
+			}
+			_alloc_node.destroy(z);
+			_alloc_node.deallocate(z, sizeof(node_ptr));
+			if (original_color == true) //if the color of the node who i delete was black 
+				fixe_delete(x);
 		}
 
-		void remove_node(node_ptr ptr){
-			bool color_node_delete;
-			node_ptr x = ptr;
-			//first case is when our node don't have child
-			color_node_delete = ptr->_black;
-			if (ptr->right == NULL && ptr->left == NULL){
-				x = remove_leaf(ptr);
+		private:
+		void	_transplant(node_ptr u, node_ptr va) {
+				if (!u->_parent) {
+					_root = va;
+				}
+				else if (u == u->_parent->left) {
+					u->_parent->left = va;
+				}
+				else 
+					u->_parent->right = va;
+				if (va)
+					va->_parent = u->_parent;
 			}
-			//if the node are not the root
-			else //if(ptr->_parent == NULL){
-				{
-					node_ptr tmp;
-					if (ptr->right) //here i look for the minimum value in the left subtree;
-						tmp = _minimum(ptr->right);
-					else
-						tmp = ptr->left;
-					if (ptr->right != NULL && ptr->left != NULL)
-						color_node_delete = tmp->_black;
-					//i echange the value of ptr and by the value of tmp
-					if(!ptr->left)
-						x = ptr->right;
-					else if (!ptr->right)
-						x = ptr->left;
-					else
-						x = tmp->right;
-					ptr->_key = tmp->_key;
-					if(x)
-						x = find_node(x->_key.first);
-					//here i delete tmp
-					if (tmp->is_leftchild == true){
-						tmp->_parent->right = tmp->right;
-						tmp->right = tmp->_parent->right;
-					}
-					else{
-						tmp->_parent->left = tmp->right;
-						tmp->right = tmp->_parent->left;
-					}
-					_alloc_node.destroy(tmp);
-					_alloc_node.deallocate(tmp, sizeof(node_ptr));
-					_count--;
-			}
-			if(color_node_delete == true){//if the color of the node who i delete was black
-				fixe_delete(x);
-			}
-		}
+
 
 		node_ptr	_minimum(node_ptr x) const {
 			if (!x)
@@ -427,6 +424,7 @@ public:
 								left_rotation(x->_parent);
 								x = _root;
 							}
+							// determine_side_child(_root);
 						}
 						else {
 							node_ptr w = x->_parent->left;
@@ -455,12 +453,13 @@ public:
 								right_rotation(x->_parent);
 								x = _root;
 							}
+							// determine_side_child(_root);
 						}
 					}
 					if (x)
 						x->_black = true;
 		}
-
+	public:
 
 
 	/************************************************************/
@@ -741,7 +740,21 @@ public:
 
 	private:
 	/*************************** print tree *********************************/
-	
+	int determine_side_child(node_ptr _root){
+		if (!_root)
+			return (0);
+
+		determine_side_child(_root->left);
+		if(_root->_parent){
+			if(_root->_parent->left == _root)
+				_root->is_leftchild = true;
+			else
+				_root->is_leftchild = false;
+		}
+		determine_side_child(_root->right);
+
+		return (1);
+	}
 	int	print_tree(node_ptr _root, int space)
 	{
 		if (!_root)

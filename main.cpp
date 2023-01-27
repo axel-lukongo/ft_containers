@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/27 16:58:09 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:29:40 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,38 @@ int main(){
 	test.insert(ft::pair<int,std::string>(7,"trois"));
 	test.insert(ft::pair<int,std::string>(9,"trois"));
 	ft::map<int, std::string>::iterator it = test.begin();
-	ft::map<int, std::string>::iterator ite = test.begin();
+	ft::map<int, std::string>::iterator ite = test.end();
+	// ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	ite--;
+	std::cout << ite->first << "  ------------\n";
 	// ite--;
 	// ite--;
 	// ite--;
 	// ite--;
 	// ite--;
-	ite++;
-	ite++;
+	// ite++;
+	// ite++;
 	// ite++;
 	// ite++;
 	// ite++;
 	// std::cout << "it: " << ite->first<< std::endl;
-	// test.erase(it, ite);
+	test.erase(it, ite);
+	test.erase(21);
 	
 	// std::cout << "erase: " << test.erase(1) << std::endl;
 	// std::cout << "erase: " << test.erase(81) << std::endl;
-	std::cout << "erase: " << test.erase(1) << std::endl;
-	std::cout << "erase: " << test.erase(2) << std::endl;
-	std::cout << "erase: " << test.erase(7) << std::endl;
+	// std::cout << "erase: " << test.erase(1) << std::endl;
+	// std::cout << "erase: " << test.erase(2) << std::endl;
+	// std::cout << "erase: " << test.erase(7) << std::endl;
 }
 
 

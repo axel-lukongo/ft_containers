@@ -97,9 +97,24 @@ namespace ft{
 	/************************************************************/
 	/*                     element access                       */
 	/************************************************************/
-	mapped_type&	operator[](const key_type& k) {
-		return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
-	}
+
+		mapped_type&	operator[](const key_type& k) {
+			return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
+		}
+
+		mapped_type&	at(const key_type& x) {
+		iterator	it = find(x);
+		if (it != end())
+			return it->second;
+		throw (std::out_of_range("map::at")); 
+		}
+
+		const mapped_type&	at(const key_type &x) const {
+			const_iterator it = find(x);
+			if (it != end())
+				return it->second;
+			throw (std::out_of_range("map::at"));
+		}
 
 	// mapped_type& at (const key_type& k){
 
@@ -183,8 +198,21 @@ namespace ft{
 			return _tree.add_one(val);
 		}
 
+		// //with hint (2)	
+		// iterator insert (iterator position, const value_type& val){
+
+		// }
+
+		//range (3)	
+		template <class InputIterator>
+		void	insert(InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last) {
+			while (first != last) {
+				insert(*first);
+				first++;
+			}
+		}
+
 		void erase (iterator position){
-			// std::cout << "pos: " << position->first << std::endl;
 			erase(position->first);
 		}
 		
