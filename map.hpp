@@ -192,9 +192,11 @@ namespace ft{
 			return _tree.erase(k);
 		}
 		void erase (iterator first, iterator last){
-			while (first != last){
-				erase(first->first);
+			iterator	tmp;
+			while (first != last) {
+				tmp = first;
 				first++;
+				erase(tmp->first);
 			}
 		}
 
