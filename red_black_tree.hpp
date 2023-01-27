@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   red_black_tree.hpp                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
+/*   Updated: 2023/01/27 15:33:48 by alukongo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RED_BLACK_TREE_H
 #define RED_BLACK_TREE_H
 #include<iostream>
@@ -318,11 +330,15 @@ public:
 		}
 
 		void remove_node(node_ptr ptr){
-			
+			bool color_node_delete;
+			node_ptr x = ptr;
 			//first case is when our node don't have child
+			color_node_delete = ptr->_black;
 			if (ptr->_left == NULL && ptr->_right == NULL){
-				if (ptr->_is_leftchild == true)
+				x = ptr->_left;
+				if (ptr->_is_leftchild == true){
 					ptr->_parent->_left = NULL;
+				}
 				else
 					ptr->_parent->_right = NULL;
 				_alloc_node.destroy(ptr);
@@ -337,34 +353,50 @@ public:
 						tmp = ptr->_left;
 					while (tmp->_right)
 						tmp = tmp->_right;
-				}
-				else
-					tmp = ptr->_right;
-				
-				//i echange the value of ptr and by the value of tmp
-				ptr->_key = tmp->_key;
-				
-				//i delete tmp
-				if (tmp->_is_leftchild == true){
-					tmp->_parent->_left = tmp->_left;
-					tmp->_left = tmp->_parent->_left;
-					// if(tmp->_black)
-					// 	tmp->_left->_black = tmp->_black;
-				}
-				else{
-					tmp->_parent->_right = tmp->_left;
-					tmp->_left = tmp->_parent->_right;
-					// if(tmp->_black)
-					// 	tmp->_left->_black = tmp->_black;
-				}
-					//tmp->_parent->_right = NULL;
-				_alloc_node.destroy(tmp);
-				_alloc_node.deallocate(tmp, sizeof(node_ptr));
-				_count--;
+					}
+					else
+						tmp = ptr->_right;
+					if (ptr->_left != NULL && ptr->_right != NULL)
+						color_node_delete = tmp->_black;
+					//i echange the value of ptr and by the value of tmp
+					
+					if(!ptr->_right)
+						x = ptr->_left;
+					else if (!ptr->_left)
+						x = ptr->_right;
+					else
+						x = tmp->_left;
+					ptr->_key = tmp->_key;
+					if(x)
+						x = find_node(x->_key.first);
+					//i delete tmp
+					if (tmp->_is_leftchild == true){
+						tmp->_parent->_left = tmp->_left;
+						tmp->_left = tmp->_parent->_left;
+					}
+					else{
+						tmp->_parent->_right = tmp->_left;
+						tmp->_left = tmp->_parent->_right;
+						// if(tmp->_black)
+						// 	tmp->_left->_black = tmp->_black;
+					}
+						//tmp->_parent->_right = NULL;
+					_alloc_node.destroy(tmp);
+					_alloc_node.deallocate(tmp, sizeof(node_ptr));
+					_count--;
 			}
-
+			if(color_node_delete == true){//the color of the node who i delete is black
+				fixe_delete(x);
+			}
 		}
 
+
+		void fixe_delete(node_ptr x){
+			// (void) x;
+			if(x){
+				std::cout <<"\n"<< x->_key.first <<": ici-----------------------------";
+			}
+		}
 
 
 
@@ -644,7 +676,7 @@ public:
 		}
 
 
-	public:
+	private:
 	/*************************** print tree *********************************/
 	int	print_tree(node_ptr _root, int space)
 	{
@@ -673,6 +705,21 @@ public:
 		}
 		print_tree(_root->_right, space);
 		return (1);
+	}
+
+	node_ptr find_node(key_type &my_key){
+		node_ptr ptr = _root;
+		if(my_key){
+			while (ptr){
+				if (_cmp(my_key, ptr->_key.first))
+					ptr = ptr->_right;
+				else if (_cmp( ptr->_key.first, my_key))
+					ptr = ptr->_left;
+				else
+					return ptr;
+			}
+		}
+		return NULL;
 	}
 	// #include <queue>
 // 	void print_tree(node_ptr root)
