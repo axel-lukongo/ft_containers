@@ -90,6 +90,7 @@ namespace ft{
 		}
 
 		~map(){
+			std::cout << "\n\n----------------------------------\n\n";
 			_tree.print_tree(5);
 		}
 
@@ -198,10 +199,15 @@ namespace ft{
 			return _tree.add_one(val);
 		}
 
-		// //with hint (2)	
-		// iterator insert (iterator position, const value_type& val){
-
-		// }
+		//with hint (2)	
+		iterator insert (iterator position, const value_type& val){
+			ft::pair<iterator, bool>	tmp = _tree.add_one(position, val);
+			if (!tmp.second){
+				std::cout << "--------------\n";
+				return insert(val).first;
+			}
+			return tmp.first;
+		}
 
 		//range (3)	
 		template <class InputIterator>

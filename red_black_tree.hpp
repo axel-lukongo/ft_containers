@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/27 18:36:00 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/28 04:55:22 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,30 @@ public:
 		}
 		else{
 			add(_root, _node);
-			// print_tree(5);
-			// std::cout <<"\n-----------------------------------------\n";
 		}
 		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 	}
+
+
+	ft::pair<iterator, bool> add_one(iterator position, const value_type &val){
+		node_ptr  _node = _alloc.allocate(1);
+		_alloc.construct(_node,  Node(val.first, val.second));
+		if (_root == NULL){ //if my tree is empty
+			_root = _alloc.allocate(sizeof(Node));;
+			_alloc.construct(_root,  Node(val.first, val.second));
+			_root->_black = true;
+			_count++;
+			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
+		}
+		else{
+			if (position.base())
+				add(position.base(), _node);
+			else
+				add(_root, _node);
+		}
+		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
+	}
+
 
 private:
 //*************************** private add *********************************/
