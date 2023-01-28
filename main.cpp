@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/28 04:48:03 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:30:21 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,42 +46,63 @@
 int main(){
 
 {
+	std::cout << std::endl<< std::endl<< std::endl;
+	std::cout << "************************** operator[] ***************************";
+	std::cout << std::endl;
 	ft::map<int, std::string> test;
-	test.insert(ft::pair<int,std::string>(2, "deux"));
-	test.insert(ft::pair<int,std::string>(5,"cinq"));
-	test.insert(ft::pair<int,std::string>(1,"un"));
-	test.insert(ft::pair<int,std::string>(8,"huit"));
-	test.insert(ft::pair<int,std::string>(3,"trois"));
-	test.insert(ft::pair<int,std::string>(4,"trois"));
-	test.insert(ft::pair<int,std::string>(19,"trois"));
-	test.insert(ft::pair<int,std::string>(34,"trois"));
-	test.insert(ft::pair<int,std::string>(21,"trois"));
-	test.insert(ft::pair<int,std::string>(51,"trois"));
-	test.insert(ft::pair<int,std::string>(61,"trois"));
-	// test.insert(ft::pair<int,std::string>(91,"trois"));
-	// test.insert(ft::pair<int,std::string>(81,"trois"));
-	// test.insert(ft::pair<int,std::string>(161,"trois"));
-	// test.insert(ft::pair<int,std::string>(61,"trois"));
-	// test.insert(ft::pair<int,std::string>(32,"trois"));
-	// test.insert(ft::pair<int,std::string>(101,"trois"));
-	// test.insert(ft::pair<int,std::string>(71,"trois"));
-	// test.insert(ft::pair<int,std::string>(7,"trois"));
-	// test.insert(ft::pair<int,std::string>(9,"trois"));
-	
+	test[1] = "un";
+	test[2] = "deux";
+	// test[15] = "quinze";
+	test[5] = "cinq";
+	test[3] = "trois";
+	// test[9] = "neuf";
+	// test[6] = "six";
+	// test[10] = "dix";
 	ft::map<int, std::string>::iterator it = test.begin();
-	ft::map<int, std::string>::iterator ite = test.begin();
-	ite--;
-	// std::cout << ite->first<< "\n\n";
-	ite--;
-	ite--;
-	ite--;
-	ite--;
-	test.insert(ite, ft::pair<int,std::string>(129,"trois"));
-
-	// ft::map<int, std::string> test2;
-	// test2.insert(it, ite);
-	
+	// for(;it != test.end(); it++)
+		std::cout << it->second << std::endl;
 }
+
+
+// {
+// 	std::cout << std::endl<< std::endl<< std::endl;
+// 	std::cout << "************************** insert ***************************";
+// 	std::cout << std::endl;
+// 	ft::map<int, std::string> test;
+// 	test.insert(ft::pair<int,std::string>(2, "deux"));
+// 	test.insert(ft::pair<int,std::string>(5,"cinq"));
+// 	test.insert(ft::pair<int,std::string>(1,"un"));
+// 	test.insert(ft::pair<int,std::string>(8,"huit"));
+// 	test.insert(ft::pair<int,std::string>(3,"trois"));
+// 	test.insert(ft::pair<int,std::string>(4,"trois"));
+// 	test.insert(ft::pair<int,std::string>(19,"trois"));
+// 	test.insert(ft::pair<int,std::string>(34,"trois"));
+// 	test.insert(ft::pair<int,std::string>(21,"trois"));
+// 	test.insert(ft::pair<int,std::string>(51,"trois"));
+// 	test.insert(ft::pair<int,std::string>(61,"trois"));
+// 	test.insert(ft::pair<int,std::string>(91,"trois"));
+// 	test.insert(ft::pair<int,std::string>(81,"trois"));
+// 	test.insert(ft::pair<int,std::string>(161,"trois"));
+// 	test.insert(ft::pair<int,std::string>(61,"trois"));
+// 	test.insert(ft::pair<int,std::string>(32,"trois"));
+// 	test.insert(ft::pair<int,std::string>(101,"trois"));
+// 	test.insert(ft::pair<int,std::string>(71,"trois"));
+// 	test.insert(ft::pair<int,std::string>(7,"trois"));
+// 	test.insert(ft::pair<int,std::string>(9,"trois"));
+	
+// 	ft::map<int, std::string>::iterator it = test.begin();
+// 	ft::map<int, std::string>::iterator ite = test.end();
+// 	ite--;
+// 	ite--;
+// 	ite--;
+// 	ite--;
+// 	ite--;
+// 	test.insert(ite, ft::pair<int,std::string>(129,"trois"));
+
+// 	ft::map<int, std::string> test2;
+// 	test2.insert(it, ite);
+	
+// }
 
 
 

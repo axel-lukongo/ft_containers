@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/28 04:55:22 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:06:39 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ public:
 	~red_black_tree(){
 		// std::cout << "--------------------destrucort\n";
 		clear_tree(_root);
+		// std::cout << _root->_key.first << "---destr-----------------\n\n";
+		// _alloc_node.destroy(_root);
+		// _alloc_node.deallocate(_root, 1);
+		// _root = NULL;
 	};
 
 	v get_val(){return _root->_value;}
@@ -121,16 +125,16 @@ public:
 	/*In this function i add a new value in my tree else
 	i call the second function add */
 	ft::pair<iterator, bool> add_one(const value_type &val){
-		node_ptr  _node = _alloc.allocate(1);
-		_alloc.construct(_node,  Node(val.first, val.second));
 		if (_root == NULL){ //if my tree is empty
-			_root = _alloc.allocate(sizeof(Node));;
+			_root = _alloc.allocate(sizeof(Node));
 			_alloc.construct(_root,  Node(val.first, val.second));
 			_root->_black = true;
 			_count++;
 			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 		}
 		else{
+			node_ptr  _node = _alloc.allocate(1);
+			_alloc.construct(_node,  Node(val.first, val.second));
 			add(_root, _node);
 		}
 		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
@@ -138,8 +142,6 @@ public:
 
 
 	ft::pair<iterator, bool> add_one(iterator position, const value_type &val){
-		node_ptr  _node = _alloc.allocate(1);
-		_alloc.construct(_node,  Node(val.first, val.second));
 		if (_root == NULL){ //if my tree is empty
 			_root = _alloc.allocate(sizeof(Node));;
 			_alloc.construct(_root,  Node(val.first, val.second));
@@ -148,6 +150,8 @@ public:
 			return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 		}
 		else{
+			node_ptr  _node = _alloc.allocate(1);
+			_alloc.construct(_node,  Node(val.first, val.second));
 			if (position.base())
 				add(position.base(), _node);
 			else
@@ -185,6 +189,10 @@ private:
 			}
 			if (check_add != _count)
 				check_color(new_node);
+			else{
+				_alloc_node.destroy(new_node);
+				_alloc_node.deallocate(new_node, 1);
+			}
 		}
 
 public:
