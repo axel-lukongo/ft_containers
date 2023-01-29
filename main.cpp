@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/28 15:30:21 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:22:52 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,16 @@ int main(){
 	ft::map<int, std::string> test;
 	test[1] = "un";
 	test[2] = "deux";
-	// test[15] = "quinze";
-	test[5] = "cinq";
 	test[3] = "trois";
-	// test[9] = "neuf";
-	// test[6] = "six";
-	// test[10] = "dix";
+	test[4] = "quatre";
+	test[5] = "cinq";
+	test[6] = "six";
+	test[7] = "sept";
+	test[8] = "huit";
+	test[9] = "neuf";
+	test[10] = "dix";
 	ft::map<int, std::string>::iterator it = test.begin();
-	// for(;it != test.end(); it++)
+	for(;it != test.end(); it++)
 		std::cout << it->second << std::endl;
 }
 

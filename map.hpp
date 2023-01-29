@@ -101,6 +101,12 @@ namespace ft{
 
 		mapped_type&	operator[](const key_type& k) {
 			return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
+		//  iterator it = this->find(k);
+		// 	if (it == this->end()) {
+		// 		return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
+		// 	} else {
+		// 		return it->second;
+		// 	}
 		}
 
 		mapped_type&	at(const key_type& x) {

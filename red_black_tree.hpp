@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/28 15:06:39 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:18:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,14 @@ public:
 		else{
 			node_ptr  _node = _alloc.allocate(1);
 			_alloc.construct(_node,  Node(val.first, val.second));
+			if(_root->_key.first == _node->_key.first){
+				_alloc_node.destroy(_node);
+				_alloc_node.deallocate(_node, 1);
+				return ft::make_pair<iterator, bool>(iterator(_node, NULL), false);
+			}
 			add(_root, _node);
+			return ft::make_pair<iterator, bool>(iterator(_node, NULL), true);
 		}
-		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 	}
 
 
@@ -154,10 +159,16 @@ public:
 			_alloc.construct(_node,  Node(val.first, val.second));
 			if (position.base())
 				add(position.base(), _node);
-			else
+			else{
+				if(_root->_key.first == _node->_key.first){
+					_alloc_node.destroy(_node);
+					_alloc_node.deallocate(_node, 1);
+					return ft::make_pair<iterator, bool>(iterator(_node, NULL), false);
+				}
 				add(_root, _node);
+			}
+			return ft::make_pair<iterator, bool>(iterator(_node, NULL), true);
 		}
-		return ft::make_pair<iterator, bool>(iterator(_root, NULL), true);
 	}
 
 
