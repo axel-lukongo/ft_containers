@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/29 17:22:52 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:29:01 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int main(){
 
 {
 	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** operator[] ***************************";
+	std::cout << "************************** constructor range ***************************";
 	std::cout << std::endl;
+	
 	ft::map<int, std::string> test;
 	test[1] = "un";
 	test[2] = "deux";
@@ -60,10 +61,36 @@ int main(){
 	test[8] = "huit";
 	test[9] = "neuf";
 	test[10] = "dix";
-	ft::map<int, std::string>::iterator it = test.begin();
-	for(;it != test.end(); it++)
-		std::cout << it->second << std::endl;
+	
+	ft::map<int, std::string> test2(test.begin(), test.end());
+	ft::map<int, std::string>::iterator it = test2.begin();
+	for (;it != test2.end(); it++)
+		std::cout << it->first << std::endl;
+	
+
 }
+
+
+// {
+// 	std::cout << std::endl<< std::endl<< std::endl;
+// 	std::cout << "************************** operator[] ***************************";
+// 	std::cout << std::endl;
+// 	//my operator wasn't work because my insert doesn't return the correct pair
+// 	ft::map<int, std::string> test;
+// 	test[1] = "un";
+// 	test[2] = "deux";
+// 	test[3] = "trois";
+// 	test[4] = "quatre";
+// 	test[5] = "cinq";
+// 	test[6] = "six";
+// 	test[7] = "sept";
+// 	test[8] = "huit";
+// 	test[9] = "neuf";
+// 	test[10] = "dix";
+// 	ft::map<int, std::string>::iterator it = test.begin();
+// 	for(;it != test.end(); it++)
+// 		std::cout << it->second << std::endl;
+// }
 
 
 // {

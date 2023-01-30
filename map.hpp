@@ -74,7 +74,6 @@ namespace ft{
 		}
 
 
-		//range (2)	
 		// template <class InputIterator>
 		// map (InputIterator first,
 		// InputIterator last,
@@ -84,14 +83,29 @@ namespace ft{
 		// }
 
 
+		//range (2)	
+		template <class InputIterator>
+			map(InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			: _cmp(comp){
+				(void) alloc;
+				while (first != last) {
+					insert(*first);
+					first++;
+				}
+		}
+
+
 		//copy (3)	
 		map (const map& x){
 			*this = x;
 		}
 
+	/************************************************************/
+	/*                       destructor                         */
+	/************************************************************/
 		~map(){
-			std::cout << "\n\n----------------------------------\n\n";
-			_tree.print_tree(5);
+			// std::cout << "\n\n----------------------------------\n\n";
+			// _tree.print_tree(5);
 		}
 
 
@@ -101,19 +115,13 @@ namespace ft{
 
 		mapped_type&	operator[](const key_type& k) {
 			return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
-		//  iterator it = this->find(k);
-		// 	if (it == this->end()) {
-		// 		return	(*((insert(ft::make_pair(k, mapped_type()))).first)).second;
-		// 	} else {
-		// 		return it->second;
-		// 	}
 		}
 
 		mapped_type&	at(const key_type& x) {
 		iterator	it = find(x);
 		if (it != end())
 			return it->second;
-		throw (std::out_of_range("map::at")); 
+		throw (std::out_of_range("map::at"));
 		}
 
 		const mapped_type&	at(const key_type &x) const {
@@ -122,14 +130,6 @@ namespace ft{
 				return it->second;
 			throw (std::out_of_range("map::at"));
 		}
-
-	// mapped_type& at (const key_type& k){
-
-	// }
-	// const mapped_type& at (const key_type& k) const{
-		
-	// }
-
 
 
 	/************************************************************/

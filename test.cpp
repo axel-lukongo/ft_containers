@@ -32,33 +32,53 @@ void	is_empty(std::vector<int> const &vct)
 
 int main()
 {
+
 	{
-	const int size = 5;
-	std::vector<int> vct(size);
-	std::vector<int>::iterator it_ = vct.begin();
-	std::vector<int>::reverse_iterator it(it_);
-
-	for (int i = 0; i < size; ++i)
-		vct[i] = (i + 1) * 5;
-	printSize(vct);
-
-	std::cout << (it_ == it.base()) << std::endl;
-	std::cout << (it_ == (it + 3).base()) << std::endl;
-
-	std::cout << *(it.base() + 1) << std::endl;
-	std::cout << *(it - 3) << std::endl;
-	std::cout << *(it - 3).base() << std::endl;
-	it -= 3;
-	std::cout << *it.base() << std::endl;
-
-	std::cout << "TEST OFFSET" << std::endl;
-	std::cout << *(it) << std::endl;
-	std::cout << *(it).base() << std::endl;
-	std::cout << *(it - 0) << std::endl;
-	std::cout << *(it - 0).base() << std::endl;
-	std::cout << *(it - 1).base() << std::endl;
+		std::map<int, std::string> test;
+		test[1] = "un";
+		test[2] = "deux";
+		test[3] = "trois";
+		test[4] = "quatre";
+		test[5] = "cinq";
+		test[6] = "six";
+		test[7] = "sept";
+		test[8] = "huit";
+		test[9] = "neuf";
+		test[10] = "dix";
+		std::map<int, std::string> test2(test.begin(), test.end());
+		std::map<int, std::string>::iterator it = test2.begin();
+		for (;it != test2.end(); it++)
+			std::cout << it->first << std::endl;
 
 	}
+
+	// {
+	// const int size = 5;
+	// std::vector<int> vct(size);
+	// std::vector<int>::iterator it_ = vct.begin();
+	// std::vector<int>::reverse_iterator it(it_);
+
+	// for (int i = 0; i < size; ++i)
+	// 	vct[i] = (i + 1) * 5;
+	// printSize(vct);
+
+	// std::cout << (it_ == it.base()) << std::endl;
+	// std::cout << (it_ == (it + 3).base()) << std::endl;
+
+	// std::cout << *(it.base() + 1) << std::endl;
+	// std::cout << *(it - 3) << std::endl;
+	// std::cout << *(it - 3).base() << std::endl;
+	// it -= 3;
+	// std::cout << *it.base() << std::endl;
+
+	// std::cout << "TEST OFFSET" << std::endl;
+	// std::cout << *(it) << std::endl;
+	// std::cout << *(it).base() << std::endl;
+	// std::cout << *(it - 0) << std::endl;
+	// std::cout << *(it - 0).base() << std::endl;
+	// std::cout << *(it - 1).base() << std::endl;
+
+	// }
 	// // std::vector<int> test;
 	// // std::vector<int>::iterator it;
 	// // // test.push_back(1);
