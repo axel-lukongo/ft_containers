@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/29 17:18:32 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:42:27 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,22 @@ public:
 	};
 
 	/************************************************************/
+	/*                          operator                        */
+	/************************************************************/
+	red_black_tree& operator=(red_black_tree& x){
+		_count = x._count;
+		_root = x._root;
+		_alloc = x._alloc;
+		_alloc_node = x._alloc_node;
+		_cmp = x._cmp;
+	}
+
+	/************************************************************/
 	/*                        destructor                        */
 	/************************************************************/
 	~red_black_tree(){
-		// std::cout << "--------------------destrucort\n";
 		clear_tree(_root);
-		// std::cout << _root->_key.first << "---destr-----------------\n\n";
-		// _alloc_node.destroy(_root);
-		// _alloc_node.deallocate(_root, 1);
-		// _root = NULL;
+	
 	};
 
 	v get_val(){return _root->_value;}
@@ -730,7 +737,7 @@ public:
 		return iterator(find_begin(), NULL);
 	}
 
-	const_iterator cbegin(){
+	const_iterator cbegin() const{
 		return const_iterator(find_begin(), NULL);
 	}
 
@@ -756,6 +763,10 @@ public:
 
 	const_iterator cend() const {
 		return const_iterator(NULL, find_end());
+	}
+
+	void clear_tree(){
+		clear_tree(_root);
 	}
 
 // private:
@@ -857,6 +868,26 @@ public:
 
 
 };
+	// template <class Key, class T, class Compare, class Alloc>
+	// 	bool	operator!=(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+	// 		return	!(lhs == rhs);
+	// 	}
+	// template <class Key, class T, class Compare, class Alloc>
+	// 	bool	operator<(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+	// 		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	// 	}
+	// template <class Key, class T, class Compare, class Alloc>
+	// 	bool	operator<=(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+	// 		return !(rhs < lhs);
+	// 	}
+	// template <class Key, class T, class Compare, class Alloc>
+	// 	bool	operator>(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+	// 		return rhs < lhs;
+	// 	}
+	// template <class Key, class T, class Compare, class Alloc>
+	// 	bool	operator>=(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+	// 		return	!(lhs < rhs);
+	// 	}
 
 }
 #endif // !RED_BLACK_TREE_H

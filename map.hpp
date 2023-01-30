@@ -6,6 +6,7 @@
 #include "iterator/pair.hpp"
 #include"iterator/red_black_tree_iterator.hpp"
 #include"iterator/reverse_iterator.hpp"
+#include "utils.hpp"
 
 // #include"iterator/red_black_tree_iterator.hpp"
 
@@ -43,8 +44,10 @@ namespace ft{
 
 		// //OTHER
 		private:
-		my_tree _tree;
-		key_compare	_cmp;
+			my_tree _tree;
+			key_compare	_cmp;
+			allocator_type	_alloc;
+
 
 	/************************************************************/
 	/*                      constructor                         */
@@ -68,19 +71,11 @@ namespace ft{
 		};
 	//empty (1)	
 		explicit map (const key_compare& comp = key_compare(),
-		const allocator_type& alloc = allocator_type()){
-			(void) comp;
-			(void) alloc;
+		const allocator_type& alloc = allocator_type()): _cmp(comp), _alloc(alloc){
+			// (void) comp;
+			// (void) alloc;
 		}
 
-
-		// template <class InputIterator>
-		// map (InputIterator first,
-		// InputIterator last,
-		// const key_compare& comp = key_compare(),
-		// const allocator_type& alloc = allocator_type()){
-
-		// }
 
 
 		//range (2)	
@@ -89,7 +84,7 @@ namespace ft{
 			: _cmp(comp){
 				(void) alloc;
 				while (first != last) {
-					insert(*first);
+					insert(ft::pair<Key,T>(first->first, first->second));
 					first++;
 				}
 		}
@@ -98,6 +93,16 @@ namespace ft{
 		//copy (3)	
 		map (const map& x){
 			*this = x;
+		}
+
+		map& operator=(const map& x){
+			if(*this != x){
+				_cmp = x._cmp;
+				_alloc = x._alloc;
+				_tree.clear_tree();
+				insert(x.begin(), x.end());
+			}
+			return *this;
 		}
 
 	/************************************************************/
@@ -137,11 +142,11 @@ namespace ft{
 	/************************************************************/
 
 		//****************************** BEGIN *******************************
-		iterator begin(void){
+		iterator begin(void) {
 			return _tree.begin();
 		}
 
-		const_iterator cbegin(void){
+		const_iterator begin(void) const{
 			return _tree.cbegin();
 		}
 
@@ -155,13 +160,13 @@ namespace ft{
 		}
 
 		//****************************** END *******************************
-		iterator end(){
+		iterator end() {
 			return _tree.end();
 		}
-		const_iterator cend(){
+		const_iterator end() const {
 			return _tree.cend();
 		}
-
+//pas de cend
 		//********revers**********
 		reverse_iterator	rend(void) {
 			return reverse_iterator(_tree.begin());
@@ -198,18 +203,24 @@ namespace ft{
 			return	value_compare(_cmp);
 		}
 
+		allocator_type	get_allocator(void) const {
+			return _alloc;
+		}
+
+		my_tree	get_root(void) const {
+			return _tree;
+		}
+
 	/************************************************************/
 	/*                         modifier                         */
 	/************************************************************/
 		pair<iterator,bool> insert(const value_type& val){
 			return _tree.add_one(val);
 		}
-
 		//with hint (2)	
 		iterator insert (iterator position, const value_type& val){
 			ft::pair<iterator, bool>	tmp = _tree.add_one(position, val);
 			if (!tmp.second){
-				std::cout << "--------------\n";
 				return insert(val).first;
 			}
 			return tmp.first;
@@ -219,7 +230,7 @@ namespace ft{
 		template <class InputIterator>
 		void	insert(InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last) {
 			while (first != last) {
-				insert(*first);
+				insert(ft::pair<Key,T>(first->first, first->second));
 				first++;
 			}
 		}
@@ -296,6 +307,48 @@ namespace ft{
 		}
 
 	};
+
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool	operator==(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+		if ( lhs.size() != rhs.size() )
+			return false;
+		typename map<Key, T, Compare, Alloc>::const_iterator it = lhs.begin();
+		typename map<Key, T, Compare, Alloc>::const_iterator ite = lhs.end();
+		typename map<Key, T, Compare, Alloc>::const_iterator rit = rhs.begin();
+
+		while (it != ite && rit != rhs.end()) {
+			if ( it->first != rit->first || it->second != rit->second )
+				return false;
+			it++;
+			rit++;
+		}
+		if (it != ite || rit != rhs.end())
+			return false;
+		return true;
+	}
+
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool	operator!=(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+		return	!(lhs == rhs);
+	}
+	template <class Key, class T, class Compare, class Alloc>
+		bool	operator<(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+			return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		}
+	template <class Key, class T, class Compare, class Alloc>
+		bool	operator<=(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+			return !(rhs < lhs);
+		}
+	template <class Key, class T, class Compare, class Alloc>
+		bool	operator>(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+			return rhs < lhs;
+		}
+	template <class Key, class T, class Compare, class Alloc>
+		bool	operator>=(const ft::map<Key, T, Compare, Alloc>& lhs, const ft::map<Key, T, Compare, Alloc>& rhs) {
+			return	!(lhs < rhs);
+		}
 }
 
 #endif // !MAP_H

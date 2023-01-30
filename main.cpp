@@ -6,69 +6,121 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/29 18:29:01 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:44:56 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "stack.hpp"
 #include <iostream>
 // #include <vector>
+#include "vector.hpp"
 #include"map.hpp"
 // #include "print_tree.hpp"
-#include<map>
-
+// #include<map>
+// #include"containers_test/srcs/map/common.hpp"
 #include "vector.hpp"
+// #include <list>
+
+
+
+// #define _pair TESTED_NAMESPACE::pair
+// #define T1 int
+// #define T2 int
+// typedef ft::pair<const T1, T2> T3;
 
 // template <typename T>
-// void	printSize(ft::vector<T> const &vct, bool print_content = true)
+// std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
 // {
-// 	const size_t size = vct.size();
-// 	const size_t capacity = vct.capacity();
-// 	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-// 	// Cannot limit capacity's max value because it's implementation dependent
+// 	o << "key: " << iterator->first << " | value: " << iterator->second;
+// 	if (nl)
+// 		o << std::endl;
+// 	return ("");
+// }
 
-// 	std::cout << "size: " << size << std::endl;
-// 	std::cout << "capacity ok or ko: " << isCapacityOk << std::endl;
-// 	std::cout << "capacity: " << capacity << std::endl;
-// 	std::cout << "max_size: " << vct.max_size() << std::endl;
+// template <typename T_MAP>
+// void	printSize(T_MAP const &mp, bool print_content = 1)
+// {
+// 	std::cout << "size: " << mp.size() << std::endl;
+// 	std::cout << "max_size: " << mp.max_size() << std::endl;
 // 	if (print_content)
 // 	{
-// 		typename ft::vector<T>::const_iterator it = vct.begin();
-// 		typename ft::vector<T>::const_iterator ite = vct.end();
+// 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
 // 		std::cout << std::endl << "Content is:" << std::endl;
 // 		for (; it != ite; ++it)
-// 			std::cout << "- " << *it << std::endl;
+// 			std::cout << "- " << printPair(it, false) << std::endl;
 // 	}
 // 	std::cout << "###############################################" << std::endl;
 // }
 
+// template <typename T1, typename T2>
+// void	printReverse(TESTED_NAMESPACE::map<T1, T2> &mp)
+// {
+// 	typename TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.end(), ite = mp.begin();
+
+// 	std::cout << "printReverse:" << std::endl;
+// 	while (it != ite) {
+// 		it--;
+// 		std::cout << "-> " << printPair(it, false) << std::endl;
+// 	}
+// 	std::cout << "_______________________________________________" << std::endl;
+// }
 
 int main(){
 
-{
-	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** constructor range ***************************";
-	std::cout << std::endl;
+
+// {
+// 	ft::vector<int> test(5);
+// 	ft::vector<int>::iterator it = test.begin();
+// 	// ft::vector<int>::iterator ite = test.begin();
+// 	std::cout << it;
+// }
+
+	{
+		ft::map<int, std::string> test;
+		test[1] = "un";
+		test[2] = "deux";
+		test[3] = "trois";
+		test[4] = "quatre";
+		ft::map<int, std::string> test2(test);
+		ft::map<int, std::string>::const_iterator it = test2.begin();
+		for(;it != test2.end(); it++)
+			std::cout << it->first << std::endl;
+	}
+
+
+// {
+// 	std::list<T3> lst;
+// 	unsigned int lst_size = 10;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
+// 	ft::map<T1, T2> mp(lst.begin(), lst.end());
+// 	printSize(mp);
+// }
+
+// {
+// 	std::cout << std::endl<< std::endl<< std::endl;
+// 	std::cout << "************************** constructor range ***************************";
+// 	std::cout << std::endl;
 	
-	ft::map<int, std::string> test;
-	test[1] = "un";
-	test[2] = "deux";
-	test[3] = "trois";
-	test[4] = "quatre";
-	test[5] = "cinq";
-	test[6] = "six";
-	test[7] = "sept";
-	test[8] = "huit";
-	test[9] = "neuf";
-	test[10] = "dix";
+// 	ft::map<int, std::string> test;
+// 	test[1] = "un";
+// 	test[2] = "deux";
+// 	test[3] = "trois";
+// 	test[4] = "quatre";
+// 	test[5] = "cinq";
+// 	test[6] = "six";
+// 	test[7] = "sept";
+// 	test[8] = "huit";
+// 	test[9] = "neuf";
+// 	test[10] = "dix";
 	
-	ft::map<int, std::string> test2(test.begin(), test.end());
-	ft::map<int, std::string>::iterator it = test2.begin();
-	for (;it != test2.end(); it++)
-		std::cout << it->first << std::endl;
+// 	ft::map<int, std::string> test2(test.begin(), test.end());
+// 	ft::map<int, std::string>::iterator it = test2.begin();
+// 	for (;it != test2.end(); it++)
+// 		std::cout << it->first << "  |  " << it->second << std::endl;
 	
 
-}
+// }
 
 
 // {

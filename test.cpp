@@ -2,28 +2,29 @@
 #include <iostream>
 #include <stack>
 #include<map>
-template <typename T>
-void	printSize(std::vector<T> const &vct, bool print_content = true)
-{
-	const size_t size = vct.size();
-	const size_t capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
 
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity ok or ko: " << isCapacityOk << std::endl;
-	std::cout << "capacity: " << capacity << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename std::vector<T>::const_iterator it = vct.begin();
-		typename std::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
+// template <typename T>
+// void	printSize(std::vector<T> const &vct, bool print_content = true)
+// {
+// 	const size_t size = vct.size();
+// 	const size_t capacity = vct.capacity();
+// 	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+// 	// Cannot limit capacity's max value because it's implementation dependent
+
+// 	std::cout << "size: " << size << std::endl;
+// 	std::cout << "capacity ok or ko: " << isCapacityOk << std::endl;
+// 	std::cout << "capacity: " << capacity << std::endl;
+// 	std::cout << "max_size: " << vct.max_size() << std::endl;
+// 	if (print_content)
+// 	{
+// 		typename std::vector<T>::const_iterator it = vct.begin();
+// 		typename std::vector<T>::const_iterator ite = vct.end();
+// 		std::cout << std::endl << "Content is:" << std::endl;
+// 		for (; it != ite; ++it)
+// 			std::cout << "- " << *it << std::endl;
+// 	}
+// 	std::cout << "###############################################" << std::endl;
+// }
 
 void	is_empty(std::vector<int> const &vct)
 {
@@ -33,24 +34,42 @@ void	is_empty(std::vector<int> const &vct)
 int main()
 {
 
-	{
-		std::map<int, std::string> test;
-		test[1] = "un";
-		test[2] = "deux";
-		test[3] = "trois";
-		test[4] = "quatre";
-		test[5] = "cinq";
-		test[6] = "six";
-		test[7] = "sept";
-		test[8] = "huit";
-		test[9] = "neuf";
-		test[10] = "dix";
-		std::map<int, std::string> test2(test.begin(), test.end());
-		std::map<int, std::string>::iterator it = test2.begin();
-		for (;it != test2.end(); it++)
-			std::cout << it->first << std::endl;
 
-	}
+{
+	std::vector<int> test(5);
+	std::vector<int>::iterator it = test.begin();
+	std::vector<int>::iterator ite = test.begin();
+	std::cout << test;
+}
+
+	// {
+	// 	std::map<int, std::string> test;
+	// 	test[1] = "un";
+	// 	test[2] = "deux";
+	// 	test[3] = "trois";
+	// 	test[4] = "quatre";
+	// 	test[5] = "cinq";
+	// 	test[6] = "six";
+	// 	test[7] = "sept";
+	// 	test[8] = "huit";
+	// 	test[9] = "neuf";
+	// 	test[10] = "dix";
+	// 	std::map<int, std::string> test2(test.begin(), test.end());
+	// 	std::map<int, std::string>::iterator it = test2.begin();
+	// 	for (;it != test2.end(); it++)
+	// 		std::cout << it->first << std::endl;
+
+	// }
+
+	// {
+	// 	std::map<int, std::string> test;
+	// 	test[1] = "un";
+	// 	test[2] = "deux";
+	// 	test[3] = "trois";
+	// 	test[4] = "quatre";
+	// 	std::map<int, std::string>::const_iterator it = test.cbegin();
+	// 	std::cout << it->first;
+	// }
 
 	// {
 	// const int size = 5;
