@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/30 16:42:27 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:36:06 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ public:
 	/************************************************************/
 	~red_black_tree(){
 		clear_tree(_root);
-	
 	};
 
 	v get_val(){return _root->_value;}
@@ -112,8 +111,8 @@ public:
 	/************************************************************/
 	bool empty() const{
 		if (_count > 0)
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 
 	size_type size() const{
@@ -142,7 +141,7 @@ public:
 		else{
 			node_ptr  _node = _alloc.allocate(1);
 			_alloc.construct(_node,  Node(val.first, val.second));
-			if(_root->_key.first == _node->_key.first){
+			if(_root->_key.first == _node->_key.first || find_node(_node->_key.first) != NULL){ // if this key doesn't exist yet
 				_alloc_node.destroy(_node);
 				_alloc_node.deallocate(_node, 1);
 				return ft::make_pair<iterator, bool>(iterator(_node, NULL), false);
@@ -167,7 +166,7 @@ public:
 			if (position.base())
 				add(position.base(), _node);
 			else{
-				if(_root->_key.first == _node->_key.first){
+				if(_root->_key.first == _node->_key.first || find_node(_node->_key.first) != NULL){
 					_alloc_node.destroy(_node);
 					_alloc_node.deallocate(_node, 1);
 					return ft::make_pair<iterator, bool>(iterator(_node, NULL), false);
@@ -766,7 +765,8 @@ public:
 	}
 
 	void clear_tree(){
-		clear_tree(_root);
+		_root = clear_tree(_root);
+		_count = 0;
 	}
 
 // private:

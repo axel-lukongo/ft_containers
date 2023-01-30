@@ -19,6 +19,10 @@ namespace ft{
 
 		pair(first_type const& t1, second_type const& t2) : first(t1), second(t2) {}
 
+		template<class U, class V>
+		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {
+		}
+
 	/************************************************************/
 	/*                         operator                         */
 	/************************************************************/

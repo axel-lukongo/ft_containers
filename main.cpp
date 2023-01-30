@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/30 16:44:56 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:13:54 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,55 +19,164 @@
 // #include<map>
 // #include"containers_test/srcs/map/common.hpp"
 #include "vector.hpp"
-// #include <list>
+#include <list>
 
 
 
-// #define _pair TESTED_NAMESPACE::pair
-// #define T1 int
-// #define T2 int
-// typedef ft::pair<const T1, T2> T3;
+#define _pair ft::pair
 
-// template <typename T>
-// std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
-// {
-// 	o << "key: " << iterator->first << " | value: " << iterator->second;
-// 	if (nl)
-// 		o << std::endl;
-// 	return ("");
-// }
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+{
+	o << "key: " << iterator->first << " | value: " << iterator->second;
+	if (nl)
+		o << std::endl;
+	return ("");
+}
 
-// template <typename T_MAP>
-// void	printSize(T_MAP const &mp, bool print_content = 1)
-// {
-// 	std::cout << "size: " << mp.size() << std::endl;
-// 	std::cout << "max_size: " << mp.max_size() << std::endl;
-// 	if (print_content)
-// 	{
-// 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
-// 		std::cout << std::endl << "Content is:" << std::endl;
-// 		for (; it != ite; ++it)
-// 			std::cout << "- " << printPair(it, false) << std::endl;
-// 	}
-// 	std::cout << "###############################################" << std::endl;
-// }
+template <typename T_MAP>
+void	printSize(T_MAP const &mp, bool print_content = 1)
+{
+	std::cout << "size: " << mp.size() << std::endl;
+	std::cout << "max_size: " << mp.max_size() << std::endl;
+	if (print_content)
+	{
+		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << printPair(it, false) << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
 
-// template <typename T1, typename T2>
-// void	printReverse(TESTED_NAMESPACE::map<T1, T2> &mp)
-// {
-// 	typename TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.end(), ite = mp.begin();
+template <typename T1, typename T2>
+void	printReverse(ft::map<T1, T2> &mp)
+{
+	typename ft::map<T1, T2>::iterator it = mp.end(), ite = mp.begin();
 
-// 	std::cout << "printReverse:" << std::endl;
-// 	while (it != ite) {
-// 		it--;
-// 		std::cout << "-> " << printPair(it, false) << std::endl;
-// 	}
-// 	std::cout << "_______________________________________________" << std::endl;
-// }
+	std::cout << "printReverse:" << std::endl;
+	while (it != ite) {
+		it--;
+		std::cout << "-> " << printPair(it, false) << std::endl;
+	}
+	std::cout << "_______________________________________________" << std::endl;
+}
+
+#define T1 int
+#define T2 std::string
+typedef _pair<const T1, T2> T3;
+
+
+static int iter = 0;
+
+template <typename MAP, typename U>
+void	ft_erase(MAP &mp, U param)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	std::cout << "ret: " << mp.erase(param) << std::endl;
+	printSize(mp);
+}
 
 int main(){
 
+{
+	std::list<T3> lst;
+	unsigned int lst_size = 6;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
+	ft::map<T1, T2> mp(lst.begin(), lst.end());
+	printSize(mp);
 
+	for (int i = 2; i < 4; ++i)
+		ft_erase(mp, i);
+
+	ft_erase(mp, mp.begin()->first);
+	ft_erase(mp, (--mp.end())->first);
+
+	mp[-1] = "Hello";
+	mp[10] = "Hi there";
+	mp[10] = "Hi there";
+	printSize(mp);
+
+	ft_erase(mp, 0);
+	ft_erase(mp, 1);
+
+	return (0);	
+}
+
+// {
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** is empty ***************************";
+// 		std::cout << std::endl;
+// 	std::list<T3> lst;
+// 	unsigned int lst_size = 7;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(T3('a' + i, lst_size - i));
+
+// 	ft::map<T1, T2> mp(lst.begin(), lst.end()), mp2;
+// 	ft::map<T1, T2>::iterator it;
+
+// 	lst.clear();
+// 	is_empty(mp);
+// 	printSize(mp);
+
+// 	is_empty(mp2);
+// 	mp2 = mp;
+// 	is_empty(mp2);
+
+// 	it = mp.begin();
+// 	for (unsigned long int i = 3; i < mp.size(); ++i)
+// 		it++->second = i * 7;
+
+// 	printSize(mp);
+// 	printSize(mp2);
+
+// 	mp2.clear();
+// 	is_empty(mp2);
+// 	printSize(mp2);
+// 	return (0);
+// }
+
+// 	std::list<T3> lst;
+// 	unsigned int lst_size = 7;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(T3(lst_size - i, i));
+
+// 	ft::map<T1, T2> mp(lst.begin(), lst.end());
+// 	ft::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
+
+// 	ft::map<T1, T2> mp_range(it, --(--ite));
+// 	for (int i = 0; it != ite; ++it)
+// 		it->second = ++i * 5;
+
+// 	it = mp.begin(); ite = --(--mp.end());
+// 	ft::map<T1, T2> mp_copy(mp);
+// 	for (int i = 0; it != ite; ++it)
+// 		it->second = ++i * 7;
+
+// 	std::cout << "\t-- PART ONE --" << std::endl;
+
+// 	std::cout << "\nmp\n";
+// 	printSize(mp);
+// 	// mp.the_printer();
+
+// 	std::cout << "\nmp_range\n";
+// 	printSize(mp_range);
+// 	// mp_range.the_printer();
+
+// 	std::cout << "\nmp_copy\n";
+// 	printSize(mp_copy);
+// 	// mp_copy.the_printer();
+
+// 	mp = mp_copy;
+// 	mp_copy = mp_range;
+// 	mp_range.clear();
+// // std::cout << "--------------------------------------------------------------------\n";
+
+// 	std::cout << "\t-- PART TWO --" << std::endl;
+// 	printSize(mp);
+// 	printSize(mp_range);
+// 	printSize(mp_copy);
 // {
 // 	ft::vector<int> test(5);
 // 	ft::vector<int>::iterator it = test.begin();
@@ -75,18 +184,17 @@ int main(){
 // 	std::cout << it;
 // }
 
-	{
-		ft::map<int, std::string> test;
-		test[1] = "un";
-		test[2] = "deux";
-		test[3] = "trois";
-		test[4] = "quatre";
-		ft::map<int, std::string> test2(test);
-		ft::map<int, std::string>::const_iterator it = test2.begin();
-		for(;it != test2.end(); it++)
-			std::cout << it->first << std::endl;
-	}
-
+	// {
+	// 	ft::map<int, std::string> test;
+	// 	test[1] = "un";
+	// 	test[2] = "deux";
+	// 	test[3] = "trois";
+	// 	test[4] = "quatre";
+	// 	ft::map<int, std::string> test2(test);
+	// 	ft::map<int, std::string>::const_iterator it = test2.begin();
+	// 	for(;it != test2.end(); it++)
+	// 		std::cout << it->first << std::endl;
+	// }
 
 // {
 // 	std::list<T3> lst;

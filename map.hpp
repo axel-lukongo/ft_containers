@@ -114,6 +114,10 @@ namespace ft{
 		}
 
 
+		void the_printer(){
+			std::cout << "\n\n----------------------------------\n\n";
+			_tree.print_tree(5);
+		}
 	/************************************************************/
 	/*                     element access                       */
 	/************************************************************/
@@ -214,9 +218,14 @@ namespace ft{
 	/************************************************************/
 	/*                         modifier                         */
 	/************************************************************/
+		
+		//(1)	
 		pair<iterator,bool> insert(const value_type& val){
-			return _tree.add_one(val);
+			ft::pair<iterator, bool> tmp;
+			tmp = _tree.add_one(val);
+			return tmp;
 		}
+
 		//with hint (2)	
 		iterator insert (iterator position, const value_type& val){
 			ft::pair<iterator, bool>	tmp = _tree.add_one(position, val);
@@ -235,6 +244,9 @@ namespace ft{
 			}
 		}
 
+
+
+	//****************************** erase *******************************
 		void erase (iterator position){
 			erase(position->first);
 		}
