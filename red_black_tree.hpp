@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/01 17:07:53 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:23:37 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ struct node{
 	// v _value;
 	// is_leftchild is for know if the node are on the left or right to the parent
 	// _black is just for know if the node is black else i considered this as red
-	bool _black, is_leftchild;
+	bool _black;
+	bool is_leftchild;
+	
 	//here i stock my nodes in the appropriet nodes;
-	node<k,v> *right, *left, *_parent;
+	node<k,v> *right, *left;
+	node<k,v> *_parent;
 
 	public:
 		node(k key, v val):_key(key, val){
@@ -51,7 +54,7 @@ class red_black_tree
 public:
 	typedef node<k,v>												Node;
 	typedef ft::pair<k, v>											value_type;
-	typedef	std::allocator<std::pair<const k, v> >					allocator_type;
+	typedef	std::allocator<ft::pair<const k, v> >					allocator_type;
 	typedef value_type												val_type;
 	typedef typename value_type::first_type							key_type;
 	typedef typename value_type::second_type 						mapped_type;
