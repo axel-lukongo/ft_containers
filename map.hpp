@@ -117,6 +117,7 @@ namespace ft{
 		void the_printer(){
 			std::cout << "\n\n----------------------------------\n\n";
 			_tree.print_tree(5);
+			std::cout << "\n\n\n\n";
 		}
 	/************************************************************/
 	/*                     element access                       */

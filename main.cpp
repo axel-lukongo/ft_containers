@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/30 21:13:54 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:12:39 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,86 +23,104 @@
 
 
 
-#define _pair ft::pair
+// #define _pair ft::pair
 
-template <typename T>
-std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+// template <typename T>
+// std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+// {
+// 	o << "key: " << iterator->first << " | value: " << iterator->second;
+// 	if (nl)
+// 		o << std::endl;
+// 	return ("");
+// }
+
+// template <typename T_MAP>
+// void	printSize(T_MAP const &mp, bool print_content = 1)
+// {
+// 	std::cout << "size: " << mp.size() << std::endl;
+// 	std::cout << "max_size: " << mp.max_size() << std::endl;
+// 	if (print_content)
+// 	{
+// 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
+// 		std::cout << std::endl << "Content is:" << std::endl;
+// 		for (; it != ite; ++it)
+// 			std::cout << "- " << printPair(it, false) << std::endl;
+// 	}
+// 	std::cout << "###############################################" << std::endl;
+// }
+
+// template <typename T1, typename T2>
+// void	printReverse(ft::map<T1, T2> &mp)
+// {
+// 	typename ft::map<T1, T2>::iterator it = mp.end(), ite = mp.begin();
+
+// 	std::cout << "printReverse:" << std::endl;
+// 	while (it != ite) {
+// 		it--;
+// 		std::cout << "-> " << printPair(it, false) << std::endl;
+// 	}
+// 	std::cout << "_______________________________________________" << std::endl;
+// }
+
+// #define T1 int
+// #define T2 std::string
+// typedef ft::map<T1, T2>::value_type T3;
+// typedef ft::map<T1, T2>::iterator iterator;
+
+// static int iter = 0;
+
+// template <typename MAP, typename U>
+// void	ft_insert(MAP &mp, U param)
+// {
+// 	_pair<iterator, bool> tmp;
+
+// 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+// 	tmp = mp.insert(param);
+// 	std::cout << "insert return: " << printPair(tmp.first);
+// 	std::cout << "Created new node: " << tmp.second << std::endl;
+// 	printSize(mp);
+// }
+
+// template <typename MAP, typename U, typename V>
+// void	ft_insert(MAP &mp, U param, V param2)
+// {
+// 	iterator tmp;
+
+// 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+// 	tmp = mp.insert(param, param2);
+// 	std::cout << "insert return: " << printPair(tmp);
+// 	printSize(mp);
+// }
+
+int		main(void)
 {
-	o << "key: " << iterator->first << " | value: " << iterator->second;
-	if (nl)
-		o << std::endl;
-	return ("");
-}
+	// ft::map<T1, T2> mp, mp2;
 
-template <typename T_MAP>
-void	printSize(T_MAP const &mp, bool print_content = 1)
-{
-	std::cout << "size: " << mp.size() << std::endl;
-	std::cout << "max_size: " << mp.max_size() << std::endl;
-	if (print_content)
-	{
-		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << printPair(it, false) << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
+	// ft_insert(mp, T3(42, "lol"));
+	// //mp.the_printer();
+	// ft_insert(mp, T3(42, "mdr"));
+	// //mp.the_printer();
+	// ft_insert(mp, T3(50, "mdr"));
+	// //mp.the_printer();
+	// ft_insert(mp, T3(35, "funny"));
+	// //mp.the_printer();
+	// ft_insert(mp, T3(45, "bunny"));
+	// //mp.the_printer();
+	// ft_insert(mp, T3(21, "fizz"));
+	// //mp.the_printer();
+	// ft_insert(mp, T3(38, "buzz"));
+	// //mp.the_printer();
+	// ft_insert(mp, mp.begin(), T3(55, "fuzzy"));
+	// //mp.the_printer();
+	// ft_insert(mp2, mp2.begin(), T3(1337, "beauty"));
+	// std::cout << "--------------------mp2--------------------\n\n";
+	// //mp2.the_printer();
+	// ft_insert(mp2, mp2.end(), T3(1000, "Hello"));
+	// //mp2.the_printer();
+	// ft_insert(mp2, mp2.end(), T3(1500, "World"));
+	// //mp2.the_printer();
+	// return (0);
 
-template <typename T1, typename T2>
-void	printReverse(ft::map<T1, T2> &mp)
-{
-	typename ft::map<T1, T2>::iterator it = mp.end(), ite = mp.begin();
-
-	std::cout << "printReverse:" << std::endl;
-	while (it != ite) {
-		it--;
-		std::cout << "-> " << printPair(it, false) << std::endl;
-	}
-	std::cout << "_______________________________________________" << std::endl;
-}
-
-#define T1 int
-#define T2 std::string
-typedef _pair<const T1, T2> T3;
-
-
-static int iter = 0;
-
-template <typename MAP, typename U>
-void	ft_erase(MAP &mp, U param)
-{
-	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	std::cout << "ret: " << mp.erase(param) << std::endl;
-	printSize(mp);
-}
-
-int main(){
-
-{
-	std::list<T3> lst;
-	unsigned int lst_size = 6;
-	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
-	ft::map<T1, T2> mp(lst.begin(), lst.end());
-	printSize(mp);
-
-	for (int i = 2; i < 4; ++i)
-		ft_erase(mp, i);
-
-	ft_erase(mp, mp.begin()->first);
-	ft_erase(mp, (--mp.end())->first);
-
-	mp[-1] = "Hello";
-	mp[10] = "Hi there";
-	mp[10] = "Hi there";
-	printSize(mp);
-
-	ft_erase(mp, 0);
-	ft_erase(mp, 1);
-
-	return (0);	
-}
 
 // {
 // 		std::cout << std::endl<< std::endl<< std::endl;
@@ -231,26 +249,26 @@ int main(){
 // }
 
 
-// {
-// 	std::cout << std::endl<< std::endl<< std::endl;
-// 	std::cout << "************************** operator[] ***************************";
-// 	std::cout << std::endl;
-// 	//my operator wasn't work because my insert doesn't return the correct pair
-// 	ft::map<int, std::string> test;
-// 	test[1] = "un";
-// 	test[2] = "deux";
-// 	test[3] = "trois";
-// 	test[4] = "quatre";
-// 	test[5] = "cinq";
-// 	test[6] = "six";
-// 	test[7] = "sept";
-// 	test[8] = "huit";
-// 	test[9] = "neuf";
-// 	test[10] = "dix";
-// 	ft::map<int, std::string>::iterator it = test.begin();
-// 	for(;it != test.end(); it++)
-// 		std::cout << it->second << std::endl;
-// }
+{
+	std::cout << std::endl<< std::endl<< std::endl;
+	std::cout << "************************** operator[] ***************************";
+	std::cout << std::endl;
+	//my operator wasn't work because my insert doesn't return the correct pair
+	ft::map<int, std::string> test;
+	test[1] = "un";
+	test[2] = "deux";
+	test[3] = "trois";
+	test[4] = "quatre";
+	test[5] = "cinq";
+	test[6] = "six";
+	test[7] = "sept";
+	test[8] = "huit";
+	test[9] = "neuf";
+	test[10] = "dix";
+	ft::map<int, std::string>::iterator it = test.begin();
+	for(;it != test.end(); it++)
+		std::cout << it->second << std::endl;
+}
 
 
 // {

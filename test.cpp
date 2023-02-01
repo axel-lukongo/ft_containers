@@ -34,13 +34,20 @@ void	is_empty(std::vector<int> const &vct)
 int main()
 {
 
-
 {
-	std::vector<int> test(5);
-	std::vector<int>::iterator it = test.begin();
-	std::vector<int>::iterator ite = test.begin();
-	std::cout << test;
+	std::map<int, std::string> mp, mp2;
+	mp.insert(std::pair<int, std::string>(42, "lol"));
+	mp.insert(std::pair<int, std::string>(42, "mdr"));
+	std::map<int, std::string>::iterator it = mp.begin();
+	std::cout << it->second;
 }
+
+// {
+// 	std::vector<int> test(5);
+// 	std::vector<int>::iterator it = test.begin();
+// 	std::vector<int>::iterator ite = test.begin();
+// 	std::cout << test;
+// }
 
 	// {
 	// 	std::map<int, std::string> test;
