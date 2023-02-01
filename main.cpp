@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/31 19:12:39 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:42:08 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,31 @@
 
 
 
-// #define _pair ft::pair
+#define _pair ft::pair
 
-// template <typename T>
-// std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
-// {
-// 	o << "key: " << iterator->first << " | value: " << iterator->second;
-// 	if (nl)
-// 		o << std::endl;
-// 	return ("");
-// }
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+{
+	o << "key: " << iterator->first << " | value: " << iterator->second;
+	if (nl)
+		o << std::endl;
+	return ("");
+}
 
-// template <typename T_MAP>
-// void	printSize(T_MAP const &mp, bool print_content = 1)
-// {
-// 	std::cout << "size: " << mp.size() << std::endl;
-// 	std::cout << "max_size: " << mp.max_size() << std::endl;
-// 	if (print_content)
-// 	{
-// 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
-// 		std::cout << std::endl << "Content is:" << std::endl;
-// 		for (; it != ite; ++it)
-// 			std::cout << "- " << printPair(it, false) << std::endl;
-// 	}
-// 	std::cout << "###############################################" << std::endl;
-// }
+template <typename T_MAP>
+void	printSize(T_MAP const &mp, bool print_content = 1)
+{
+	std::cout << "size: " << mp.size() << std::endl;
+	std::cout << "max_size: " << mp.max_size() << std::endl;
+	if (print_content)
+	{
+		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << printPair(it, false) << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
 
 // template <typename T1, typename T2>
 // void	printReverse(ft::map<T1, T2> &mp)
@@ -62,12 +62,10 @@
 // 	std::cout << "_______________________________________________" << std::endl;
 // }
 
-// #define T1 int
-// #define T2 std::string
-// typedef ft::map<T1, T2>::value_type T3;
-// typedef ft::map<T1, T2>::iterator iterator;
-
-// static int iter = 0;
+// #define T1 char
+// #define T2 int
+// typedef _pair<const T1, T2> T3;
+// // static int iter = 0;
 
 // template <typename MAP, typename U>
 // void	ft_insert(MAP &mp, U param)
@@ -92,8 +90,74 @@
 // 	printSize(mp);
 // }
 
+#define T1 int
+#define T2 std::string
+
+struct ft_more {
+	bool	operator()(const T1 &first, const T1 &second) const {
+		return (first > second);
+	}
+};
+
+typedef ft::map<T1, T2, ft_more> ft_mp;
+typedef ft::map<T1, T2, ft_more>::iterator ft_mp_it;
+
 int		main(void)
 {
+{
+		ft::map<int, std::string> test;
+		test[42] = "fgzgxfn";
+		test[25] = "funny";
+		test[80] = "hey";
+		test[12] = "no";
+		test[27] = "bee";
+		test[90] = "8";
+		printSize(test);
+		// ft::map<int, std::string> test2(test);
+		// ft::map<int, std::string>::const_reverse_iterator it = test2.rbegin();
+		// for(;it != test2.rend(); it++)
+			// std::cout << it->first << std::endl;
+		test.the_printer();
+		
+	}
+	// {
+	// 		std::list<T3> lst;
+
+	// unsigned int lst_size = 7;
+	// for (unsigned int i = 0; i < lst_size; ++i)
+	// 	lst.push_back(T3('a' + i, lst_size - i));
+	// ft::map<T1, T2> foo(lst.begin(), lst.end());
+
+	// lst.clear(); lst_size = 4;
+	// for (unsigned int i = 0; i < lst_size; ++i)
+	// 	lst.push_back(T3('z' - i, i * 5));
+	// ft::map<T1, T2> bar(lst.begin(), lst.end());
+
+	// ft::map<T1, T2>::const_iterator it_foo = foo.begin();
+	// ft::map<T1, T2>::const_iterator it_bar = bar.begin();
+
+	// std::cout << "BEFORE SWAP" << std::endl;
+
+	// std::cout << "foo contains:" << std::endl;
+	// printSize(foo);
+	// std::cout << "bar contains:" << std::endl;
+	// printSize(bar);
+
+	// foo.swap(bar);
+
+	// std::cout << "AFTER SWAP" << std::endl;
+
+	// std::cout << "foo contains:" << std::endl;
+	// printSize(foo);
+	// std::cout << "bar contains:" << std::endl;
+	// printSize(bar);
+
+	// std::cout << "Iterator validity:" << std::endl;
+	// std::cout << (it_foo == bar.begin()) << std::endl;
+	// std::cout << (it_bar == foo.begin()) << std::endl;
+
+	// return (0);
+	// }
 	// ft::map<T1, T2> mp, mp2;
 
 	// ft_insert(mp, T3(42, "lol"));
@@ -202,17 +266,7 @@ int		main(void)
 // 	std::cout << it;
 // }
 
-	// {
-	// 	ft::map<int, std::string> test;
-	// 	test[1] = "un";
-	// 	test[2] = "deux";
-	// 	test[3] = "trois";
-	// 	test[4] = "quatre";
-	// 	ft::map<int, std::string> test2(test);
-	// 	ft::map<int, std::string>::const_iterator it = test2.begin();
-	// 	for(;it != test2.end(); it++)
-	// 		std::cout << it->first << std::endl;
-	// }
+	
 
 // {
 // 	std::list<T3> lst;
@@ -249,26 +303,26 @@ int		main(void)
 // }
 
 
-{
-	std::cout << std::endl<< std::endl<< std::endl;
-	std::cout << "************************** operator[] ***************************";
-	std::cout << std::endl;
-	//my operator wasn't work because my insert doesn't return the correct pair
-	ft::map<int, std::string> test;
-	test[1] = "un";
-	test[2] = "deux";
-	test[3] = "trois";
-	test[4] = "quatre";
-	test[5] = "cinq";
-	test[6] = "six";
-	test[7] = "sept";
-	test[8] = "huit";
-	test[9] = "neuf";
-	test[10] = "dix";
-	ft::map<int, std::string>::iterator it = test.begin();
-	for(;it != test.end(); it++)
-		std::cout << it->second << std::endl;
-}
+// {
+// 	std::cout << std::endl<< std::endl<< std::endl;
+// 	std::cout << "************************** operator[] ***************************";
+// 	std::cout << std::endl;
+// 	//my operator wasn't work because my insert doesn't return the correct pair
+// 	ft::map<int, std::string> test;
+// 	test[1] = "un";
+// 	test[2] = "deux";
+// 	test[3] = "trois";
+// 	test[4] = "quatre";
+// 	test[5] = "cinq";
+// 	test[6] = "six";
+// 	test[7] = "sept";
+// 	test[8] = "huit";
+// 	test[9] = "neuf";
+// 	test[10] = "dix";
+// 	ft::map<int, std::string>::iterator it = test.begin();
+// 	for(;it != test.end(); it++)
+// 		std::cout << it->second << std::endl;
+// }
 
 
 // {

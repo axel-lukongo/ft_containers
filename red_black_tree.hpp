@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/31 19:10:38 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:07:53 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ private:
 //*************************** private add *********************************/
 		void add(node_ptr _parent, node_ptr new_node){
 			size_type check_add = _count;
-			if(_parent->_key.first < new_node->_key.first){
+			if(_cmp(_parent->_key.first, new_node->_key.first)){
 				if(_parent->right == NULL){
 					_parent->right = new_node;
 					new_node->_parent = _parent;
@@ -198,7 +198,7 @@ private:
 				else
 					return add(_parent->right, new_node);
 			}
-			else if (_parent->_key.first > new_node->_key.first){
+			else if ( _cmp(new_node->_key.first, _parent->_key.first)){
 				if (_parent->left == NULL){
 					_parent->left = new_node;
 					new_node->_parent = _parent;
@@ -226,16 +226,19 @@ public:
 
 	void	swap(red_black_tree& x) {
 		node_ptr	tmp_node = _root;
-		compare	tmp_key = _cmp;
+		compare		tmp_key = _cmp;
 		node_alloc	tmp_node_alloc = _alloc_node;
+		size_type	tmp_count = _count;
 
 		_root = x._root;
 		_cmp = x._cmp;
 		_alloc_node = x._alloc_node;
+		_count = x._count;
 		
 		x._root = tmp_node;
 		x._cmp = tmp_key;
 		x._alloc_node = tmp_node_alloc;
+		x._count = tmp_count;
 
 	}
 
@@ -416,6 +419,7 @@ public:
 			}
 			_alloc_node.destroy(z);
 			_alloc_node.deallocate(z, sizeof(node_ptr));
+			_count--;
 			if (original_color == true) //if the color of the node who i delete was black 
 				fixe_delete(x);
 		}

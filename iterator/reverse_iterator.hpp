@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 23:00:06 by alukongo          #+#    #+#             */
-/*   Updated: 2023/01/24 20:05:52 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:07:11 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ namespace ft{
 
 
 
-			pointer operator->() {
+			pointer operator->() const{
 				return &(operator*());
 			}
 
