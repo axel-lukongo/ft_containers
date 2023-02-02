@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/01 16:42:08 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/02 21:36:06 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,34 @@
 // #include"containers_test/srcs/map/common.hpp"
 #include "vector.hpp"
 #include <list>
+#include "set.hpp"
 
 
+// #define _pair ft::pair
 
-#define _pair ft::pair
+// template <typename T>
+// std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+// {
+// 	o << "key: " << iterator->first << " | value: " << iterator->second;
+// 	if (nl)
+// 		o << std::endl;
+// 	return ("");
+// }
 
-template <typename T>
-std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
-{
-	o << "key: " << iterator->first << " | value: " << iterator->second;
-	if (nl)
-		o << std::endl;
-	return ("");
-}
-
-template <typename T_MAP>
-void	printSize(T_MAP const &mp, bool print_content = 1)
-{
-	std::cout << "size: " << mp.size() << std::endl;
-	std::cout << "max_size: " << mp.max_size() << std::endl;
-	if (print_content)
-	{
-		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << printPair(it, false) << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
+// template <typename T_MAP>
+// void	printSize(T_MAP const &mp, bool print_content = 1)
+// {
+// 	std::cout << "size: " << mp.size() << std::endl;
+// 	std::cout << "max_size: " << mp.max_size() << std::endl;
+// 	if (print_content)
+// 	{
+// 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
+// 		std::cout << std::endl << "Content is:" << std::endl;
+// 		for (; it != ite; ++it)
+// 			std::cout << "- " << printPair(it, false) << std::endl;
+// 	}
+// 	std::cout << "###############################################" << std::endl;
+// }
 
 // template <typename T1, typename T2>
 // void	printReverse(ft::map<T1, T2> &mp)
@@ -104,22 +104,148 @@ typedef ft::map<T1, T2, ft_more>::iterator ft_mp_it;
 
 int		main(void)
 {
+
 {
-		ft::map<int, std::string> test;
-		test[42] = "fgzgxfn";
-		test[25] = "funny";
-		test[80] = "hey";
-		test[12] = "no";
-		test[27] = "bee";
-		test[90] = "8";
-		printSize(test);
-		// ft::map<int, std::string> test2(test);
-		// ft::map<int, std::string>::const_reverse_iterator it = test2.rbegin();
-		// for(;it != test2.rend(); it++)
-			// std::cout << it->first << std::endl;
-		test.the_printer();
+		std::cout << std::endl<< std::endl<< std::endl;
+		std::cout << "************************** copy construct ***************************";
+		std::cout << std::endl;
+
+		ft::set<int> test;
+		test.insert(5);
+		test.insert(3);
+		test.insert(1);
+		test.insert(7);
+		test.insert(8);
+		test.insert(4);
+		test.insert(7);
+		ft::set<int> test2(test);
 		
-	}
+		ft::set<int>::iterator it = test.upper_bound(7);
+		std::cout << *it << "\n";
+}
+
+// {
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** upper bound ***************************";
+// 		std::cout << std::endl;
+
+// 		ft::set<int> test;
+// 		test.insert(5);
+// 		test.insert(3);
+// 		test.insert(1);
+// 		test.insert(7);
+// 		test.insert(8);
+// 		test.insert(4);
+// 		test.insert(7);
+// 		ft::set<int>::iterator it = test.upper_bound(7);
+// 		std::cout << *it << "\n";
+// }
+
+
+
+// {
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** erase ***************************";
+// 		std::cout << std::endl;
+
+// 		ft::set<int> test;
+// 		test.insert(5);
+// 		test.insert(3);
+// 		test.insert(1);
+// 		test.insert(7);
+// 		test.insert(2);
+// 		test.insert(8);
+// 		test.insert(4);
+// 		test.insert(7);
+// 		ft::set<int> test2;
+// 		test2.insert(144);
+// 		test2.insert(233);
+// 		test2.insert(100);
+// 		test2.insert(1908);
+// 		ft::set<int>::iterator it = test.begin();
+// 		std::cout << "\n ------test-----\n";
+// 		for(;it != test.end(); it++)
+// 			std::cout << *it << "\n";
+// 		std::cout << "\n ------test2-----\n";
+// 		for(it = test2.begin();it != test2.end(); it++)
+// 			std::cout << *it << "\n";
+
+// 		std::cout << "\n--------------swap------------\n\n";
+// 		test.swap(test2);
+
+// 		std::cout << "\n ------test-----\n";
+// 		for(it = test.begin();it != test.end(); it++)
+// 			std::cout << *it << "\n";
+
+// 		std::cout << "\n ------test2-----\n";
+// 		for(it = test2.begin();it != test2.end(); it++)
+// 			std::cout << *it << "\n";
+// }
+
+// {
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** erase ***************************";
+// 		std::cout << std::endl;
+
+// 		ft::set<int> test;
+// 		test.insert(5);
+// 		test.insert(3);
+// 		test.insert(1);
+// 		test.insert(7);
+// 		test.insert(2);
+// 		test.insert(8);
+// 		test.insert(4);
+// 		test.insert(7);
+// 		ft::set<int>::iterator it = test.begin();
+
+// 		for(;it != test.end(); it++)
+// 			std::cout << *it << "\n";
+
+// 		std::cout << "\n--------------erase------------\n\n";
+// 		test.erase(5);
+// 		for(it = test.begin();it != test.end(); it++)
+// 			std::cout << *it << "\n";
+// }
+
+	
+// 	{
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** insert ***************************";
+// 		std::cout << std::endl;
+
+// 		ft::set<int> test;
+// 		test.insert(5);
+// 		test.insert(3);
+// 		test.insert(1);
+// 		test.insert(7);
+// 		ft::set<int>::iterator it = test.begin();
+// 		std::cout << *it << "\n";
+// 		it++;
+// 		std::cout << *it << "\n";
+// 	}
+
+
+
+
+
+
+
+// {
+// 		ft::map<int, std::string> test;
+// 		test[42] = "fgzgxfn";
+// 		test[25] = "funny";
+// 		test[80] = "hey";
+// 		test[12] = "no";
+// 		test[27] = "bee";
+// 		test[90] = "8";
+// 		printSize(test);
+// 		// ft::map<int, std::string> test2(test);
+// 		// ft::map<int, std::string>::const_reverse_iterator it = test2.rbegin();
+// 		// for(;it != test2.rend(); it++)
+// 			// std::cout << it->first << std::endl;
+// 		test.the_printer();
+		
+// 	}
 	// {
 	// 		std::list<T3> lst;
 
