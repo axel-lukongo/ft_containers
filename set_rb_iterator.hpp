@@ -2,7 +2,7 @@
 #define SET_RB_H
 
 
-#include"iterator/pair.hpp"
+// #include"iterator/pair.hpp"
 #include"iterator/iterator_traits.hpp"
 
 
@@ -39,6 +39,9 @@ namespace ft{
 
 		set_rb_iterator(const set_rb_iterator& cpy) : _node(cpy._node), _end(cpy._end) {
 		}
+
+		set_rb_iterator(const const_set_rb_iterator<Iterator> &src)
+			: _node(src.base()), _end(src.end()) {}
 
 
 		/************************************************************/
@@ -149,19 +152,21 @@ namespace ft{
 
 
 
-
 	template <class Iterator>
 	class const_set_rb_iterator {
 
 		public:
 
-			typedef				const Iterator*							iterator_type;
+			typedef				Iterator*								iterator_type;
 			typedef typename	Iterator::value_type					const value_type;
+			typedef const 		value_type *							pointer;
+			typedef const 		value_type &							reference;
 
 			typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category	iterator_category;
 			typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type	difference_type;
-			typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer			pointer;
-			typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference			reference;
+			
+			// typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer			pointer;
+			// typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference			reference;
 		private:
 				iterator_type	_node;
 				iterator_type	_end;
@@ -285,6 +290,7 @@ namespace ft{
 						_node = _end;
 				}
 	};
+
 
 }
 

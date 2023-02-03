@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/03 02:33:02 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:32:25 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,49 +106,52 @@ int		main(void)
 {
 
 {
-	ft::set<std::string> st, st2;
+	ft::set<int> const st;
+	ft::set<int>::iterator it = st.begin(); // <-- no error, actually ! set allows for const_iterator => iterator conversion
 
-	st.insert("lol");
-	st.print_tree();
-
-	st.insert("mdr");
-	st.print_tree();
-
-	st.insert("mdr");
-	st.print_tree();
-
-	st.insert("funny");
-	st.print_tree();
-
-	st.insert("bunny");
-	st.print_tree();
-
-	st.insert("fizz");
-	st.print_tree();
-
-	st.insert("buzz");
-	st.print_tree();
-
-	st.insert(st.begin(),"mdr");
-	st.print_tree();
-
-	// ft_insert(st, "mdr");
-	// ft_insert(st, "funny");
-
-	// ft_insert(st, "bunny");
-	// ft_insert(st, "fizz");
-	// ft_insert(st, "buzz");
-	// ft_insert(st, st.begin(), "fuzzy");
-
-	st2.insert(st2.begin(), "beauty");
-	st2.print_tree();
-	st2.insert(st2.end(), "Hello");
-	st2.print_tree();
-	std::cout << "\n\n-------------------------------------------------\n\n";
-	st2.insert( "World");
-
+	(void)it;
 	return (0);
+
 }
+
+// {
+// 	ft::set<std::string> st, st2;
+
+// 	st.insert("lol");
+// 	st.print_tree();
+
+// 	st.insert("mdr");
+// 	st.print_tree();
+
+// 	st.insert("mdr");
+// 	st.print_tree();
+
+// 	st.insert("funny");
+// 	st.print_tree();
+
+// 	st.insert("bunny");
+// 	st.print_tree();
+
+// 	st.insert("fizz");
+// 	st.print_tree();
+
+// 	st.insert("buzz");
+// 	st.print_tree();
+
+// 	st.insert(st.begin(),"mdr");
+// 	st.print_tree();
+
+// 	st2.insert(st2.begin(), "beauty");
+// 	st2.print_tree();
+
+// 	st2.insert(st2.end(), "Hello");
+// 	st2.print_tree();
+	
+// 	st2.insert( "World");
+// 	st2.print_tree();
+
+// 	return (0);
+// }
 // {
 // 		std::cout << std::endl<< std::endl<< std::endl;
 // 		std::cout << "************************** copy construct ***************************";
