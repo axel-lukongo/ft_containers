@@ -37,6 +37,9 @@ namespace ft{
 		set_rb_iterator(iterator_type node, iterator_type end):
 		_node(node), _end(end){}
 
+		/************************************************************/
+		/*                           copy                           */
+		/************************************************************/
 		set_rb_iterator(const set_rb_iterator& cpy) : _node(cpy._node), _end(cpy._end) {
 		}
 
@@ -165,8 +168,6 @@ namespace ft{
 			typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category	iterator_category;
 			typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type	difference_type;
 			
-			// typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer			pointer;
-			// typedef typename	ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference			reference;
 		private:
 				iterator_type	_node;
 				iterator_type	_end;
@@ -199,7 +200,7 @@ namespace ft{
 		/************************************************************/
 		/*                         operator                         */
 		/************************************************************/
-			 const_set_rb_iterator&	operator=(const  const_set_rb_iterator& cpy) {
+			 const_set_rb_iterator&	operator=(const const_set_rb_iterator& cpy) {
 				_node = cpy._node;
 				_end = cpy._end;
 				return *this;

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/03 12:32:25 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:24:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,62 @@
 int		main(void)
 {
 
-{
-	ft::set<int> const st;
-	ft::set<int>::iterator it = st.begin(); // <-- no error, actually ! set allows for const_iterator => iterator conversion
+// {
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** copy construct ***************************";
+// 		std::cout << std::endl;
+// 	std::list<std::string> lst;
+// 	unsigned int lst_size = 10;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(std::string((lst_size - i), i + 65));
+// 	ft::set<std::string> st(lst.begin(), lst.end());
+// 	// printSize(st);
+// 	st.print_tree();
+// 	st.erase(++st.begin());
 
-	(void)it;
-	return (0);
+// 	st.erase(st.begin());
+// 	st.erase(--st.end());
 
-}
+// 	st.erase(st.begin(), ++(++(++st.begin())));
+// 	st.erase(--(--(--st.end())), --st.end());
+// 	st.print_tree();
+
+// 	st.insert("Hello");
+// 	st.print_tree();
+// 	st.insert("Hi there");
+// 	// printSize(st);
+// 	st.print_tree();
+
+// 	st.erase(--(--(--st.end())), st.end());
+// 	st.print_tree();
+
+// 	st.insert("ONE");
+// 	st.print_tree();
+	
+// 	st.insert("TWO");
+// 	st.print_tree();
+	
+// 	st.insert("THREE");
+// 	st.print_tree();
+	
+// 	st.insert("FOUR");
+// 	st.print_tree();
+	
+// 	// printSize(st);
+// 	st.erase(st.begin(), st.end());
+// 	st.print_tree();
+
+// 	return (0);
+// }
+
+// {
+// 	ft::set<int> const st;
+// 	ft::set<int>::iterator it = st.begin(); // <-- no error, actually ! set allows for const_iterator => iterator conversion
+
+// 	(void)it;
+// 	return (0);
+
+// }
 
 // {
 // 	ft::set<std::string> st, st2;
@@ -192,7 +240,7 @@ int		main(void)
 
 // {
 // 		std::cout << std::endl<< std::endl<< std::endl;
-// 		std::cout << "************************** erase ***************************";
+// 		std::cout << "************************** swap ***************************";
 // 		std::cout << std::endl;
 
 // 		ft::set<int> test;
@@ -255,21 +303,49 @@ int		main(void)
 // }
 
 	
-// 	{
-// 		std::cout << std::endl<< std::endl<< std::endl;
-// 		std::cout << "************************** insert ***************************";
-// 		std::cout << std::endl;
+	{
+		std::cout << std::endl<< std::endl<< std::endl;
+		std::cout << "************************** insert ***************************";
+		std::cout << std::endl;
 
-// 		ft::set<int> test;
-// 		test.insert(5);
-// 		test.insert(3);
-// 		test.insert(1);
-// 		test.insert(7);
-// 		ft::set<int>::iterator it = test.begin();
-// 		std::cout << *it << "\n";
-// 		it++;
-// 		std::cout << *it << "\n";
-// 	}
+	ft::set<std::string> st, st2;
+
+	st.insert("lol");
+	st.print_tree();
+	
+	st.insert("mdr");
+	st.print_tree();
+
+	st.insert("mdr");
+	st.print_tree();
+
+	st.insert("funny");
+	st.print_tree();
+
+	st.insert("bunny");
+	st.print_tree();
+
+	st.insert("fizz");
+	st.print_tree();
+
+	st.insert("buzz");
+	st.print_tree();
+
+	st.insert(st.begin(), "fuzzy");
+	st.print_tree();
+
+	st2.insert( st2.begin(), "beauty");
+	st.print_tree();
+
+	st2.insert( st2.end(), "Hello");
+	st.print_tree();
+
+	std::cout << "\n\n-------------------------------------------------\n\n";
+	st2.insert( st2.end(), "World");
+	st.print_tree();
+
+	return (0);
+	}
 
 
 

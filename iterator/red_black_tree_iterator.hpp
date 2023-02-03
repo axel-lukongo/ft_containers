@@ -34,6 +34,9 @@ template <class Iterator>
 		red_black_tree_iterator(iterator_type node, iterator_type end):
 		_node(node), _end(end){}
 
+		/************************************************************/
+		/*                           copy                           */
+		/************************************************************/
 		red_black_tree_iterator(const red_black_tree_iterator& cpy) : _node(cpy._node), _end(cpy._end) {
 		}
 
