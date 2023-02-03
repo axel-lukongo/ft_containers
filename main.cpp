@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/02 21:36:06 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/03 02:33:02 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,39 +90,83 @@
 // 	printSize(mp);
 // }
 
-#define T1 int
-#define T2 std::string
+// #define T1 int
+// #define T2 std::string
 
-struct ft_more {
-	bool	operator()(const T1 &first, const T1 &second) const {
-		return (first > second);
-	}
-};
+// struct ft_more {
+// 	bool	operator()(const T1 &first, const T1 &second) const {
+// 		return (first > second);
+// 	}
+// };
 
-typedef ft::map<T1, T2, ft_more> ft_mp;
-typedef ft::map<T1, T2, ft_more>::iterator ft_mp_it;
+// typedef ft::map<T1, T2, ft_more> ft_mp;
+// typedef ft::map<T1, T2, ft_more>::iterator ft_mp_it;
 
 int		main(void)
 {
 
 {
-		std::cout << std::endl<< std::endl<< std::endl;
-		std::cout << "************************** copy construct ***************************";
-		std::cout << std::endl;
+	ft::set<std::string> st, st2;
 
-		ft::set<int> test;
-		test.insert(5);
-		test.insert(3);
-		test.insert(1);
-		test.insert(7);
-		test.insert(8);
-		test.insert(4);
-		test.insert(7);
-		ft::set<int> test2(test);
-		
-		ft::set<int>::iterator it = test.upper_bound(7);
-		std::cout << *it << "\n";
+	st.insert("lol");
+	st.print_tree();
+
+	st.insert("mdr");
+	st.print_tree();
+
+	st.insert("mdr");
+	st.print_tree();
+
+	st.insert("funny");
+	st.print_tree();
+
+	st.insert("bunny");
+	st.print_tree();
+
+	st.insert("fizz");
+	st.print_tree();
+
+	st.insert("buzz");
+	st.print_tree();
+
+	st.insert(st.begin(),"mdr");
+	st.print_tree();
+
+	// ft_insert(st, "mdr");
+	// ft_insert(st, "funny");
+
+	// ft_insert(st, "bunny");
+	// ft_insert(st, "fizz");
+	// ft_insert(st, "buzz");
+	// ft_insert(st, st.begin(), "fuzzy");
+
+	st2.insert(st2.begin(), "beauty");
+	st2.print_tree();
+	st2.insert(st2.end(), "Hello");
+	st2.print_tree();
+	std::cout << "\n\n-------------------------------------------------\n\n";
+	st2.insert( "World");
+
+	return (0);
 }
+// {
+// 		std::cout << std::endl<< std::endl<< std::endl;
+// 		std::cout << "************************** copy construct ***************************";
+// 		std::cout << std::endl;
+
+// 		ft::set<int> test;
+// 		test.insert(5);
+// 		test.insert(3);
+// 		test.insert(1);
+// 		test.insert(7);
+// 		test.insert(8);
+// 		test.insert(4);
+// 		test.insert(7);
+// 		ft::set<int> test2(test);
+		
+// 		ft::set<int>::iterator it = test.upper_bound(7);
+// 		std::cout << *it << "\n";
+// }
 
 // {
 // 		std::cout << std::endl<< std::endl<< std::endl;

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/01 17:41:44 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/03 03:18:14 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -614,11 +614,10 @@ namespace ft{
 				else{
 					left_right_rotation(my_node->_parent->_parent); // left right rotation
 					my_node->_black = true;
-					if (my_node->_parent->right != NULL)
+					if (my_node->_parent->right != NULL) //i should maybe check if my_node == _root
 						my_node->right->_black = true;
 					if (my_node->left != NULL)
 						my_node->left->_black = false;
-
 				}
 			}
 			else{ // it mean the current node is on the right

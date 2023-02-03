@@ -609,7 +609,7 @@ namespace ft{
 				else{
 					left_right_rotation(my_node->_parent->_parent); // left right rotation
 					my_node->_black = true;
-					if (my_node->_parent->right != NULL)
+					if (_root == my_node || my_node->_parent->right != NULL)
 						my_node->right->_black = true;
 					if (my_node->left != NULL)
 						my_node->left->_black = false;
