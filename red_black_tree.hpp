@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:24:02 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/03 03:18:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/04 12:59:19 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -845,7 +845,9 @@ namespace ft{
 
 		node_ptr find_node(key_type &my_key){
 			node_ptr ptr = _root;
-			if(my_key){
+			// if(my_key == NULL){
+			// 	return NULL
+			// }
 				while (ptr){
 					if (_cmp(my_key, ptr->_key.first))
 						ptr = ptr->left;
@@ -854,7 +856,7 @@ namespace ft{
 					else
 						return ptr;
 				}
-			}
+			// }
 			return NULL;
 		}
 	};
