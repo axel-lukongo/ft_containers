@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:05:51 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/04 14:10:29 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:02:58 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,34 @@
 // typedef ft::map<T1, T2, ft_more> ft_mp;
 // typedef ft::map<T1, T2, ft_more>::iterator ft_mp_it;
 
-int		main(void)
-{
+// void check_correct(ft::vector<int> test, std::vector<int> reel){
+// 	ft::vector<int>::iterator its = test.begin();
+// 	std::vector<int>::iterator itr = reel.begin();
+// 	size_t i = 0;
+// 	if(test.empty() == reel.empty())
+// 		std::cout << "✅";
+// 	else
+// 		std::cout << "❌";
+// 	while(i < test.size()){
+// 		if (*its != *itr){
+// 			// std::cout << *its << " | "<< *itr << "\n";
+// 			std::cout << "❌";
+// 			break;
+// 		}
+// 		its++;
+// 		itr++;
+// 		i++;
+// 	}
+// 	if(test.capacity() == reel.capacity() && test.size() == reel.size())
+// 		std::cout << "✅";
+// 	else
+// 		std::cout << "❌";
+// 	// std::cout<<std::endl;
+// }
+
+
+// int		main(void)
+// {
 
 // {
 // 	ft::map<char,int> mymap;
@@ -1022,159 +1048,337 @@ int		main(void)
 // 	std::cout << "is_empty: " << vct.empty() << std::endl;
 // }
 
-std::cout << std::endl<< std::endl<< std::endl;
-std::cout << "************************** vector ***************************";
-std::cout << std::endl;
-
-// int main(){
-
-
-
-	// const int start_size = 7;
-	// ft::vector<int> vct(start_size, 20);
-	// ft::vector<int> vct2;
-	// ft::vector<int>::iterator it = vct.begin();
-
-	// // std::vector<int> vct(10);
-	// // std::vector<int> vct2;
-	// // std::vector<int> vct3;
-
-
-	// for (int i = 2; i < start_size; ++i)
-	// 	it[i] = (start_size - i) * 3;
-	// // printSize(vct, true);
-
-	// vct.resize(10, 42);
-	// printSize(vct, true);
-
-	// vct.resize(18, 43);
-	// printSize(vct, true);
-	// vct.resize(10);
-	// printSize(vct, true);
-	// vct.resize(23, 44);
-	// printSize(vct, true);
-	// vct.resize(5);
-	// printSize(vct, true);
-	// vct.reserve(5);
-	// vct.reserve(3);
-	// printSize(vct, true);
-	// vct.resize(87);
-	// vct.resize(5);
-	// printSize(vct, true);
-
-	// is_empty(vct2);
-	// vct2 = vct;
-	// is_empty(vct2);
-	// vct.reserve(vct.capacity() + 1);
-	// printSize(vct, true);
-	// printSize(vct2, true);
-
-	// vct2.resize(0);
-	// is_empty(vct2);
-	// printSize(vct2, true);
 
 
 
 
 
-	{
-		std::cout << "iterators: ";
-	ft::vector<int> test(5);
-	ft::vector<int>::reverse_iterator it = test.rbegin();
-	ft::vector<int>::reverse_iterator ite = test.rbegin();
-	ft::vector<int>::reverse_iterator ita(it);
-	// ft::vector<int>::reverse_iterator ito(ita);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// std::cout << std::endl<< std::endl<< std::endl;
+// std::cout << "************************** vector ***************************";
+// std::cout << std::endl;
+
+
+// {
+
+// 	const int start_size = 7;
+// 	ft::vector<int> vct(start_size, 20);
+// 	ft::vector<int> vct2;
+// 	ft::vector<int>::iterator it = vct.begin();
+
+// 	std::vector<int> reel(start_size, 20);
+// 	std::vector<int> reel2;
+// 	std::vector<int>::iterator itr = reel.begin();
+
+// 	std::cout << "empty: ";
+// 	check_correct(vct, reel);
+
+// 	for (int i = 2; i < start_size; ++i){
+// 		it[i] = (start_size - i) * 3;
+// 		itr[i] = (start_size - i) * 3;
+		
+// 	}
+// 	// //printSize(vct, true);
+
+// 	vct.resize(10, 42);
+// 	reel.resize(10, 42);
+// 	check_correct(vct, reel);
+// 	// //printSize(vct, true);
+
+// 	vct.resize(18, 43);
+// 	reel.resize(18, 43);
+// 	check_correct(vct, reel);
+// 	// //printSize(vct, true);
 	
-	for (size_t i = 0; i < test.size(); ++i)
-		it[0] = (test.size() - 0) * 5;
-
-	it = it + 5;
-	it = 1 + it;
-	it = it - 4;
-
-	*(it -= 2) = 42;
-	*(it += 2) = 21;
-
-
-
-	std::vector<int> reel(5);
-	std::vector<int>::reverse_iterator itr = reel.rbegin();
-	std::vector<int>::reverse_iterator itre = reel.rbegin();
-	std::vector<int>::reverse_iterator itra(itr);
-	// ft::vector<int>::reverse_iterator ito(ita);
-	(void) itra;
-	for (size_t i = 0; i < reel.size(); ++i)
-		itr[0] = (reel.size() - 0) * 5;
-
-	itr = itr + 5;
-	itr = 1 + itr;
-	itr = itr - 4;
-
-	*(itr -= 2) = 42;
-	*(itr += 2) = 21;
+// 	vct.resize(10);
+// 	reel.resize(10);
+// 	check_correct(vct, reel);
+// 	// //printSize(vct, true);
+	
+// 	vct.resize(23, 44);
+// 	reel.resize(23, 44);
+// 	check_correct(vct, reel);
+// 	// //printSize(vct, true);
+	
+// 	vct.resize(5);
+// 	reel.resize(5);
+// 	check_correct(vct, reel);
+// 	// //printSize(vct, true);
+	
+// 	vct.reserve(5);
+// 	reel.reserve(5);
+// 	vct.reserve(3);
+// 	reel.reserve(3);
+// 	check_correct(vct, reel);
 
 
-	size_t i = 0;
-		while(i < test.size()){
-			if (*ite != *itre){
-				// std::cout << *its << " | "<< *itr << "\n";
-				std::cout << "❌\n";
-				break;
-			}
-			ite++;
-			itre++;
-			i++;
-		}
-		if(i == reel.size() && test.capacity() == reel.capacity())
-			std::cout << "✅\n";
-		std::cout<<std::endl;
-		usleep(500000);
-	}
+// 	vct.resize(87);
+// 	reel.resize(87);
+// 	vct.resize(5);
+// 	reel.resize(5);
+// 	check_correct(vct, reel);
+
+
+// 	vct2 = vct;
+// 	reel2 = reel;
+// 	check_correct(vct, reel);
+	
+// 	vct.reserve(vct.capacity() + 1);
+// 	check_correct(vct, reel);
 
 
 
-	{
-		std::cout<<"insert/push_back: ";
-		ft::vector<int> test;
-		test.push_back(1);
-		test.push_back(11);
-		test.push_back(111);
-		test.push_back(1111);
-		ft::vector<int> test2;
-		test2.push_back(0);
-		test2.push_back(1);
-		test2.push_back(2);
-		test2.push_back(3);
-		test2.insert(test2.begin()+1, test.begin(), test.end());
+// 	vct2.resize(0);
+// 	check_correct(vct, reel);
+// 	std::cout << std::endl;
+// }
+
+
+// 	{
+// 	std::cout << "copy construct/ riverse_it: ";
+// 	ft::vector<int> test(5);
+// 	ft::vector<int>::reverse_iterator it = test.rbegin();
+// 	ft::vector<int>::reverse_iterator ita(it);
+
+	
+// 	std::vector<int> reel(5);
+// 	std::vector<int>::reverse_iterator itr = reel.rbegin();
+// 	std::vector<int>::reverse_iterator cpy(itr);
+// 	check_correct(test, reel);
+	
+// 	for (size_t i = 0; i < test.size(); ++i){
+// 		it[0] = (test.size() - 0) * 5;
+// 		itr[0] = (reel.size() - 0) * 5;
+		
+// 	}
+
+// 	it = it + 5;
+// 	itr = itr + 5;
+	
+// 	it = 1 + it;
+// 	itr = 1 + itr;
+	
+// 	it = it - 4;
+// 	itr = itr - 4;
+
+// 	*(it -= 2) = 42;
+// 	*(itr -= 2) = 42;
+	
+// 	*(it += 2) = 21;
+// 	*(itr += 2) = 21;
+
+// 	check_correct(test, reel);
+// 	std::cout<<std::endl;
+
+// 	//-------------------------------------iterator-------------------------------------/
+// 	std::cout << "iterators: ";
+
+
+// 	check_correct(test, reel);
+// 	std::cout<<std::endl;
+// 	usleep(500000);
+// 	}
+
+
+
+// 	{
+// 		std::cout<<"insert/push_back: ";
+// 		ft::vector<int> test;
+// 		test.push_back(1);
+// 		test.push_back(11);
+// 		test.push_back(111);
+// 		test.push_back(1111);
+// 		ft::vector<int> test2;
+// 		test2.push_back(0);
+// 		test2.push_back(1);
+// 		test2.push_back(2);
+// 		test2.push_back(3);
+// 		test2.insert(test2.begin()+1, test.begin(), test.end());
 		
 
-		std::vector<int> reel;
-		reel.push_back(1);
-		reel.push_back(11);
-		reel.push_back(111);
-		reel.push_back(1111);
-		std::vector<int> reel2;
-		reel2.push_back(0);
-		reel2.push_back(1);
-		reel2.push_back(2);
-		reel2.push_back(3);
-		reel2.insert(reel2.begin()+1, reel.begin(), reel.end());
-		ft::vector<int>::iterator its = test2.begin();
-		std::vector<int>::iterator itr = reel2.begin();
-		size_t i = 0;
-		while(i < test2.size()){
-			if (*its != *itr){
-				// std::cout << *its << " | "<< *itr << "\n";
-				std::cout << "❌\n";
-				break;
-			}
-			its++;
-			itr++;
-			i++;
-		}
-		if(i == reel2.size() && test2.capacity() == reel2.capacity())
-			std::cout << "✅\n";
-		std::cout<<std::endl;
-	}
-	return (0);
+// 		std::vector<int> reel;
+// 		reel.push_back(1);
+// 		reel.push_back(11);
+// 		reel.push_back(111);
+// 		reel.push_back(1111);
+// 		std::vector<int> reel2;
+// 		reel2.push_back(0);
+// 		reel2.push_back(1);
+// 		reel2.push_back(2);
+// 		reel2.push_back(3);
+// 		reel2.insert(reel2.begin()+1, reel.begin(), reel.end());
+// 		check_correct(test, reel);
+// 		check_correct(test2, reel2);
+	
+// 		std::cout<<std::endl;
+// 	}
+// 	return (0);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ifndef STD
+# define NAMESPACE ft
+#else
+# define NAMESPACE std
+#endif
+
+using namespace NAMESPACE;
+
+template <class Key, class T>
+void	print(map<Key, T>& lst)
+{
+	for (typename map<Key, T>::iterator it = lst.begin(); it != lst.end(); it++)
+		std::cout << it->first << " => " << it->second << '\n';
 }
+
+int main ()
+{
+  map<char,int> foo,bar;
+
+  foo['x']=100;
+  foo['y']=200;
+
+  bar['a']=11;
+  bar['b']=22;
+  bar['c']=33;
+
+
+  map<char, int>::const_iterator tmp = foo.begin(); //tmp iterates through foo
+  map<char, int>::const_iterator tmp2 = bar.begin(); //tmp2 iterates through bar
+
+  swap(bar, foo); //tmp iterates through bar
+				//tmp2 iterates through foo
+
+
+  map<char, int>	other;
+
+  other['1'] = 73;
+  other['2'] = 173;
+  other['3'] = 763;
+  other['4'] = 73854;
+  other['5'] = 74683;
+  other['6'] = 753;
+
+  map<char, int>::const_iterator tmp3 = other.begin(); // tmp3 iterates through other
+
+  std::cout << "foo contains:\n";
+  for (map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  std::cout << "bar contains:\n";
+  for (map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+	while(tmp != bar.end())
+	{
+		std::cout << tmp->first << " => " << tmp->second << '\n';
+		tmp++;
+	}
+	tmp--;
+
+	while(tmp2 != foo.end())
+	{
+		std::cout << tmp2->first << " => " << tmp2->second << '\n';
+		tmp2++;
+	}
+	tmp2--;
+
+	swap(other, foo); //tmp2 iterates through other
+					//tmp3 iterates throught foo
+	print(other);
+	print(foo);
+	print(bar);
+	while(tmp != bar.begin())
+	{
+std::cout << "\n\n-----------------------------------------------------------\n\n";
+		std::cout << tmp->first << " => " << tmp->second << '\n';
+		tmp--;
+	}
+	std::cout << tmp->first << " => " << tmp->second << '\n';
+
+	while(tmp2 != other.begin())
+	{
+		std::cout << tmp2->first << " => " << tmp2->second << '\n';
+		tmp2--;
+	}
+	std::cout << tmp2->first << " => " << tmp2->second << '\n';
+
+	while(tmp3 != foo.end())
+	{
+		std::cout << tmp3->first << " => " << tmp3->second << '\n';
+		tmp3++;
+	}
+	tmp3--;
+	swap(bar, foo);
+	swap(foo, bar);
+	swap(bar, foo); //tmp3 iterates through bar
+				//tmp iterates through foo
+
+	print(other);
+	print(foo);
+	print(bar);
+
+	while(tmp != foo.end())
+	{
+		std::cout << tmp->first << " => " << tmp->second << '\n';
+		tmp++;
+	}
+
+	while(tmp2 != other.end())
+	{
+		std::cout << tmp2->first << " => " << tmp2->second << '\n';
+		tmp2++;
+	}
+
+	while(tmp3 != bar.begin())
+	{
+		std::cout << tmp3->first << " => " << tmp3->second << '\n';
+		tmp3--;
+	}
+	std::cout << tmp3->first << " => " << tmp3->second << '\n';
+}
+
+
+
