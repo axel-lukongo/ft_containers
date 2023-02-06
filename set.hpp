@@ -48,7 +48,7 @@ namespace ft{
 	/*                       constructor                         */
 	/************************************************************/
 
-		public:
+	public:
 //		empty (1)	
 		explicit set (const key_compare& comp = key_compare(),
 		const allocator_type& alloc = allocator_type()): _cmp(comp), _alloc(alloc){
@@ -304,6 +304,13 @@ namespace ft{
 		}
 
 	};
+
+		template <class T, class Compare, class Alloc>
+			void	swap(ft::set<T, Compare, Alloc>&lhs, ft::set<T, Compare, Alloc>& rhs) {
+				if (lhs == rhs)
+					return ;
+				lhs.swap(rhs);
+		}
 
 		template <class T, class Compare, class Alloc>
 		bool	operator==(const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
