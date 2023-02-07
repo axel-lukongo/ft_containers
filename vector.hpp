@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/07 16:11:47 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:13:43 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,7 +425,14 @@ namespace ft
 		}
 
 
-
+		/**
+		 * @brief copy the content from first to last in a specific position
+		 * 
+		 * @tparam InputIterator 
+		 * @param position 
+		 * @param first 
+		 * @param last 
+		 */
 		template <typename InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last,
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
