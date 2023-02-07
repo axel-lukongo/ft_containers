@@ -19,6 +19,20 @@ namespace ft{
 	// 	static const bool value = true;
 	// };
 
+	// template <class InputIterator1, class InputIterator2, class BinaryPredicate>
+	// bool	equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred,
+	// typename ft::enable_if<!ft::is_integral<InputIterator1>::value, InputIterator1>::type* = NULL, 
+	// typename ft::enable_if<!ft::is_integral<InputIterator2>::value, InputIterator2>::type* = NULL)
+	// {
+	// 	while (first1 != last1)
+	// 	{
+	// 	    if (!pred(*first1, *first2))
+	//       		return false;
+	//     	++first1; ++first2;
+	//   	}
+	// 	return true;
+	// }
+
 
 	template< class InputIt1, class InputIt2 >
 	bool equal(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2)
