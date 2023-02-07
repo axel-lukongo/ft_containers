@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/07 15:34:11 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:11:47 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,8 +284,8 @@ namespace ft
  * if n is bigger than the size we reserve the correct quantity of memory
  * and we add val in all new memory case
  * 
- * @param n the new size of the vector
- * @param val is the value
+ * @param n: the new size of the vector
+ * @param val: is the value
  */
 		void resize(size_type n, value_type val = value_type())
 		{
@@ -382,7 +382,21 @@ namespace ft
 			return (_ptr + pos);
 		}
 
-		//insert n val in a specific position
+		/**
+		 * @brief insert n val in a specific position
+		 * 
+		 * if my size + the number of element to add is bigger than the capacity
+		 * i allocate the correct quantity of memory
+		 * 
+		 * now all value who are after position + n,
+		 * i move it at the end of the vector and i destroyes their old emplacement
+		 * 
+		 * now i can add val in the old emplacement
+		 * 
+		 * @param position: position from where i insert
+		 * @param n: number of element that i have to add
+		 * @param val: value
+		 */
 		void insert(iterator position, size_type n, const value_type &val)
 		{
 			difference_type pos = position - _ptr;
@@ -399,12 +413,13 @@ namespace ft
 
 			for (difference_type i = difference_type(_size) - 1; i >= pos; i--)
 			{
-				_alloc.construct(_ptr + i + n, *(_ptr + i));
-				_alloc.destroy(_ptr + i);
+				_alloc.construct(_ptr + i + n, *(_ptr + i));//i copy at the end of vector in the last case of new memory space
+				_alloc.destroy(_ptr + i);//i destroy the case who i copy because i going put value here
+				// _alloc.construct(_ptr + i, val); // i can't put it here because in certain case it leak
 			}
 
-			for (difference_type i = pos; i < pos + difference_type(n); i++)
-				_alloc.construct(_ptr + i, val);
+			for (difference_type new_pos = pos; new_pos < pos + difference_type(n); new_pos++)//new_pos start from position
+				_alloc.construct(_ptr + new_pos, val);//i add val to my vector
 
 			_size += n;
 		}
@@ -445,7 +460,7 @@ namespace ft
 
 
 
-		//suppress element from first to lasr
+		//suppress element from first to last
 		iterator erase(iterator first, iterator last)
 		{
 			difference_type diff = last - first;
