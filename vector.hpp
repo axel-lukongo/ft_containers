@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:33:58 by alukongo          #+#    #+#             */
-/*   Updated: 2023/02/07 16:13:43 by alukongo         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:18:24 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,19 +121,19 @@ namespace ft
 		/*                   assigne constructor                    */
 		/************************************************************/
 
-		vector& operator=(const vector& rhs)
+		vector& operator=(const vector& x)
 		{
-			if (&rhs != this)
+			if (&x != this)
 			{
 				this->clear();
-				this->reserve(rhs._size);
-				_size = rhs._size;
+				this->reserve(x._size);
+				_size = x._size;
 				for (difference_type i = 0; i < difference_type(_size); ++i)
 				{
-					_alloc.construct(_ptr + i, *(rhs.begin() + i));
+					_alloc.construct(_ptr + i, *(x.begin() + i));
 				}
 			}
-			return (*this);
+			return *this;
 		};
 
 		/************************************************************/
@@ -151,11 +151,11 @@ namespace ft
 		/************************************************************/
 		/*                         iterator                         */
 		/************************************************************/
-		iterator 		begin() 		{ return (this->_ptr); };
+		iterator begin() { return (this->_ptr); };
 		//************  const  **************
-		const_iterator	begin() const	{ return (this->_ptr); };
+		const_iterator begin() const	{ return (this->_ptr); };
 		
-		iterator		end()
+		iterator end()
 		{
 			if (this->empty())
 				return (_ptr);
@@ -172,7 +172,7 @@ namespace ft
 
 
 		//**************************   reverse   ******************************
-		reverse_iterator		rbegin()
+		reverse_iterator rbegin()
 		{
 			return (reverse_iterator(this->end()));
 		};
@@ -183,7 +183,7 @@ namespace ft
 			return (const_reverse_iterator(this->end()));
 		};
 
-		reverse_iterator		rend()
+		reverse_iterator rend()
 		{
 			return (reverse_iterator(this->begin() ));
 		};
@@ -195,7 +195,7 @@ namespace ft
 		};
 
 
-//		ALLOCATOR
+		//****************  get allocator*********************//
 		allocator_type	get_allocator(void) const { return (_alloc); };
 
 
@@ -205,7 +205,7 @@ namespace ft
 		/************************************************************/
 		/*                         accessor                         */
 		/************************************************************/
-		reference		at(size_type n)
+		reference at(size_type n)
 		{
 			if (n >= _size)
 				throw std::out_of_range("Exception: vector::at() out of range\n");
@@ -219,19 +219,19 @@ namespace ft
 		};
 
 		//out of range undefined behavior
-		reference		front()			{ return (*_ptr); };
+		reference front()			{ return (*_ptr); };
 		//************  const  **************
 		const_reference	front() const	{ return (*_ptr); };
 
 
 
-		reference		back()			{ return (*(_ptr + _size - 1)); };
+		reference back()			{ return (*(_ptr + _size - 1)); };
 		//************  const  **************
 		const_reference	back() const	{ return (*(_ptr + _size - 1)); };
 
 
 
-		reference		operator[] (size_type n)		{ return (*(_ptr + n)); };
+		reference operator[] (size_type n)		{ return (*(_ptr + n)); };
 		//************  const  **************
 		const_reference	operator[] (size_type n) const	{ return (*(_ptr + n)); };
 
@@ -489,11 +489,6 @@ namespace ft
 			_size -= size_type(diff);
 			return (first);
 		}
-
-
-
-
-
 	};
 
  /************************************************************/
